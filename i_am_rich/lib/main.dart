@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-
+//option + enter => Wrap widget
 void main() {
   runApp(
-    MyApp()
-  );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+    MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('I Am Rich'),
+          backgroundColor: Colors.blueGrey[900],
+        ),
+        backgroundColor: Colors.blueGrey,
         body: Center(
-          child: Text("Hello World!"),
+          child: Image(
+            image: NetworkImage(
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/440px-Image_created_with_a_mobile_phone.png'),
+          ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
