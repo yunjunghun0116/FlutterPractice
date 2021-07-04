@@ -1,6 +1,8 @@
-name: my_flutter_card
+name: my_dice
 description: A new Flutter project.
+
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 version: 1.0.0+1
 
 environment:
@@ -13,21 +15,15 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
-
   flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
-
   assets:
-     - images/diamond.png
-
-  fonts:
-    - family: Pacifico
-      fonts:
-      - asset: fonts/Pacifico-Regular.ttf
-
-    - family: Source Sans Pro
-      fonts:
-      - asset: fonts/SourceSansPro-Bold.ttf
+    - images/dice1.png
+    - images/dice2.png
+    - images/dice3.png
+    - images/dice4.png
+    - images/dice5.png
+    - images/dice6.png
