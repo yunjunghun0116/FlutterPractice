@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  audioplayers: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -20,9 +21,14 @@ flutter:
 
   uses-material-design: true
 
-#  assets:
-#    - images/a_dot_burr.jpeg
-#    - images/a_dot_ham.jpeg
+  assets:
+    - assets/note1.wav
+    - assets/note2.wav
+    - assets/note3.wav
+    - assets/note4.wav
+    - assets/note5.wav
+    - assets/note6.wav
+    - assets/note7.wav
 
   # fonts:
   #   - family: Schyler
