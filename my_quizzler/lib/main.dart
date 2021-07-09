@@ -57,7 +57,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questions[nowIndex].questionText,
+                quizBrain.getQuestionText(nowIndex),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -75,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.lightGreen,
               child: TextButton(
                 onPressed: () {
-                  bool correctAnswer = quizBrain.questions[nowIndex].questionAnswer;
+                  bool correctAnswer = quizBrain.getQuestionAnswer(nowIndex);
                   if (correctAnswer == true) {
                     scoreKeeper.add(
                       Icon(
@@ -115,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.red,
               child: TextButton(
                 onPressed: () {
-                  bool correctAnswer = quizBrain.questions[nowIndex].questionAnswer;
+                  bool correctAnswer = quizBrain.getQuestionAnswer(nowIndex);
                   if (correctAnswer == false) {
                     scoreKeeper.add(
                       Icon(
