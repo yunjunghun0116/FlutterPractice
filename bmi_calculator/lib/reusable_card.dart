@@ -7,18 +7,22 @@ class ReusableCard extends StatelessWidget {
   //const가 더 빨리 적용됨.
   final Color colour;
   final Widget cardChild;
+  final Function onTapFunction;
 
-  ReusableCard({@required this.colour, @required this.cardChild});
+  ReusableCard({@required this.colour, this.cardChild, this.onTapFunction});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: colour,
+    return GestureDetector(
+      onTap: onTapFunction,
+      child: Container(
+        child: cardChild,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: colour,
+        ),
+        margin: EdgeInsets.all(15.0),
       ),
-      margin: EdgeInsets.all(15.0),
     );
   }
 }
