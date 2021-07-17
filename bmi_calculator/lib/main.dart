@@ -1,5 +1,6 @@
+import 'screens/result_page.dart';
 import 'package:flutter/material.dart';
-import 'package:bmi_calculator/input_page.dart';
+import 'package:bmi_calculator/screens/input_page.dart';
 
 
 void main() => runApp(BMICalculator());
@@ -23,7 +24,13 @@ class BMICalculator extends StatelessWidget {
           bodyText2: TextStyle(color: Colors.white),
         ),
       ),
-      home: InputPage(),
+      //home:InputPage()와 함께 할경우 route와 충돌이일어남 -> 삭제해줘야함
+      initialRoute: '/',
+      routes: {
+        '/': (context) => InputPage(),
+       '/result':(context) =>ResultPage(),
+      },
+
     );
   }
 }

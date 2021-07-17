@@ -22,6 +22,27 @@ const unitTextStyle = TextStyle(
   fontSize: 20.0,
   color: Color(0xFF8D8E98),
 );
+const buttonTextStyle = TextStyle(
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+const titleTextStyle = TextStyle(
+  fontSize: 40.0,
+  fontWeight: FontWeight.bold,
+);
+const resultTextStyle = TextStyle(
+  color: Color(0xFF24D876),
+  fontSize: 25.0,
+  fontWeight: FontWeight.bold,
+);
+const bmiTextStyle = TextStyle(
+  fontSize: 100.0,
+  fontWeight: FontWeight.bold,
+);
+const bodyTextStyle = TextStyle(
+  fontSize: 22.0
+);
 
 
 //이런 식으로 미리 정해논후에(여러군데 쓰일경우 사용하는게 유용할듯.) 호출해서 사용하는게 좋다.
@@ -31,4 +52,5 @@ const bottomContainerColor = Color(0xFFEB1555);
 const bottomContainerHeight = 80.0;
 const sliderActiveColor = Color(0xFFEB1555);
 const sliderInactiveColor = Color(0xFF8D8E98);
+const buttonBackgroundColor = Color(0xFF4C4F5E);
 
