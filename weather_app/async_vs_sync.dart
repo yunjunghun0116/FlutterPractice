@@ -1,5 +1,18 @@
 import 'dart:io';
 
+//1. initState -> build
+//2. deactivate (되돌아가기 - Navigation.pop(context) 실행시)
+
+/*
+myNum ?? 30.0 -> myNum이 있으면 myNum을 사용하고 ,Null값을 가질경우 30.0을 사용한다.
+주로 변수선언해준후에
+try{
+}catch(e){
+}문을 사용해서 exception을 다룬다.
+또한 Null일경우를 대비해서 ??연산자를 사용해준다 -> Dart언어에서 사용 -> var ?? defaultValue
+ */
+
+
 void main() {
   performTasks();
 }
