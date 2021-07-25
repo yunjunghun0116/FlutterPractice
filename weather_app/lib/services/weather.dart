@@ -14,14 +14,15 @@ class WeatherModel {
   }
 
   Future<dynamic> getLocationWeather() async {
+    //현재 위치의 위도,경도 값을 알때까지 기다린후에
     Location location = new Location();
     await location.getCurrentLocation();
-
+    //Location에서 알려준 위도,경도값을 이용해서 api요청을 보낸후
     String url =
         '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric';
     NetworkHelper networkHelper = new NetworkHelper(url);
     var weatherData = await networkHelper.getData();
-
+    //networkHelper를 통해 api 요청보낸후에 받은 json으로 된 body를 넘겨준다.
     return weatherData;
   }
 

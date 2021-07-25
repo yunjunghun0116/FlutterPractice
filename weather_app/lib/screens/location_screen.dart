@@ -4,6 +4,7 @@ import '../utilities/constants.dart';
 import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
+  //locationWeather은 loadingScreen에서 넘겨준 현재 위치에 대한 json으로 디코딩된 body이다.
   final locationWeather;
   LocationScreen({this.locationWeather});
 
@@ -12,6 +13,7 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  //LocationScreen에서 사용되면서 계속 변할 자료들을 미리 선언해준다.
   WeatherModel weatherModel = new WeatherModel();
   int temperature;
   String weatherIcon;
@@ -37,7 +39,7 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherIcon = 'Error';
         weatherMessage = 'Unable to get weather data';
         cityName = '';
-        return;
+        return;//return 안해줄경우 아래문장들을 실행시켜서 Error가 나게됨
       }
       double temp = weatherData['main']['temp'];
       temperature = temp.toInt();
