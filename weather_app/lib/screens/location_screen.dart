@@ -32,7 +32,7 @@ class _LocationScreenState extends State<LocationScreen> {
       print(weatherData);
       //위치를 가져오지 못하는 경우에도
       //잘 돌아갈수있도록 Error시 출력할 값을 선언해주어야함.
-      if(weatherData == null){
+      if (weatherData == null) {
         temperature = 0;
         weatherIcon = 'Error';
         weatherMessage = 'Unable to get weather data';
@@ -70,7 +70,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       var weatherData = await weatherModel.getLocationWeather();
                       updateUI(weatherData);
                     },
@@ -80,10 +80,22 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context){
-                        return CityScreen();
-                      }));
+                    onPressed: () async {
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                      //CityScreen에서 CityName을 타이핑한후 뒤로가기를 누를경우
+                      //typedName는 타이핑된 CityName을 받아온다.
+                      print(typedName);
+                      if (typedName != null) {
+                       var weatherData = await weatherModel.getCityWeather(typedName);
+                       updateUI(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
