@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform; //dart:io중 Platform만 사용할시
+import 'coin_data.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -6,6 +9,47 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+  String _selectedValue = 'USD';
+
+  DropdownButton androidDropdown() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String currency in currenciesList) {
+      var item = DropdownMenuItem(
+        child: Text(currency),
+        value: currency,
+      );
+      dropdownItems.add(item);
+    }
+    return DropdownButton<String>(
+      value: _selectedValue,
+      items: dropdownItems,
+      onChanged: (value) {
+        setState(() {
+          _selectedValue = value.toString();
+        });
+      },
+    );
+  }
+
+  CupertinoPicker iosPicker() {
+    List<Widget> pickerItems = [];
+    for (String currency in currenciesList) {
+      pickerItems.add(
+        Center(
+          child: Text(currency),
+        ),
+      );
+    }
+    return CupertinoPicker(
+      //cupertinoPicker상 item의 높이 설정
+      itemExtent: 48.0,
+      onSelectedItemChanged: (selectedIndex) {
+        print(selectedIndex);
+      },
+      children: pickerItems,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +59,7 @@ class _PriceScreenState extends State<PriceScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
+        children: [
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
@@ -42,7 +86,7 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: null,
+            child: Platform.isIOS?iosPicker():androidDropdown(),
           ),
         ],
       ),
