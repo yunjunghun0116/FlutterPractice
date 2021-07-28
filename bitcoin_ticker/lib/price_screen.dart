@@ -20,12 +20,14 @@ class _PriceScreenState extends State<PriceScreen> {
   Map<String, String> coinPrices = {};
 
   bool isWaiting = false;
+  //진행중인지 파악하기위한 isWaiting
 
   void getCoinPrices() async {
     isWaiting = true;
     coinPrices={};
     try {
       var data = await CoinData().getCoinData(_selectedValue);
+      //BTC:123,LTC:123 과같은 map의 형태의 자료로 전달받아옴.
       isWaiting = false;
       setState(() {
         coinPrices = data;
