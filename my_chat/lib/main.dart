@@ -10,7 +10,7 @@ class MyChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.fallback().copyWith(
+      theme: ThemeData.dark().copyWith(
         textTheme: new TextTheme(
           bodyText1: TextStyle(color: Colors.black54),
           bodyText2: TextStyle(color: Colors.black54),
