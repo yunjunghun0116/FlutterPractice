@@ -10,16 +10,19 @@ class MyChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
+      theme: ThemeData.fallback().copyWith(
+        textTheme: new TextTheme(
           bodyText1: TextStyle(color: Colors.black54),
           bodyText2: TextStyle(color: Colors.black54),
         ),
+        inputDecorationTheme: new InputDecorationTheme(
+          hintStyle: TextStyle(color: Colors.grey),
+        ),
       ),
-      initialRoute: '/welcome',
+      initialRoute: '/',
       routes: {
-        '/welcome': (context) => WelcomeScreen(),
-        '/registration': (context) => RegistrationScreen(),
+        '/': (context) => WelcomeScreen(),
+        '/register': (context) => RegistrationScreen(),
         '/login': (context) => LoginScreen(),
         '/chat': (context) => ChatScreen(),
       },
