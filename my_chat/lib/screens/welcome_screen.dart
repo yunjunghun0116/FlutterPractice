@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import '../components/using_buttons.dart';
 
+//mixin a and class ~~~ with a 처럼 함수만을위해서 만들어놓았다가 필요한 함수만 재사용하는방식으로
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -9,6 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
 /*SingleTickerProviderStateMixin : 하나의 애니메이션(Animation Controller에 사용될)을 정의 -> vsync:this 이용 */
 
+//Animation은 한 위젯내에서 어느 위젯 ex)image 에 대해 적용할때 유용하게 쓰일수있음
   AnimationController _controller;
   Animation _animation;
   @override
@@ -20,13 +24,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       vsync: this,
       duration: Duration(seconds: 2),
     );
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
     /*
     forward : 0.0~1.0 실행
     reverse : 1.0~0.0 실행
     stop : 중지
      */
+    /* animation 적용시 필요
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _animation.addStatusListener((status) {
       print(status);
       /*animation이 끝나면 status의 변화를 알려줌 ex)completed
@@ -37,15 +42,27 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       else _controller.forward();의 방식처럼 무한반복하기에 좋다
        */
     });
+     */
+    _animation = ColorTween(begin: Colors.lightBlue, end: Colors.white)
+        .animate(_controller);
     _controller.addListener(() {
       setState(() {});
     });
   }
 
+  //initState가 위젯이 생성될때 호출되는것이면 dispose는 완전히 종료될때 호출된다.
+  //메모리를 많이 잡아먹지 않도록하기위해 꼭 넣어주는것이 좋다.
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(_controller.value),
+      backgroundColor: _animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -63,61 +80,56 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60.0,
                   ),
                 ),
-                Text(
-                  '정훈톡',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                AnimatedTextKit(
+                  totalRepeatCount: 1,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'Welcome',
+                      textStyle: TextStyle(
+                        fontSize: 48.0,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    TyperAnimatedText(
+                      'This is',
+                      textStyle: TextStyle(
+                        fontSize: 48.0,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    TyperAnimatedText(
+                      'JH Talk',
+                      textStyle: TextStyle(
+                        fontSize: 48.0,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '${_animation.value * 100}%',
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
+                // Text(
+                //   '${_controller.value * 100}%',
+                //   style: TextStyle(
+                //     fontSize: 12,
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0, //z값을 나타낸다.
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              buttonColor: Colors.lightBlueAccent,
+              buttonText: 'Log in',
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              buttonColor: Colors.blueAccent,
+              buttonText: 'Register',
+              onPressed: () {
+                Navigator.pushNamed(context, '/register');
+              },
             ),
           ],
         ),
