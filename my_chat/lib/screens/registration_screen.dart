@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/using_buttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -7,6 +8,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  String email;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +33,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
+              //keyboardType을 쉽게 바꿔줄수있음
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
               onChanged: (value) {
-                //Do something with the user input.
+                email = value;
               },
               decoration: InputDecoration(
                 hintText: 'Enter your email',
@@ -39,8 +48,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 12.0,
             ),
             TextField(
+              obscureText: true, //비밀번호처럼 보이게 하는것
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
               onChanged: (value) {
-                //Do something with the user input.
+                password = value;
               },
               decoration: InputDecoration(
                 hintText: 'Enter your password',
@@ -52,7 +64,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             RoundedButton(
               buttonText: 'Register',
               buttonColor: Colors.blueAccent,
-              onPressed: (){},
+              onPressed: () async {
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if(newUser != null){
+                    Navigator.pushNamed(context, '/chat');
+                  }
+                } catch (e) {
+                  print(e);
+                }
+              },
             ),
           ],
         ),
