@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 import 'add_task_screen.dart';
 import '../components/task_lists.dart';
+import '../models/task.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = [
+    Task(taskTitle: 'Buy milk'),
+    Task(taskTitle: 'Buy eggs'),
+    Task(taskTitle: 'Buy bread'),
+    Task(taskTitle: 'wow'),
+  ];
+  //가장 상위 수준에 위치한 위젯에 함수등을 정의해준후에
+  //하위 수준에 속하는 위젯이 그 함수를 받아이용하는방식으로 정의해주어야
+  //state관리를 할 수 있다. -> 상태관리는 항상 이용중 최상위 수준에 상태를 넣어주어야한다.
+  //예를 들면 위의 tasks와 같은경우 task_lists,add_tasj_screen 등에서 사용하기에 가장 높은
+  //task_screen에서 사용하는것이다.
+  void addTask(String text) {
+    setState(() {
+      tasks.add(
+        Task(taskTitle: text),
+      );
+      Navigator.pop(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +44,9 @@ class TaskScreen extends StatelessWidget {
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  child: AddTaskScreen(),
+                  child: AddTaskScreen(
+                    addTaskCallback: addTask,
+                  ),
                 ),
               );
             },
@@ -61,7 +89,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasks.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -80,7 +108,9 @@ class TaskScreen extends StatelessWidget {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: TaskLists(),
+              child: TaskLists(
+                tasks: tasks,
+              ),
             ),
           ),
         ],
