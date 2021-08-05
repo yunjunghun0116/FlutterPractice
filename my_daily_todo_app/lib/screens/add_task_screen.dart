@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_daily_todo_app/models/task_data.dart';
+import '../models/task.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
 
@@ -40,7 +43,8 @@ class AddTaskScreen extends StatelessWidget {
               Container(
                 child: TextButton(
                   onPressed: () {
-                    addTaskCallback!(newTask);
+                    Provider.of<TaskData>(context,listen: false).addTask(newTask);
+                    Navigator.pop(context);
                   },
                   child: Text(
                     'Add',
