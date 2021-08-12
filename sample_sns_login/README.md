@@ -1,4 +1,4 @@
-# firebase_login
+# sample_sns_login
 
 A new Flutter project.
 

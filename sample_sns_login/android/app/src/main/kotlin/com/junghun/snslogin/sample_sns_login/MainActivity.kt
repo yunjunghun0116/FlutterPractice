@@ -1,4 +1,4 @@
-package com.example.firebase_login
+package com.junghun.snslogin.sample_sns_login
 
 import io.flutter.embedding.android.FlutterActivity
 

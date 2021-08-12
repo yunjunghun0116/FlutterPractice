@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.firebase_login">
+    package="com.junghun.snslogin.sample_sns_login">
    <application
-        android:label="firebase_login"
+        android:label="sample_sns_login"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
