@@ -143,6 +143,7 @@ class MessagesStream extends StatelessWidget {
             messageBubbles.add(messageWidget);
           }
           return Expanded(
+
             child: ListView(
               reverse: true,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),

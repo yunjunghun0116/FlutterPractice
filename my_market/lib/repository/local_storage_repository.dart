@@ -1,9 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LocalStorageRepository {
+  //create Storage
   final _storage = FlutterSecureStorage();
   Future<String?> getStoredValue(String key) async {
     try {
+      //read value
+      //Map<String,String> allvalues = await storage.readAll()과 같은 메소드 존재.
       return await _storage.read(key: key);
     } catch (error) {
       return null;

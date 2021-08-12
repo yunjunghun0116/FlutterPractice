@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.red,
         appBar: AppBar(
+          leading: Icon(Icons.favorite),
           title: Text('Random Dice'),
           backgroundColor: Colors.red[100],
         ),

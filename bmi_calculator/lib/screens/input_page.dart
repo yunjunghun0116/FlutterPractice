@@ -94,11 +94,7 @@ class _InputPageState extends State<InputPage> {
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             thumbShape: RoundSliderThumbShape(
-                              enabledThumbRadius: 15.0,
-                            ),
-                            //
-                            overlayShape: RoundSliderOverlayShape(
-                              overlayRadius: 30.0,
+                              enabledThumbRadius: 20.0,
                             ),
                           ),
                           child: Slider(
@@ -108,7 +104,9 @@ class _InputPageState extends State<InputPage> {
                             activeColor: sliderActiveColor,
                             inactiveColor: sliderInactiveColor,
                             onChanged: (double newValue) {
+                              print(newValue);
                               setState(() {
+
                                 height = newValue.round();
                               });
                             },

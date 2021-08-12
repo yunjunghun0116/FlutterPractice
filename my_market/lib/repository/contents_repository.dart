@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'local_storage_repository.dart';
-
+//firebase를 통해 로그인기능구현하면 그이후에 필요한 uid,username등은 flutter_secure_storage에만 저장시켜두면 편할듯.
+//extends LocalStorageRepository를 통해서 ContentsRepository에서도
+//로컬스토리지에 접근이 가능하다.
 class ContentsRepository extends LocalStorageRepository {
+  //key값이 있어야지만 나의 스토리지에 접근이가능함.
+  //그렇기때문에 write/read기능을 이용하기위해서는 key가 필요하고 이 키를 하나로 지정해둠/ 여러개로지정도 가능.
   final String MY_FAVORITE_KEY = "MY_FAVORITE_KEY";
   Map<String, dynamic> data = {
     "ara": [
@@ -90,7 +94,7 @@ class ContentsRepository extends LocalStorageRepository {
       {
         "cid": "11",
         "image": "assets/images/ora-1.jpg",
-        "title": "LG 통돌이세탁기 15kg(내부",
+        "title": "LG 통돌이세탁기 15kg(내부)",
         "location": "제주 제주시 오라동",
         "price": "150000",
         "likes": "13"
@@ -168,18 +172,23 @@ class ContentsRepository extends LocalStorageRepository {
         "likes": "8"
       },
     ],
+    'hansol': [],
   };
 
+  //2초를 기다린후 data['ara/ora/hansol']을 가져온다.
   Future<List<Map<String, String>>> loadContentsFromLocation(
       String location) async {
     await Future.delayed(Duration(milliseconds: 2000));
-    // throw Exception();
     return data[location];
   }
 
+  //json은 리스트의 형태로 가져왔고, 각 요소들은 하나의 doc형태로 되어있어서
+  //그중 cid를 통해 이게 내 flutter_secure_storage에 존재하고있나를 확인한다.
   Future<bool> isMyFavoriteContents(String contentId) async {
+    //default값은 false, for문에서 걸러지지않으면 false로,걸러지면 true를 리턴.
     bool isMyFavoriteContents = false;
     List? json = await loadFavoriteContents();
+    print('json(loadFavoriteContents()) : $json');
     if (json == null || !(json is List)) {
       return false;
     } else {
@@ -193,35 +202,52 @@ class ContentsRepository extends LocalStorageRepository {
     return isMyFavoriteContents;
   }
 
+  //key에 해당하는 스토리지의 밸류를 가져온다.
   Future<List?> loadFavoriteContents() async {
+    //Encode된 String의 형식으로 자료를 가져옴
     String? jsonString = await this.getStoredValue(MY_FAVORITE_KEY);
+    print('jsonString : $jsonString');
     if (jsonString != null) {
       Map<String, dynamic> json = jsonDecode(jsonString);
+      //jsonString은 storage의 모든밸류값을 가져왔고,
+      //return 값은 그중 key가 favorites인것들만 리턴해준다.
       return json["favorites"];
     } else {
+      //자료가 없을땐 null을 보내주고 그러면 판단할때 null인지 판단해줘야함.
       return null;
     }
   }
 
+  //저장을 해주는 기능을 한다.
   Future<void> addMyFavoriteContent(Map<String, String> content) async {
     List? loadLocalStorageDatas = await loadFavoriteContents();
+    //is List는 가져온 데이터타입이 List의 형태인지를 판단하기위함.
     if (loadLocalStorageDatas == null || !(loadLocalStorageDatas is List)) {
+      //배열을 하나 만들고, 그 배열안에 content하나만 들어가있는형태.
       loadLocalStorageDatas = [content];
     } else {
+      //배열에 원소가 존재할경우 그 배열 마지막에 새로운content를 추가해줌.
       loadLocalStorageDatas.add(content);
     }
+    //기존리스트에다가 새로운 콘텐츠를 추가한상태로
+    //내 스토리지에 저장을 하는방식
     updateFavoriteContent(loadLocalStorageDatas);
   }
 
   void updateFavoriteContent(List loadLocalStorageDatas) async {
     Map<String, dynamic> myFavoriteDatas = {"favorites": loadLocalStorageDatas};
+    //Encode의 기능은 json으로 저장하는것
+    print('myFavoriteDatas : $myFavoriteDatas');
     await this.storeValue(MY_FAVORITE_KEY, jsonEncode(myFavoriteDatas));
   }
 
-  Future<void> deleteMyFavoriteContent(String id) async {
+  Future<void> deleteMyFavoriteContent(String contentId) async {
     List? loadLocalStorageDatas = await loadFavoriteContents();
     if (loadLocalStorageDatas != null && loadLocalStorageDatas is List) {
-      loadLocalStorageDatas.removeWhere((element) => element["cid"] == id);
+      //배열이 null이 아닐경우에는
+      //cid가 contentId와 같은 원소를 찾아서 리스트에서 삭제해준다음에
+      //로컬스토리지에 새로운 밸류로 저장을 해준다.
+      loadLocalStorageDatas.removeWhere((element) => element["cid"] == contentId);
     }
     updateFavoriteContent(loadLocalStorageDatas!);
   }
