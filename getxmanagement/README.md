@@ -1,4 +1,4 @@
-# getx_practice
+# getxmanagement
 
 A new Flutter project.
 
