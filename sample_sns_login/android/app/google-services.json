@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "818010719467",
+    "project_id": "testsnslogin-49381",
+    "storage_bucket": "testsnslogin-49381.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818010719467:android:9887af132e6dfa27bc2aae",
+        "android_client_info": {
+          "package_name": "com.junghun.snslogin.sample_sns_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818010719467-04ag76pum19at7ugesmuua18fegpb877.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.snslogin.sample_sns_login",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "818010719467-tsc3e481u03qfrqg6j64k6p44kh2g6c6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8-uAOlSnJdsTJl7XGNATGpBgcuwNfx6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818010719467-tsc3e481u03qfrqg6j64k6p44kh2g6c6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818010719467-c7076tggko913pphurjkugcpl9h8g92e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.snslogin.sample-sns-login"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
