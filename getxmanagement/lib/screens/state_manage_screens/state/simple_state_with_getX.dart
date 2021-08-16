@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmanagement/screens/state_manage_screens/controller/count_controller_with_getx.dart';
+import 'package:getxmanagement/screens/state_manage_screens/controller/count_controller_getx.dart';
 
 class WithGetX extends StatelessWidget {
   const WithGetX({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class WithGetX extends StatelessWidget {
             'GetX State Management',
             style: TextStyle(fontSize: 20.0),
           ),
-          GetBuilder<CountControllerWithGetX>(
+          GetBuilder<CountControllerGetX>(
             id: 'first',
             builder: (controller) {
               return Text(
@@ -26,7 +26,7 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerWithGetX>().increase('first');
+              Get.find<CountControllerGetX>().increase('first');
             },
             child: Text(
               '+',
@@ -35,14 +35,14 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerWithGetX>().decrease('first');
+              Get.find<CountControllerGetX>().decrease('first');
             },
             child: Text(
-              '+',
+              '-',
               style: TextStyle(fontSize: 30.0),
             ),
           ),
-          GetBuilder<CountControllerWithGetX>(
+          GetBuilder<CountControllerGetX>(
             id: 'second',
             builder: (controller) {
               return Text(
@@ -53,7 +53,7 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerWithGetX>().increase('second');
+              Get.find<CountControllerGetX>().increase('second');
             },
             child: Text(
               '+',
@@ -62,10 +62,10 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerWithGetX>().decrease('second');
+              Get.find<CountControllerGetX>().decrease('second');
             },
             child: Text(
-              '+',
+              '-',
               style: TextStyle(fontSize: 30.0),
             ),
           ),

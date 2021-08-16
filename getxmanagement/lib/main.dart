@@ -5,6 +5,7 @@ import 'package:getxmanagement/screens/route_manage_screens/first_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/next_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/second_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/user_screen.dart';
+import 'package:getxmanagement/screens/state_manage_screens/reactive_state_screen.dart';
 import 'package:getxmanagement/screens/state_manage_screens/simple_state_screen.dart';
 
 void main() {
@@ -47,6 +48,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/state/simple',
           page: () => SimpleStateScreen(),
+          transition: Transition.leftToRight,
+        ),
+        GetPage(
+          name: '/state/reactive',
+          page: () => ReactiveStateScreen(),
           transition: Transition.leftToRight,
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CountControllerWithProvider extends ChangeNotifier {
+class CountControllerProvider extends ChangeNotifier {
   int count = 0;
 
   void increase() {

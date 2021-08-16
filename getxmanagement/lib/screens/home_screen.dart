@@ -65,6 +65,12 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Text('단순상태관리'),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/state/reactive');
+                },
+                child: Text('반응형상태관리'),
+              ),
             ],
           ),
         ],
