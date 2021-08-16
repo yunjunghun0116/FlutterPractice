@@ -17,7 +17,7 @@ class NextScreen extends StatelessWidget {
             Text('${Get.arguments['name']}의 나이는 ${Get.arguments['age']}입니다.'),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed('/next');
+                print('wow');
               },
               child: Text('WOW'),
             ),

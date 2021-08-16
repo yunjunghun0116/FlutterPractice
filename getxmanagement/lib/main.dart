@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmanagement/screens/first_screen.dart';
 import 'package:getxmanagement/screens/home_screen.dart';
-import 'package:getxmanagement/screens/next_screen.dart';
-import 'package:getxmanagement/screens/second_screen.dart';
+import 'package:getxmanagement/screens/route_manage_screens/first_screen.dart';
+import 'package:getxmanagement/screens/route_manage_screens/next_screen.dart';
+import 'package:getxmanagement/screens/route_manage_screens/second_screen.dart';
+import 'package:getxmanagement/screens/route_manage_screens/user_screen.dart';
+import 'package:getxmanagement/screens/state_manage_screens/simple_state_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,26 +21,34 @@ class MyApp extends StatelessWidget {
       ),
       getPages: [
         GetPage(
-            name: '/',
-            page: () => HomeScreen(),
-            transition: Transition.leftToRight,),
+          name: '/',
+          page: () => HomeScreen(),
+        ),
         GetPage(
-            name: '/first',
-            page: () => FirstScreen(),
-            transition: Transition.leftToRight,),
+          name: '/first',
+          page: () => FirstScreen(),
+          transition: Transition.leftToRight,
+        ),
         GetPage(
-            name: '/second',
-            page: () => SecondScreen(),
-            transition: Transition.leftToRight,),
+          name: '/second',
+          page: () => SecondScreen(),
+          transition: Transition.leftToRight,
+        ),
         GetPage(
-            name: '/next',
-            page: () => NextScreen(),
-            transition: Transition.leftToRight,),
-        GetPage(
-          name: '/user',
+          name: '/next',
           page: () => NextScreen(),
-          transition: Transition.leftToRight,),
-
+          transition: Transition.leftToRight,
+        ),
+        GetPage(
+          name: '/user/:uid',
+          page: () => UserScreen(),
+          transition: Transition.fadeIn,
+        ),
+        GetPage(
+          name: '/state/simple',
+          page: () => SimpleStateScreen(),
+          transition: Transition.leftToRight,
+        ),
       ],
     );
   }
