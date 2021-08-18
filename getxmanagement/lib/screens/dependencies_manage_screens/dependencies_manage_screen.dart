@@ -4,9 +4,11 @@ import 'package:getxmanagement/screens/dependencies_manage_screens/dependencies_
 import 'package:getxmanagement/screens/dependencies_manage_screens/test_screens/get_lazyPut.dart';
 import 'package:getxmanagement/screens/dependencies_manage_screens/test_screens/get_put.dart';
 
-class DependenciesManagePage extends StatelessWidget {
-  const DependenciesManagePage({Key? key}) : super(key: key);
+class DependenciesManageScreen extends StatelessWidget {
+  const DependenciesManageScreen({Key? key}) : super(key: key);
 
+  //GetX의 장점 -> 컨트롤러를 인스턴스화해서 페이지를 나가게되면 자동적으로 컨트롤러를 메모리에서 삭제해주고
+  //이를 통해서 과부하가 오지않도록 해준다
   @override
   Widget build(BuildContext context) {
     return Scaffold(

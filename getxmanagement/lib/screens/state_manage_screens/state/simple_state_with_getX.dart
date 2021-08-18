@@ -26,7 +26,7 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerGetX>().increase('first');
+              Get.find<CountControllerGetX>().increase();
             },
             child: Text(
               '+',
@@ -53,7 +53,7 @@ class WithGetX extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Get.find<CountControllerGetX>().increase('second');
+              Get.find<CountControllerGetX>().increase();
             },
             child: Text(
               '+',

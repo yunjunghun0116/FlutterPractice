@@ -93,6 +93,26 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                color: Colors.orange,
+                child: Text(
+                  '바인딩 관리',
+                  style: TextStyle(fontSize: 24.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/binding');
+                },
+                child: Text('바인딩관리'),
+              ),
+            ],
+          ),
         ],
       ),
     );
