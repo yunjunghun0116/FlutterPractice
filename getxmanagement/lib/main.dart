@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getxmanagement/screens/dependencies/dependencies_manage_screen.dart';
+import 'package:getxmanagement/screens/dependencies_manage_screens/dependencies_manage_screen.dart';
 import 'package:getxmanagement/screens/home_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/first_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/next_screen.dart';
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           transition: Transition.leftToRight,
         ),
         GetPage(
-          name: '/dependencies',
+          name: '/dependencies_manage_screens',
           page: () => DependenciesManagePage(),
           transition: Transition.leftToRight,
         ),
