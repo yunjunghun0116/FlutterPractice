@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getxmanagement/screens/dependencies/dependencies_manage_screen.dart';
 import 'package:getxmanagement/screens/home_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/first_screen.dart';
 import 'package:getxmanagement/screens/route_manage_screens/next_screen.dart';
@@ -53,6 +54,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/state/reactive',
           page: () => ReactiveStateScreen(),
+          transition: Transition.leftToRight,
+        ),
+        GetPage(
+          name: '/dependencies',
+          page: () => DependenciesManagePage(),
           transition: Transition.leftToRight,
         ),
       ],

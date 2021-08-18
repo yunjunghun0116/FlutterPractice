@@ -73,6 +73,26 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                color: Colors.amberAccent,
+                child: Text(
+                  '의존성 주입',
+                  style: TextStyle(fontSize: 24.0),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/dependencies');
+                },
+                child: Text('의존성 주입'),
+              ),
+            ],
+          ),
         ],
       ),
     );

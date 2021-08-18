@@ -7,6 +7,7 @@ class ReactiveStateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Get.put을 통해 인스턴스화해서 사용
     Get.put(CountControllerReactive());
     return Scaffold(
       appBar: AppBar(
