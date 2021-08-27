@@ -1,4 +1,4 @@
-package com.example.when_feed
+package com.example.mytube
 
 import io.flutter.embedding.android.FlutterActivity
 
