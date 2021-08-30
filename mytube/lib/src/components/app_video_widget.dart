@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/video.dart';
 
 class AppVideoWidget extends StatelessWidget {
@@ -6,6 +7,7 @@ class AppVideoWidget extends StatelessWidget {
   const AppVideoWidget({Key? key, this.video}) : super(key: key);
 
   Widget _thumbnail() {
+    print(video);
     return Container(
       width: double.infinity,
       color: Colors.grey.withOpacity(0.5),
@@ -25,7 +27,7 @@ class AppVideoWidget extends StatelessWidget {
             radius: 25.0,
             backgroundColor: Colors.grey.withOpacity(0.5),
             backgroundImage: Image.network(
-                    'https://yt3.ggpht.com/pR5GyqHb4jp_P7jRnawuoVczXBYCEtTTHyILKfmM_PRz9jjiLSXlxJqx3uSbuI9g69DUq-REFQ=s600-c-k-c0x00ffffff-no-rj-rp-mo')
+                    'https://yt3.ggpht.com/ytc/AKedOLS35HKK9ioz1d8gGSoSO2cQmJMF_Sw5zpl-LGgraA=s240-c-k-c0xffffffff-no-rj-mo')
                 .image,
           ),
           SizedBox(
@@ -72,7 +74,7 @@ class AppVideoWidget extends StatelessWidget {
                     ),
                     Text('ㆍ'),
                     Text(
-                      '2021-02-13',
+                      DateFormat('yyyy-MM-dd').format(video!.snippet!.publishedAt!),
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.black.withOpacity(0.5),
