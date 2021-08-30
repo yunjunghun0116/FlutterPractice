@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
+import 'package:mytube/src/models/video_statistics.dart';
 import 'package:mytube/src/models/youtube_video_result.dart';
+import 'package:mytube/src/models/youtuber.dart';
+
+final API_Key = 'AIzaSyBtsuAUYgK1RAxTLGG5D8qBp0DsStyoR0A';
 
 //http를 감싸는 getconnect
 class YoutubeRepository extends GetConnect {
@@ -14,14 +18,42 @@ class YoutubeRepository extends GetConnect {
 
   Future<YoutubeVideoResult?> loadVideos() async {
     String url =
-        '/youtube/v3/search?part=snippet&channelId=UCPBHGt7lq3I42IGuSoXYGPg&maxResults=10&order=date&type=video&viderDefinition=high&key=AIzaSyBtsuAUYgK1RAxTLGG5D8qBp0DsStyoR0A';
+        '/youtube/v3/search?key=$API_Key&part=snippet&channelId=UCPBHGt7lq3I42IGuSoXYGPg&maxResults=10&order=date&type=video&viderDefinition=high';
     final res = await get(url);
     if (res.status.hasError) {
       return Future.error(res.statusText!);
     } else {
       if (res.body['items'] != null && res.body['items'].length > 0) {
+        print(res.body.toString());
         return YoutubeVideoResult.fromJson(res.body);
       }
+    }
+  }
+
+  Future<VideoStatistics?> getVideoInfoById(String? videoId) async {
+    String url = '/youtube/v3/videos?key=$API_Key&part=statistics&id=$videoId';
+    final res = await get(url);
+    if (res.status.hasError) {
+      return Future.error(res.statusText!);
+    } else {
+      if (res.body['items']!.length > 0) {
+        Map<String, dynamic> statistics = res.body['items'][0]['statistics'];
+        print(statistics);
+        return VideoStatistics.fromJson(statistics);
+      }
+    }
+  }
+
+  Future<Youtuber?> getYoutuberInfoById(String? channelId) async {
+    String url =
+        '/youtube/v3/channels?key=$API_Key&part=statistics,snippet&id=$channelId';
+    final res = await get(url);
+    if (res.status.hasError) {
+      return Future.error(res.statusText!);
+    } else {
+      Map<String, dynamic>? youtuber = res.body['items'][0];
+      print(youtuber);
+      return Youtuber.fromJson(youtuber!);
     }
   }
 }

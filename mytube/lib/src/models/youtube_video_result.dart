@@ -12,7 +12,7 @@ class YoutubeVideoResult {
     return YoutubeVideoResult(
       totalResults: json['pageInfo']['totalResults'],
       resultsPerPage: json['pageInfo']['resultsPerPage'],
-      nextPageToken: json['nextPageToken'] ?? '',
+      nextPageToken: json['nextPageToken']??'',
       items:
           List<Video>.from(json['items'].map((data) => Video.fromJson(data))),
     );

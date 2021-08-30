@@ -1,35 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mytube/src/controller/app_video_controller.dart';
 import '../models/video.dart';
 
-class AppVideoWidget extends StatelessWidget {
+class AppVideoWidget extends StatefulWidget {
   final Video? video;
   const AppVideoWidget({Key? key, this.video}) : super(key: key);
 
+  @override
+  _AppVideoWidgetState createState() => _AppVideoWidgetState();
+}
+
+class _AppVideoWidgetState extends State<AppVideoWidget> {
+  VideoController? _videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    //tag를 넣어줌으로써 각각의 비디오마다 서로 다른 비디오컨트롤러를 가질수 있게 된다.
+    _videoController = Get.put(VideoController(video: widget.video),
+        tag: widget.video!.id!.videoId);
+  }
+
   Widget _thumbnail() {
-    print(video);
     return Container(
       width: double.infinity,
       color: Colors.grey.withOpacity(0.5),
       child: Image.network(
-        video!.snippet!.thumbnails!.medium!.url ?? '',
+        widget.video!.snippet!.thumbnails!.medium!.url ?? '',
         fit: BoxFit.fitHeight,
       ),
     );
   }
 
-  Widget _simpleDetailInfo() {
+  Widget _simpleDetailInfo(){
     return Container(
       padding: EdgeInsets.only(left: 5.0, top: 5.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 25.0,
-            backgroundColor: Colors.grey.withOpacity(0.5),
-            backgroundImage: Image.network(
-                    'https://yt3.ggpht.com/ytc/AKedOLS35HKK9ioz1d8gGSoSO2cQmJMF_Sw5zpl-LGgraA=s240-c-k-c0xffffffff-no-rj-mo')
-                .image,
-          ),
+          Obx(() {
+            return CircleAvatar(
+              radius: 25.0,
+              backgroundColor: Colors.grey.withOpacity(0.5),
+              backgroundImage: Image.network(
+                      _videoController!.youtuberThumbnailUrl!)
+                  .image,
+            );
+          }),
           SizedBox(
             width: 10.0,
           ),
@@ -43,7 +61,7 @@ class AppVideoWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         //최대 두줄까지 들어갈수있도록하기위해서,
-                        video!.snippet!.title!,
+                        widget.video!.snippet!.title!,
                         maxLines: 2,
                       ),
                     ),
@@ -65,16 +83,19 @@ class AppVideoWidget extends StatelessWidget {
                       ),
                     ),
                     Text('ㆍ'),
-                    Text(
-                      '조회수 1000회',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ),
+                    Obx(() {
+                      return Text(
+                        _videoController!.viewCountString!,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                      );
+                    }),
                     Text('ㆍ'),
                     Text(
-                      DateFormat('yyyy-MM-dd').format(video!.snippet!.publishedAt!),
+                      DateFormat('yyyy-MM-dd')
+                          .format(widget.video!.snippet!.publishedAt!),
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.black.withOpacity(0.5),
