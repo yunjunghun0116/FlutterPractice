@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mytube/src/controller/app_video_controller.dart';
+import '../controller/app_video_controller.dart';
 import '../models/video.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class AppVideoWidget extends StatefulWidget {
   final Video? video;
@@ -27,14 +28,22 @@ class _AppVideoWidgetState extends State<AppVideoWidget> {
     return Container(
       width: double.infinity,
       color: Colors.grey.withOpacity(0.5),
-      child: Image.network(
-        widget.video!.snippet!.thumbnails!.medium!.url ?? '',
-        fit: BoxFit.fitHeight,
+      child: CachedNetworkImage(
+        imageUrl: widget.video!.snippet!.thumbnails!.medium!.url!,
+        fit: BoxFit.fitWidth,
+        placeholder: (context, url) {
+          return Container(
+            height: 220,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _simpleDetailInfo(){
+  Widget _simpleDetailInfo() {
     return Container(
       padding: EdgeInsets.only(left: 5.0, top: 5.0),
       child: Row(
@@ -43,9 +52,8 @@ class _AppVideoWidgetState extends State<AppVideoWidget> {
             return CircleAvatar(
               radius: 25.0,
               backgroundColor: Colors.grey.withOpacity(0.5),
-              backgroundImage: Image.network(
-                      _videoController!.youtuberThumbnailUrl!)
-                  .image,
+              backgroundImage:
+                  Image.network(_videoController!.youtuberThumbnailUrl!).image,
             );
           }),
           SizedBox(

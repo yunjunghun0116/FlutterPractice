@@ -3,7 +3,7 @@ import 'package:mytube/src/models/video_statistics.dart';
 import 'package:mytube/src/models/youtube_video_result.dart';
 import 'package:mytube/src/models/youtuber.dart';
 
-final API_Key = 'AIzaSyBtsuAUYgK1RAxTLGG5D8qBp0DsStyoR0A';
+final apiKey = 'AIzaSyBtsuAUYgK1RAxTLGG5D8qBp0DsStyoR0A';
 
 //http를 감싸는 getconnect
 class YoutubeRepository extends GetConnect {
@@ -16,9 +16,9 @@ class YoutubeRepository extends GetConnect {
     super.onInit();
   }
 
-  Future<YoutubeVideoResult?> loadVideos() async {
+  Future<YoutubeVideoResult?> loadVideos(String? nextPageToken) async {
     String url =
-        '/youtube/v3/search?key=$API_Key&part=snippet&channelId=UCPBHGt7lq3I42IGuSoXYGPg&maxResults=10&order=date&type=video&viderDefinition=high';
+        '/youtube/v3/search?key=$apiKey&part=snippet&channelId=UCPBHGt7lq3I42IGuSoXYGPg&maxResults=10&order=date&type=video&viderDefinition=high&pageToken=$nextPageToken';
     final res = await get(url);
     if (res.status.hasError) {
       return Future.error(res.statusText!);
@@ -31,7 +31,7 @@ class YoutubeRepository extends GetConnect {
   }
 
   Future<VideoStatistics?> getVideoInfoById(String? videoId) async {
-    String url = '/youtube/v3/videos?key=$API_Key&part=statistics&id=$videoId';
+    String url = '/youtube/v3/videos?key=$apiKey&part=statistics&id=$videoId';
     final res = await get(url);
     if (res.status.hasError) {
       return Future.error(res.statusText!);
@@ -46,7 +46,7 @@ class YoutubeRepository extends GetConnect {
 
   Future<Youtuber?> getYoutuberInfoById(String? channelId) async {
     String url =
-        '/youtube/v3/channels?key=$API_Key&part=statistics,snippet&id=$channelId';
+        '/youtube/v3/channels?key=$apiKey&part=statistics,snippet&id=$channelId';
     final res = await get(url);
     if (res.status.hasError) {
       return Future.error(res.statusText!);
