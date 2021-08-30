@@ -7,7 +7,19 @@ class AppCustomAppBar extends StatelessWidget {
   Widget _logo() {
     return Container(
       width: 130.0,
-      child: Image.asset('assets/images/logo.png'),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.grey.withOpacity(0.3),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        '정훈튜브',
+        style: TextStyle(
+          fontSize: 24.0,
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 

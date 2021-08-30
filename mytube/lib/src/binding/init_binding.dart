@@ -1,4 +1,5 @@
 import 'package:get/instance_manager.dart';
+import '../repository/youtube_repository.dart';
 import '../controller/app_controller.dart';
 
 //바인딩관리는 이곳에서
@@ -9,5 +10,6 @@ class InitBinding implements Bindings{
   void dependencies() {
     // TODO: implement dependencies
     Get.put(AppController());
+    Get.put(YoutubeRepository(),permanent: true);
   }
 }

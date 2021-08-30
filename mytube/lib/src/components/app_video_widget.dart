@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import '../models/video.dart';
 
 class AppVideoWidget extends StatelessWidget {
-  const AppVideoWidget({Key? key}) : super(key: key);
+  final Video? video;
+  const AppVideoWidget({Key? key, this.video}) : super(key: key);
 
   Widget _thumbnail() {
     return Container(
-      height: 250,
+      width: double.infinity,
       color: Colors.grey.withOpacity(0.5),
+      child: Image.network(
+        video!.snippet!.thumbnails!.medium!.url ?? '',
+        fit: BoxFit.fitHeight,
+      ),
     );
   }
 
   Widget _simpleDetailInfo() {
     return Container(
-      padding: EdgeInsets.only(left: 5.0,top: 5.0),
+      padding: EdgeInsets.only(left: 5.0, top: 5.0),
       child: Row(
         children: [
           CircleAvatar(
@@ -22,7 +28,9 @@ class AppVideoWidget extends StatelessWidget {
                     'https://yt3.ggpht.com/pR5GyqHb4jp_P7jRnawuoVczXBYCEtTTHyILKfmM_PRz9jjiLSXlxJqx3uSbuI9g69DUq-REFQ=s600-c-k-c0x00ffffff-no-rj-rp-mo')
                 .image,
           ),
-          SizedBox(width: 10.0,),
+          SizedBox(
+            width: 10.0,
+          ),
           Expanded(
             child: Column(
               children: [
@@ -33,7 +41,7 @@ class AppVideoWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         //최대 두줄까지 들어갈수있도록하기위해서,
-                        '여기에는 제목이 들어간다',
+                        video!.snippet!.title!,
                         maxLines: 2,
                       ),
                     ),
