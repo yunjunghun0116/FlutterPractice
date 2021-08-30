@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mytube/src/components/app_bottom_sheet.dart';
 
 enum ScreenName { Home, Explore, Add, Subscribe, Library }
 
@@ -21,6 +22,6 @@ class AppController extends GetxService {
   }
 
   void _showBottomSheet() {
-    Get.bottomSheet(Container());
+    Get.bottomSheet(AppBottomSheet());
   }
 }

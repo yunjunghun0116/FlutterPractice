@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mytube/src/components/video_detail.dart';
 import 'src/app.dart';
 import 'src/binding/init_binding.dart';
 
@@ -24,6 +25,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/',
           page: () => App(),
+        ),
+        GetPage(
+          name: '/detail/:videoId',
+          page: () => VideoDetail(),
         ),
       ],
     );
