@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../controller/app_video_controller.dart';
 import '../models/video.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 
 class AppVideoWidget extends StatefulWidget {
   final Video? video;

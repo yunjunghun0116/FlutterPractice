@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mytube/src/models/youtube_video_result.dart';
-import 'package:mytube/src/repository/youtube_repository.dart';
+import '../models/youtube_video_result.dart';
+import '../repository/youtube_repository.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();

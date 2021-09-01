@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mytube/src/components/app_custom_app_bar.dart';
-import 'package:mytube/src/components/app_video_widget.dart';
-import 'package:mytube/src/controller/app_home_controller.dart';
+import '../components/app_custom_app_bar.dart';
+import '../components/app_video_widget.dart';
+import '../controller/app_home_controller.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed('/detail/123');
+                        Get.toNamed('/detail/${controller.youtubeResults.value!.items![index].id!.videoId}');
                       },
                       child: AppVideoWidget(video : controller.youtubeResults.value!.items![index]),
                     ),
