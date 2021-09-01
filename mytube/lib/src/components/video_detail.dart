@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../controller/app_video_detail_controller.dart';
 
 class VideoDetail extends GetView<YoutubeDetailController> {
-  const VideoDetail({Key? key}) : super(key: key);
+  VideoDetail({Key? key}) : super(key: key);
 
   Widget _titleArea() {
     return Container(
@@ -84,9 +86,8 @@ class VideoDetail extends GetView<YoutubeDetailController> {
           CircleAvatar(
             radius: 20.0,
             backgroundColor: Colors.grey.withOpacity(0.5),
-            backgroundImage: Image.network(
-                    controller.youtuberThumbnailUrl)
-                .image,
+            backgroundImage:
+                Image.network(controller.youtuberThumbnailUrl).image,
           ),
           SizedBox(
             width: 10.0,
@@ -147,21 +148,60 @@ class VideoDetail extends GetView<YoutubeDetailController> {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.grey.withOpacity(0.5),
-            height: 250,
-          ),
+    return YoutubePlayerBuilder(
+      onExitFullScreen: () {
+        SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+      },
+      player: YoutubePlayer(
+        controller: controller.playerController,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: Colors.blueAccent,
+        topActions: <Widget>[
+          const SizedBox(width: 8.0),
           Expanded(
-            child: _description(),
+            child: Text(
+              controller.playerController.metadata.title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 25.0,
+            ),
+            onPressed: () {},
           ),
         ],
+        onEnded: (data) {
+          controller.playerController
+              .load(controller.playerController.initialVideoId);
+        },
       ),
+      builder: (context, player) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: Column(children: [
+            Expanded(
+              flex: 1,
+              child: player,
+            ),
+            Expanded(
+              flex: 2,
+              child: _description(),
+            ),
+          ]),
+        );
+      },
     );
   }
 }

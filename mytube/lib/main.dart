@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mytube/src/controller/app_video_controller.dart';
+import 'package:mytube/src/controller/app_video_search_controller.dart';
 import 'src/components/video_detail.dart';
 import 'src/controller/app_video_detail_controller.dart';
 import 'src/app.dart';
 import 'src/binding/init_binding.dart';
+import 'src/screens/search.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +33,12 @@ class MyApp extends StatelessWidget {
           name: '/detail/:videoId',
           page: () => VideoDetail(),
           binding: BindingsBuilder.put(() => YoutubeDetailController()),
+        ),
+        GetPage(
+          name: '/search',
+          page: () => Search(),
+          binding: BindingsBuilder.put(() => YoutubeSearchController()),
+          transition: Transition.topLevel,
         ),
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class AppCustomAppBar extends StatelessWidget {
   const AppCustomAppBar({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class AppCustomAppBar extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            print('search clicked');
+            Get.toNamed('/search');
           },
           child: Container(
             width: 40.0,
