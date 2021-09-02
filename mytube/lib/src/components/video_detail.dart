@@ -6,7 +6,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../controller/app_video_detail_controller.dart';
 
 class VideoDetail extends GetView<YoutubeDetailController> {
-  VideoDetail({Key? key}) : super(key: key);
+  const VideoDetail({Key? key}) : super(key: key);
 
   Widget _titleArea() {
     return Container(
