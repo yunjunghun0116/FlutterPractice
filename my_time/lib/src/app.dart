@@ -9,6 +9,7 @@ class App extends StatelessWidget {
         future: Firebase.initializeApp(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            print(snapshot.error);
             return Center(
               child: Text('Firebase Load Fail'),
             );
