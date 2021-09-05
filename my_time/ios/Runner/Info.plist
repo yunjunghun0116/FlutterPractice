@@ -20,26 +20,27 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-	    <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fbAPP-ID</string>
-            </array>
-        </dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.130455157014-dhh2qe6am6bmq2gn0u54nd45uiu3215u</string>
-			</array>
-		</dict>
+	<dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>fbAPP-ID</string>
+        </array>
+    </dict>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.googleusercontent.apps.130455157014-dhh2qe6am6bmq2gn0u54nd45uiu3215u</string>
+		</array>
+	</dict>
 	</array>
 	<key>FacebookAppID</key>
     <string>APP-ID</string>
     <key>FacebookClientToken</key>
     <string>CLIENT-TOKEN</string>
     <key>FacebookDisplayName</key>
+    <string>APP-NAME</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbapi</string>
@@ -58,7 +59,6 @@
         <string>fbauth2</string>
         <string>fbshareextension</string>
     </array>
-    <string>APP-NAME</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -69,7 +69,7 @@
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
+	    <string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
