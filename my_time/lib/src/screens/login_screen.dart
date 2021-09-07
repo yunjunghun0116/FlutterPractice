@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:my_time/src/components/show_login_bottom_sheet.dart';
 
 class LoginScreen extends StatelessWidget {
   Future<UserCredential> signInWithGoogle() async {
@@ -86,7 +87,7 @@ class LoginScreen extends StatelessWidget {
         ),
         _registerButton(
           onClickedFunc: () {
-
+            Get.bottomSheet(ShowLoginBottomSheet());
           },
           text: '이메일로그인',
         ),
@@ -103,7 +104,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow.withOpacity(0.5),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.yellow,
       body: Column(
         children: [
           Expanded(

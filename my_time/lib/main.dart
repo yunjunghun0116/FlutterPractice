@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_time/src/screens/home_screen.dart';
-import 'package:my_time/src/screens/login_screen.dart';
-import 'package:my_time/src/screens/register_screen.dart';
+import 'src/screens/home_screen.dart';
+import 'src/screens/login_screen.dart';
+import 'src/screens/main_screen.dart';
+import 'src/screens/register_screen.dart';
 import 'src/app.dart';
 
 void main() {
@@ -13,10 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'MyTime',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Colors.white,
+        primarySwatch: Colors.green,
+        primaryColor: Colors.amber,
       ),
       initialRoute: '/',
       getPages: [
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/register',
           page: () => RegisterScreen(),
+        ),
+        GetPage(
+          name: '/main',
+          page: () => MainScreen(),
         ),
       ],
     );

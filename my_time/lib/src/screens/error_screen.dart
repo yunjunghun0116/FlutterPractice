@@ -8,24 +8,27 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.yellow,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            message,
-            style: TextStyle(
-              fontSize: 48.0,
+          Container(
+            padding: EdgeInsets.all(50),
+            child: Text(
+              message,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           Container(
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width / 2,
             child: GestureDetector(
               onTap: (){
-                print('goClicked');
-                Get.toNamed('/');
+                Get.offAllNamed('/');
               },
               child: Container(
                 margin: EdgeInsets.only(top: 60.0),
