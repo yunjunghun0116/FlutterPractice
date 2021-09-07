@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class FirstScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   final User? user;
 
-  FirstScreen(this.user);
+  MainScreen(this.user);
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'first_screen.dart';
+import 'main_screen.dart';
 import 'login_screen.dart';
-import '../components/custom_bottom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -16,12 +15,11 @@ class HomeScreen extends StatelessWidget {
             if (!snapshot.hasData) {
               return LoginScreen();
             } else {
-              return FirstScreen(user!);
+              return MainScreen(user!);
             }
           },
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(),
     );
   }
 }

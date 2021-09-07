@@ -10,7 +10,7 @@ class App extends StatelessWidget {
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return ErrorScreen(message: 'lets go');
+          return ErrorScreen(message: snapshot.error.toString());
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return HomeScreen();

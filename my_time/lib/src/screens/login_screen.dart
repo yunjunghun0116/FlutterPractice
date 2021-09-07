@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../components/custom_bottom_nav_bar.dart';
 
 class LoginScreen extends StatelessWidget {
   Future<UserCredential> signInWithGoogle() async {
@@ -24,43 +24,106 @@ class LoginScreen extends StatelessWidget {
         .signInWithCredential(facebookAuthCredential);
   }
 
+  Widget _loginButton(
+      {required Function onClickedFunc,
+      required String imageName,
+      required String text}) {
+    return Container(
+      width: 300,
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.green.withOpacity(0.3),
+      ),
+      child: TextButton(
+        onPressed: () {
+          onClickedFunc();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(
+              'assets/images/$imageName',
+              width: 100,
+            ),
+            Text(text),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _registerButton(
+      {required Function onClickedFunc, required String text}) {
+    return Container(
+      width: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.green.withOpacity(0.3),
+      ),
+      child: TextButton(
+        onPressed: () {
+          onClickedFunc();
+        },
+        child: Text(text),
+      ),
+    );
+  }
+
+  Widget _loginArea() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _loginButton(
+          onClickedFunc: signInWithGoogle,
+          imageName: 'google_logo.png',
+          text: '구글로그인',
+        ),
+        _loginButton(
+          onClickedFunc: signInWithFacebook,
+          imageName: 'facebook_logo.png',
+          text: '페이스북로그인',
+        ),
+        _registerButton(
+          onClickedFunc: () {
+
+          },
+          text: '이메일로그인',
+        ),
+        _registerButton(
+          onClickedFunc: () {
+            Get.toNamed('/register');
+          },
+          text: '회원가입하기',
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.yellow.withOpacity(0.5),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(
-            onPressed: signInWithGoogle,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.favorite),
-                Text('GoogleLogin'),
-              ],
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  radius: 150,
+                ),
+              ),
             ),
           ),
-          TextButton(
-            onPressed: signInWithFacebook,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.favorite),
-                Text('FacebookLogin'),
-              ],
-            ),
+          Expanded(
+            flex: 1,
+            child: _loginArea(),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.favorite),
-                Text('회원가입하기'),
-              ],
-            ),
-          ),
+          Container(
+            height: 50,
+          )
         ],
       ),
     );
