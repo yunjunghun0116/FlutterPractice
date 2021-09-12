@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_time/src/app.dart';
 import 'package:my_time/src/screens/error_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   //register->signin 만약 완료하면 get.toNamed('/')로 보내줘서 로그인할수있도록 한다.
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  late BuildContext context;
 
   Widget _inputArea() {
     return Container(

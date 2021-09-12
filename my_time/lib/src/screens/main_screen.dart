@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_time/src/controller/bottom_bar_controller.dart';
+import 'package:my_time/src/screens/mainScreens/main_food.dart';
+import 'package:my_time/src/screens/mainScreens/main_home.dart';
+import 'package:my_time/src/screens/mainScreens/main_rider.dart';
+import 'package:my_time/src/screens/mainScreens/main_user.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -8,6 +13,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  BottomBarController _bottomBarController = Get.put(BottomBarController());
+
   User? user;
   String userName = '';
   String userImageURL =
@@ -27,8 +34,15 @@ class _MainScreenState extends State<MainScreen> {
 
   PreferredSizeWidget _appBar() {
     return AppBar(
-      leading: Text('gogo'),
-      title: Text('title'),
+      title: Text(
+        'CNU 밥차',
+        style: TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+          color: Colors.green,
+        ),
+      ),
       actions: [
         Column(
           children: [
@@ -59,9 +73,49 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: _appBar(),
       body: SafeArea(
-        child: Container(),
+        child: Obx(() {
+          switch (_bottomBarController.currentIndex.value) {
+            case 0:
+              return MainHomeScreen();
+            case 1:
+              return MainFoodScreen();
+            case 2:
+              return MainRiderScreen();
+            default:
+              return MainUserScreen();
+          }
+        }),
+      ),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: _bottomBarController.currentIndex.value,
+          selectedItemColor: Colors.black,
+          onTap: (index) {
+            _bottomBarController.changePageIndex(index);
+          },
+          unselectedItemColor: Colors.grey,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: '홈',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.fastfood_outlined),
+              label: '밀키트판매',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.motorcycle_sharp),
+              label: '라이더지원',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_box),
+              label: '내정보',
+            ),
+          ],
+        ),
       ),
     );
   }
