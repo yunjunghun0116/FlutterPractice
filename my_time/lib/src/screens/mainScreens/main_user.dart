@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_time/src/controller/user_controller.dart';
@@ -17,6 +19,8 @@ class _MainUserScreenState extends State<MainUserScreen> {
   String phoneNumber = '저장된 연락처가 없습니다';
   String photoURL = '저장된 이미지가 없습니다';
   String uid = '';
+
+  bool isLoading = false;
 
   @override
   initState() {
@@ -115,6 +119,9 @@ class _MainUserScreenState extends State<MainUserScreen> {
   Widget _submitButton() {
     return TextButton(
       onPressed: () async {
+        setState(() {
+          isLoading = true;
+        });
         if (nameController.text != '') {
           await _userController.changeDisplayName(nameController.text);
         }
@@ -124,25 +131,40 @@ class _MainUserScreenState extends State<MainUserScreen> {
         Get.offAllNamed('/main');
       },
       child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 10.0,
+          horizontal: 30.0,
+        ),
+        decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(30.0)),
         child: Text('업데이트하기'),
       ),
     );
   }
 
+  Widget currentScreen() {
+    if (isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _userDisplayNameArea(),
+            _userPhoneNumberArea(),
+            _userPhotoURLArea(),
+            _submitButton(),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(_userController.user);
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _userDisplayNameArea(),
-          _userPhoneNumberArea(),
-          _userPhotoURLArea(),
-          _submitButton(),
-        ],
-      ),
-    );
+    return currentScreen();
   }
 }
