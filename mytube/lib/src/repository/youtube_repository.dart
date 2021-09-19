@@ -8,7 +8,6 @@ final apiKey = 'AIzaSyBtsuAUYgK1RAxTLGG5D8qBp0DsStyoR0A';
 //http를 감싸는 getconnect
 class YoutubeRepository extends GetConnect {
   static YoutubeRepository get to => Get.find();
-
   @override
   void onInit() {
     // TODO: implement onInit
