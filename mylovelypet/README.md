@@ -10,7 +10,7 @@
 - [ ] model : pet_moment 모델 -> 강아지의 이미지와 date와 설명을 가지고있다
 - [ ] controller : 애완동물의 정보(pet_controller)
 - [ ] screens : 메인홈페이지(밥준시간 -> 밥먹을시간,사진들(grid형식의 singlechildscrollview)
-- [ ] components : bottomsheet -> 밥준시간을 기록할 수 있도록
+- [ ] components : bottomsheet -> 밥준시간을 기록할 수 있도록/회원가입/로그인
 
 
 ### 기능

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'screens/main_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/detail_screen.dart';
 
@@ -19,10 +20,21 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: ()=>HomeScreen()),
-        GetPage(name: '/detail/:petMomentId', page: ()=>DetailScreen()),
+        GetPage(
+          name: '/',
+          page: () => HomeScreen(),
+        ),
+        GetPage(
+          name: '/main',
+          page: () => MainScreen(),
+          transition: Transition.downToUp,
+        ),
+        GetPage(
+          name: '/detail/:petMomentId',
+          page: () => DetailScreen(),
+          transition: Transition.downToUp,
+        ),
       ],
     );
   }
 }
-
