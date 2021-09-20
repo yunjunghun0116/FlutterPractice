@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'MyLovelyPet',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Colors.black,
       ),
       initialRoute: '/main',
       getPages: [

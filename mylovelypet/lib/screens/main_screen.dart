@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(100, (index) {
-            return FeedTimeComponent('$index일 1시 2분', '$index일 9시 2분');
+            return FeedTimeComponent(index,'$index일 1시 2분', '$index일 9시 2분');
           }),
         ),
       ),
