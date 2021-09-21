@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mypetmoments/components/style_components.dart';
+import 'package:mypetmoments/components/constants.dart';
 
 class FeedTimeComponent extends StatefulWidget {
   final int index;

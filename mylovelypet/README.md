@@ -18,7 +18,7 @@
 
 #### 앱자체의 기능
 - flutter_storage_secure : 로그인했는지 (이메일로 로그인하도록)
-- shared_reference : 밥준시간을 여기에다 기록할것 -> 년/월/일/시 이렇게 4구간만 기록
+- shared_reference : 밥준시간을 여기에다 기록할것
 - Hero : Homes 사진을 클릭할때마다 Details 이동하게 해줄때 이미지가 커지는 형식으로(이어지는느낌)
 - Date : DateTime클래스를 이용할것이며, String을 기억했다가 parse(str)을 통해 가져오는 방식으로
 - DataReq/Res : gethttp와 express를 통해 서로 주소를 공유해가며 자료를 주고 받는 방식으로
