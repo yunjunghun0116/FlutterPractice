@@ -5,36 +5,62 @@ class FeedTimeComponent extends StatefulWidget {
   final int index;
   final String feedDate;
   final String feedNextDate;
-  FeedTimeComponent(this.index,this.feedDate, this.feedNextDate);
+  bool isFinished;
+  FeedTimeComponent(
+      this.index, this.feedDate, this.feedNextDate, this.isFinished);
 
   @override
   State<FeedTimeComponent> createState() => _FeedTimeComponentState();
 }
 
 class _FeedTimeComponentState extends State<FeedTimeComponent> {
-  bool finished = false;
+  Widget isFinishedCheckbox(bool finish) {
+    if (!finish) {
+      return Container(
+        height: 30,
+        child: Checkbox(
+          value: widget.isFinished,
+          onChanged: (value) {
+            setState(() {
+              //TODO 제대로 연결된 후에는 여기서 바꿔주는것이 아닌 서버에 바꾸라 요청해줄것임
+              widget.isFinished = value!;
+            });
+          },
+        ),
+      );
+    }
+    return Container(
+      height: 30,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(
-          widget.feedDate,
-          style: feedTimeTextStyle,
+        SizedBox(
+          width: 30,
         ),
-        Text(
-          widget.feedNextDate,
-          style: finished?feedTimeSelected:feedTimeTextStyle,
+        Expanded(
+          child: Text(
+            widget.feedDate,
+            style: feedTimeTextStyle,
+          ),
         ),
-        Checkbox(
-          value: finished,
-          onChanged: (value) {
-            setState(() {
-              finished = value!;
-            });
-          },
+        Expanded(
+          child: Text(
+            widget.feedNextDate,
+            style: widget.isFinished ? feedTimeSelected : feedTimeTextStyle,
+          ),
         ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              isFinishedCheckbox(widget.isFinished),
+            ],
+          ),
+        )
       ],
     );
   }

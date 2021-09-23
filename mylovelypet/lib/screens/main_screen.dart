@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mypetmoments/components/feed_time_bottom_sheet.dart';
+import 'package:mypetmoments/components/moment_upload_bottom_sheet.dart';
+import 'package:mypetmoments/components/pet_image_component.dart';
 import '../components/feed_time_component.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,7 +24,8 @@ class _MainScreenState extends State<MainScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(100, (index) {
-            return FeedTimeComponent(index, '$index일 1시 2분', '$index일 9시 2분');
+            return FeedTimeComponent(
+                index, '$index일 1시 2분', '$index일 9시 2분', false);
           }),
         ),
       ),
@@ -32,39 +35,31 @@ class _MainScreenState extends State<MainScreen> {
   Widget _petImageArea() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30.0),
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: Colors.grey.withOpacity(0.7),
       ),
       height: 400,
-      child: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(30, (index) {
-          return GestureDetector(
-            onTap: () {
-              Get.toNamed('/detail/$index', arguments: {
-                'imageUrl': 'assets/images/maltiz.jpeg',
-                'comment': '여기는 추억에 담긴 내용',
-                'date': '여기는 추억이 담긴 날짜',
-              });
-            },
-            child: Container(
-              margin: EdgeInsets.all(10),
-              color: Colors.yellow,
-              child: Column(
-                children: [
-                  Container(
-                    child: Image.asset('assets/images/maltiz.jpeg'),
-                  ),
-                  Center(
-                    child: Text('item $index'),
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: List.generate(30, (index) {
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed('/detail/$index', arguments: {
+                  'imageUrl': 'assets/images/duri.png',
+                  'comment': '여기는 추억에 담긴 내용',
+                  'date': '여기는 추억이 담긴 날짜',
+                });
+              },
+              child: PetImageComponent(
+                'assets/images/duri.png',
+                '여기는 추억에 담긴 내용여기는 추억에 담긴 내용여기는 추억에 담긴 내용여기는 추억에 담긴 내용',
+                '2021 9/23 19:21',
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -99,7 +94,9 @@ class _MainScreenState extends State<MainScreen> {
               backgroundColor: MaterialStateProperty.all(Colors.black45),
               foregroundColor: MaterialStateProperty.all(Colors.white),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.bottomSheet(MomentUploadBottomSheet());
+            },
             child: Container(
               width: 60,
               child: Text('추억'),

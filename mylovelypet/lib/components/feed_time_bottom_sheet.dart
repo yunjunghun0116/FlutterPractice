@@ -108,7 +108,6 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
         topRight: Radius.circular(20.0),
       ),
       child: Container(
-        padding: EdgeInsets.only(left: 10.0),
         height: 300,
         color: Colors.white,
         child: Column(

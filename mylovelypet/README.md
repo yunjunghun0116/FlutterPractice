@@ -11,9 +11,9 @@
 
 #### 라이브러리폴더내의 기능
 - [ ] model : pet_moment 모델 -> 강아지의 이미지와 date와 설명을 가지고있다
-- [ ] controller : 애완동물의 정보(pet_controller)
-- [ ] screens : 메인홈페이지(밥준시간 -> 밥먹을시간,사진들(grid형식의 singlechildscrollview)
-- [ ] components : bottomsheet -> 밥준시간을 기록할 수 있도록/회원가입/로그인
+- [X] controller : 애완동물의 정보(pet_controller)
+- [V] screens : 메인홈페이지(밥준시간 -> 밥먹을시간,사진들(singlechildscrollview)
+- [V] components : bottomsheet -> 밥준시간을 기록할 수 있도록/회원가입/로그인
 
 
 #### 앱자체의 기능
@@ -22,6 +22,7 @@
 - Hero : Homes 사진을 클릭할때마다 Details 이동하게 해줄때 이미지가 커지는 형식으로(이어지는느낌)
 - Date : DateTime클래스를 이용할것이며, String을 기억했다가 parse(str)을 통해 가져오는 방식으로
 - DataReq/Res : gethttp와 express를 통해 서로 주소를 공유해가며 자료를 주고 받는 방식으로
+- geolocator & googleMaps : 추억의 장소를 기억하기 위한 mapsApi가져오기
 
 
 #### 스택
@@ -36,7 +37,7 @@
     - flutter_storage_secure
     - shared_reference
     - 컨트롤러를 통한 스크린간의 데이터소통
-3. 백엔드와 연결
-4. 회원가입/로그인 화면 구성
-5. 회원가입/로그인 기능 구현
-6. 이미지 저장 기능 구현
+3. 회원가입/로그인 화면 구성
+4. 회원가입/로그인 기능 구현
+5. 이미지 저장 기능 구현
+6. 검색기능 구현

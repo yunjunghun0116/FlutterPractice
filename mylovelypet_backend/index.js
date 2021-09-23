@@ -1,6 +1,8 @@
 //mylovelypet@naver.com a1041714 mongodb
 //connect username : mylovelypet password : a1041714
 const express = require("express");
+const router = express.Router();
+const multer = require("multer");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -21,4 +23,29 @@ app.listen(port, () => console.log(`listening on ${port}`));
 
 app.get("/pet", function (req, res) {
   return res.send("thanks");
+});
+
+//이미지 저장관련 코드
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+var upload = multer({ storage: storage }).single("file");
+router.post("/image", (req, res) => {
+  //가져온이미지저장
+  upload(req, res, (err) => {
+    if (err) {
+      return res.json({ success: false, err });
+    }
+    return res.json({
+      success: true,
+      filePath: res.req.file.path,
+      fileName: res.req.file.filename,
+    });
+  });
 });
