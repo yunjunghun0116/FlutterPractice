@@ -154,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
       ],
     );
   }
-
+  //displayName이 설정되지 않은경우
   Widget _setPetNameArea(){
     return Scaffold(
       body: Container(
