@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "459906129595",
+    "project_id": "mylovelypet",
+    "storage_bucket": "mylovelypet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459906129595:android:54feca00a152aa1282139e",
+        "android_client_info": {
+          "package_name": "com.junghun.mylovelypet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459906129595-cdcef9b6n7nhvo6s5kiod1g3au7vde4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.mylovelypet",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "459906129595-3sg5nos2ocf0cu069sk75n339ophtsnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP_QTdFhQinzz_JiCZbZKpzkKa10xds6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459906129595-3sg5nos2ocf0cu069sk75n339ophtsnt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "459906129595-3aisgob4um3bjuu7gf5ra78dt6qkl09i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.mylovelypet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
