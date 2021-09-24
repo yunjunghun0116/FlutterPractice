@@ -1,18 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mypetmoments/components/feed_time_bottom_sheet.dart';
-import 'package:mypetmoments/components/moment_upload_bottom_sheet.dart';
-import 'package:mypetmoments/components/pet_image_component.dart';
+import 'package:mypetmoments/controller/pet_controller.dart';
+import '../components/feed_time_bottom_sheet.dart';
+import '../components/moment_upload_bottom_sheet.dart';
+import '../components/pet_image_component.dart';
 import '../components/feed_time_component.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final petNameController = TextEditingController();
+  PetController? controller = Get.put(PetController());
+
+  String _petName = '';
+
+  @override
+  initState() {
+    super.initState();
+    _petName = controller!.petName;
+  }
+
   Widget _feedTimeArea() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
@@ -20,7 +31,6 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: BorderRadius.circular(30),
         color: Colors.grey.withOpacity(0.7),
       ),
-      height: 200,
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(100, (index) {
@@ -40,7 +50,6 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: BorderRadius.circular(30),
         color: Colors.grey.withOpacity(0.7),
       ),
-      height: 400,
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(30, (index) {
@@ -108,33 +117,102 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  PreferredSizeWidget _appBar() {
+  PreferredSizeWidget _appBar(String petName) {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: Text(
-        '두리의모먼트',
+        'My Lovely ${petName}',
         style: TextStyle(
           color: Colors.black,
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
+          icon: Icon(
+            Icons.logout,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _petNameArea() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Pet Name',
+        ),
+        TextField(
+          controller: petNameController,
+        ),
+      ],
+    );
+  }
+
+  Widget _setPetNameArea(){
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _petNameArea(),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  controller!.changePetName(petNameController.text);
+                  _petName = petNameController.text;
+                });
+              },
+              child: Text(
+                '이름 설정',
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
+  Widget _isDefined() {
+    if (_petName == '') {
+      return _setPetNameArea();
+    } else {
+      return Scaffold(
+        appBar: _appBar(_petName),
+        body: Container(
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: _feedTimeArea(),
+              ),
+              Expanded(
+                flex: 5,
+                child: _petImageArea(),
+              ),
+              Expanded(
+                flex: 1,
+                child: _addArea(),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _feedTimeArea(),
-            _petImageArea(),
-            _addArea(),
-          ],
-        ),
-      ),
-    );
+    return _isDefined();
   }
 }

@@ -14,6 +14,20 @@ final feedTimeSelected = TextStyle(
   color: Colors.black.withOpacity(0.7),
   decoration: TextDecoration.lineThrough,
 );
+
+//loginScreen
+final loginButtonStyle = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all(
+    Colors.lightGreen.withOpacity(0.5),
+  ),
+  foregroundColor: MaterialStateProperty.all(
+    Colors.yellow,
+  ),
+);
+final loginTextStyle = TextStyle(
+  fontSize: 12.0,
+  fontStyle: FontStyle.italic,
+);
 //Function
 String dateFormatting(DateTime dates){
   return DateFormat.y().add_Md().add_Hm().format(dates);
