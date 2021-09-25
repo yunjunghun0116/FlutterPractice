@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import '../uploadFirebase/upload_firebase_firestore.dart';
 import '../controller/pet_controller.dart';
 import 'constants.dart';
 
@@ -13,6 +14,7 @@ class FeedTimeBottomSheet extends StatefulWidget {
 
 class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
   PetController? controller = Get.put(PetController());
+  UploadFirebaseStore _firebaseStore = UploadFirebaseStore();
 
   int feedMountPercent = 50;
   DateTime feedTime = DateTime.now();
@@ -94,7 +96,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
           backgroundColor:
               MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
         ),
-        onPressed: () async{
+        onPressed: () async {
           DateTime nextFeedTime = feedTime.add(
             Duration(hours: 9),
           );
@@ -103,11 +105,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
             'futureTime': nextFeedTime,
             'isFinished': false,
           };
-          await FirebaseFirestore.instance
-              .collection(controller!.petId)
-              .doc('feedTime')
-              .collection('time')
-              .add(body);
+          await _firebaseStore.uploadFeedTime(controller!.petId, body);
           Get.back();
         },
         child: Text('식사시간추가하기'),

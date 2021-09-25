@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../controller/pet_controller.dart';
 import '../controller/place_controller.dart';
 import '../uploadFirebase/upload_firebase_storage.dart';
+import '../uploadFirebase/upload_firebase_firestore.dart';
 
 import 'constants.dart';
 
@@ -34,6 +35,8 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
   List<XFile> _imageFiles = [];
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
+
+  UploadFirebaseStorage _firebaseStorage = UploadFirebaseStorage();
 
   Widget _dateSettings() {
     return Container(
@@ -331,7 +334,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
               List<String> path = [];
               if (_imageFiles.isNotEmpty) {
                 for (int i = 0; i < _imageFiles.length; i++) {
-                  Future<String> downloadUrl = UploadFirebaseStorage()
+                  Future<String> downloadUrl = _firebaseStorage
                       .uploadFile("images/${petController.petId}",
                           File(_imageFiles[i].path));
                   path.add(await downloadUrl);
