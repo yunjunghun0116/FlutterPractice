@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 //Style
 final feedTimeTextStyle = TextStyle(
   fontSize: 12.0,
@@ -13,6 +12,10 @@ final feedTimeSelected = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.black.withOpacity(0.7),
   decoration: TextDecoration.lineThrough,
+);
+
+final greenButtonStyle = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
 );
 
 //loginScreen
@@ -29,7 +32,9 @@ final loginTextStyle = TextStyle(
   fontStyle: FontStyle.italic,
 );
 //Function
-String dateFormatting(DateTime dates){
+String dateFormatting(DateTime dates) {
   return DateFormat.y().add_Md().add_Hm().format(dates);
 }
-
+String dateFormattingWithYearAndMd(DateTime dates) {
+  return DateFormat.y().add_Md().format(dates);
+}

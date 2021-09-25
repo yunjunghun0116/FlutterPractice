@@ -4,10 +4,11 @@ class PetMoment {
   String id;
   String imageUrl;
   String date;
+  String place;
   String comment;
 
   PetMoment(
-      {required this.id,required this.imageUrl, required this.date, required this.comment});
+      {required this.id,required this.imageUrl, required this.date, required this.place,required this.comment});
 
   void changeComment(String s){
     this.comment = s;
@@ -16,5 +17,6 @@ class PetMoment {
 
   String get momentImageUrl => imageUrl;
   String get momentDate => date;
+  String get momentPlace => place;
   String get momentComment => comment;
 }
