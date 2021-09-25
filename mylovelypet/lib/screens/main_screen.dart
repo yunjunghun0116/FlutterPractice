@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(100, (index) {
+            //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식, 여기서는 피드타임모델이 필요
             return FeedTimeComponent(
                 index, '$index일 1시 2분', '$index일 9시 2분', false);
           }),
@@ -53,6 +54,7 @@ class _MainScreenState extends State<MainScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: List.generate(30, (index) {
+            //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식
             return GestureDetector(
               onTap: () {
                 Get.toNamed('/detail/$index', arguments: {

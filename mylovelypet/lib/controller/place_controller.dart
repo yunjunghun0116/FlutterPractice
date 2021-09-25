@@ -6,12 +6,6 @@ class PlaceController extends GetxController {
   RxList<dynamic> _placeList = [].obs;
   RxInt _currentPage = 1.obs;
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
-
   Future<void> getList(String placeName)async{
     ApiConnect _connection = ApiConnect();
     var newLists = await _connection.getPlaceList(placeName, _currentPage.value);

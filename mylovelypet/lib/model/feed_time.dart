@@ -1,15 +1,17 @@
 class FeedTime {
   String id;
-  String date;
+  String previousTime;
+  String futureTime;
+  bool isFinished;
 
   FeedTime({
     required this.id,
-    required this.date,
+    required this.previousTime,
+    required this.futureTime,
+    required this.isFinished
   });
-  String _nextDate() {
-    return this.date + '다음';
-  }
 
-  String get momentDate => this.date;
-  String get nextDate => _nextDate();
+  String get feedPreviousTime => this.previousTime;
+  String get feedFutureTime => this.futureTime;
+  bool get feedIsFinished => this.isFinished;
 }

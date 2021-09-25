@@ -106,7 +106,6 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
         children: [
           ElevatedButton(
             style: greenButtonStyle,
-            //TODO 이미지추가하는 함수 구현하기
             onPressed: () async {
               XFile? image =
                   await _picker.pickImage(source: ImageSource.gallery);
@@ -129,7 +128,6 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
         children: [
           ElevatedButton(
             style: greenButtonStyle,
-            //TODO 이미지추가하는 함수 구현하기
             onPressed: () {
               setState(() {
                 isCommentAdd = !isCommentAdd;
@@ -320,7 +318,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       ],
     );
   }
-
+  //TODO upload부분 조금더 깔끔하게
   Widget _uploadMoment() {
     return Container(
       child: Column(

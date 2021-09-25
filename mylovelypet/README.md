@@ -10,7 +10,6 @@
 
 
 #### 라이브러리폴더내의 기능
-- [ ] model : pet_moment 모델 -> 강아지의 이미지와 date와 설명을 가지고있다
 - [V] controller : 애완동물의 정보(pet_controller) : uid -> collection에 저장하기위해, displayName: 이름
 - [V] screens : 메인홈페이지(밥준시간 -> 밥먹을시간,사진들(singlechildscrollview)
 - [V] components : bottomsheet -> 밥준시간을 기록할 수 있도록/회원가입/로그인
