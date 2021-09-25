@@ -1,13 +1,13 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mypetmoments/controller/pet_controller.dart';
-import 'package:mypetmoments/controller/place_controller.dart';
+
+import '../controller/pet_controller.dart';
+import '../controller/place_controller.dart';
+import '../uploadFirebase/upload_firebase_storage.dart';
 
 import 'constants.dart';
 
@@ -19,9 +19,6 @@ class MomentUploadBottomSheet extends StatefulWidget {
 }
 
 class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
-
-  FirebaseStorage _storage = FirebaseStorage.instance;
-
   final petController = Get.put(PetController());
   final controller = Get.put(PlaceController());
   DateTime momentTime = DateTime.now();
@@ -226,7 +223,6 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
     );
   }
 
-//TODO 공공api를 가져와서 화면에 출력해주고 선택할경우에 그 값을 리턴해주고 그 리턴된값을 띄우는형식
   Widget _findLocation() {
     if (isLocationFind) {
       return Positioned(
@@ -332,16 +328,14 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
               setState(() {
                 isUploading = !isUploading;
               });
-              List<Future<String>> path = [];
+              List<String> path = [];
               if (_imageFiles.isNotEmpty) {
-                Reference _fileReference =
-                    _storage.ref().child("${petController.petId}/images");
-                _imageFiles.map((element) async {
-                  var response =
-                      await _fileReference.putFile(File(element.path));
-                  Future<String> downloadUrl = response.ref.getDownloadURL();
-                  path.add(downloadUrl);
-                });
+                for (int i = 0; i < _imageFiles.length; i++) {
+                  Future<String> downloadUrl = UploadFirebaseStorage()
+                      .uploadFile("images/${petController.petId}",
+                          File(_imageFiles[i].path));
+                  path.add(await downloadUrl);
+                }
               }
 
               String togetherDate = dateFormattingWithYearAndMd(momentTime);
@@ -367,7 +361,9 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
 
   Widget _mainSheet() {
     if (isUploading) {
-      return CircularProgressIndicator();
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     } else {
       return Stack(
         children: [

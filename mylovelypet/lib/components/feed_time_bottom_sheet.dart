@@ -101,6 +101,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
           var body = {
             'previousTime': feedTime,
             'futureTime': nextFeedTime,
+            'isFinished': false,
           };
           await FirebaseFirestore.instance
               .collection(controller!.petId)
