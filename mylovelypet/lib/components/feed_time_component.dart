@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'constants.dart';
 
 class FeedTimeComponent extends StatefulWidget {
-  final int index;
-  final String feedDate;
-  final String feedNextDate;
+  String petId;
+  String id;
+  String feedPrevDate;
+  String feedNextDate;
   bool isFinished;
-  FeedTimeComponent(
-      this.index, this.feedDate, this.feedNextDate, this.isFinished);
+  FeedTimeComponent(this.petId, this.id, this.feedPrevDate, this.feedNextDate,
+      this.isFinished);
 
   @override
   State<FeedTimeComponent> createState() => _FeedTimeComponentState();
@@ -20,10 +23,15 @@ class _FeedTimeComponentState extends State<FeedTimeComponent> {
         height: 30,
         child: Checkbox(
           value: widget.isFinished,
-          onChanged: (value) {
+          onChanged: (value)async {
+            await FirebaseFirestore.instance
+                .collection(widget.petId)
+                .doc('feedTime')
+                .collection('time')
+                .doc(widget.id)
+                .update({'isFinished': true});
             setState(() {
-              //TODO 제대로 연결된 후에는 여기서 바꿔주는것이 아닌 서버에 바꾸라 요청해줄것임
-              widget.isFinished = value!;
+              widget.isFinished = true;
             });
           },
         ),
@@ -43,13 +51,13 @@ class _FeedTimeComponentState extends State<FeedTimeComponent> {
         ),
         Expanded(
           child: Text(
-            widget.feedDate,
+            dateFormattingWithMdh(widget.feedPrevDate) ,
             style: feedTimeTextStyle,
           ),
         ),
         Expanded(
           child: Text(
-            widget.feedNextDate,
+            dateFormattingWithMdh(widget.feedNextDate) ,
             style: widget.isFinished ? feedTimeSelected : feedTimeTextStyle,
           ),
         ),

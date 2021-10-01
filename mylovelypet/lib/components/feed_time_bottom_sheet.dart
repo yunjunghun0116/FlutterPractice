@@ -101,8 +101,8 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
             Duration(hours: 9),
           );
           var body = {
-            'previousTime': feedTime,
-            'futureTime': nextFeedTime,
+            'previousTime': '$feedTime',
+            'futureTime': '$nextFeedTime',
             'isFinished': false,
           };
           await _firebaseStore.uploadFeedTime(controller!.petId, body);

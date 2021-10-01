@@ -38,3 +38,7 @@ String dateFormatting(DateTime dates) {
 String dateFormattingWithYearAndMd(DateTime dates) {
   return DateFormat.y().add_Md().format(dates);
 }
+String dateFormattingWithMdh(String dates){
+  DateTime parsedDate = DateTime.parse(dates);
+  return DateFormat.Md().add_Hm().format(parsedDate);
+}

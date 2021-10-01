@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mypetmoments/controller/pet_controller.dart';
+import 'package:mypetmoments/controller/feed_time_controller.dart';
+import 'package:mypetmoments/model/feed_time.dart';
+import '../controller/pet_controller.dart';
 import '../components/feed_time_bottom_sheet.dart';
 import '../components/moment_upload_bottom_sheet.dart';
 import '../components/pet_image_component.dart';
@@ -14,38 +16,49 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final petNameController = TextEditingController();
-  PetController? controller = Get.put(PetController());
+  PetController controller = Get.put(PetController());
+  FeedTimeController feedTimeController = Get.put(FeedTimeController());
 
-  String _petName = '';
+  String _petName = 'Pet';
 
   @override
-  initState() {
+  initState(){
     super.initState();
-    _petName = controller!.petName;
+    _petName = controller.petName;
+    feedTimeController.getFeedTimes(controller.petId);
   }
 
   Widget _feedTimeArea() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: Colors.grey.withOpacity(0.7),
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: List.generate(100, (index) {
-            //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식, 여기서는 피드타임모델이 필요
-            return FeedTimeComponent(
-                index, '$index일 1시 2분', '$index일 9시 2분', false);
-          }),
-        ),
-      ),
+      child: Obx((){
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: List.generate(feedTimeController.feedTimes.length, (index){
+              FeedTime data = feedTimeController.feedTimes[index];
+              return FeedTimeComponent(
+                controller.petId,data.id,data.previousTime,data.futureTime,data.isFinished
+              );
+            }),
+            // children: List.generate(100, (index) {
+            //   //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식, 여기서는 피드타임모델이 필요
+            //   return FeedTimeComponent(
+            //       index, '$index일 1시 2분', '$index일 9시 2분', false);
+            // }),
+          ),
+        );
+      }),
     );
   }
 
   Widget _petImageArea() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.0),
+      margin: EdgeInsets.all(20),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -77,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _addArea() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.0),
+      margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -171,7 +184,7 @@ class _MainScreenState extends State<MainScreen> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  controller!.changePetName(petNameController.text);
+                  controller.changePetName(petNameController.text);
                   _petName = petNameController.text;
                 });
               },

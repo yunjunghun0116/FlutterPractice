@@ -10,15 +10,19 @@ class StartScreen extends StatelessWidget {
       future: _initialization,
       builder: (context, snapshot) {
         if(snapshot.hasError){
-          return Center(
-            child: Text('네트워크 확인후 다시접속해주세요...'),
+          return Scaffold(
+            body: Center(
+              child: Text('네트워크 확인후 다시접속해주세요...'),
+            ),
           );
         }
         if(snapshot.connectionState == ConnectionState.done){
           return HomeScreen();
         }
-        return Center(
-          child: Text('연결중입니다...'),
+        return Scaffold(
+          body: Center(
+            child: Text('연결중입니다...'),
+          ),
         );
       },
     );

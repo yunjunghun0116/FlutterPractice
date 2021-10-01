@@ -11,6 +11,7 @@ class FeedTime {
     required this.isFinished
   });
 
+  String get feedId => this.id;
   String get feedPreviousTime => this.previousTime;
   String get feedFutureTime => this.futureTime;
   bool get feedIsFinished => this.isFinished;

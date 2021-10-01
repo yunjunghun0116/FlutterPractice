@@ -7,7 +7,7 @@ class PetController extends GetxController {
 
   @override
   void onInit() {
-    petData = FirebaseAuth.instance.currentUser!;
+    petData = FirebaseAuth.instance.currentUser;
     super.onInit();
   }
 
