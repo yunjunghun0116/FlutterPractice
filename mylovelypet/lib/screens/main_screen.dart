@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mypetmoments/controller/feed_time_controller.dart';
-import 'package:mypetmoments/model/feed_time.dart';
+import 'package:mypetmoments/components/constants.dart';
 import '../controller/pet_controller.dart';
 import '../components/feed_time_bottom_sheet.dart';
 import '../components/moment_upload_bottom_sheet.dart';
@@ -17,80 +17,107 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final petNameController = TextEditingController();
   PetController controller = Get.put(PetController());
-  FeedTimeController feedTimeController = Get.put(FeedTimeController());
 
   String _petName = 'Pet';
 
   @override
-  initState(){
+  initState() {
     super.initState();
     _petName = controller.petName;
-    feedTimeController.getFeedTimes(controller.petId);
   }
 
   Widget _feedTimeArea() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: Colors.grey.withOpacity(0.7),
-      ),
-      child: Obx((){
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(feedTimeController.feedTimes.length, (index){
-              FeedTime data = feedTimeController.feedTimes[index];
-              return FeedTimeComponent(
-                controller.petId,data.id,data.previousTime,data.futureTime,data.isFinished
-              );
-            }),
-            // children: List.generate(100, (index) {
-            //   //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식, 여기서는 피드타임모델이 필요
-            //   return FeedTimeComponent(
-            //       index, '$index일 1시 2분', '$index일 9시 2분', false);
-            // }),
-          ),
-        );
-      }),
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection(controller.petId)
+          .doc('feedTime')
+          .collection('time')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlueAccent,
+            ),
+          );
+        } else {
+          final times = snapshot.data!.docs;
+          List<FeedTimeComponent> timeList = [];
+          for (var time in times) {
+            String id = time.id;
+            String prev = time['previousTime'];
+            String future = time['futureTime'];
+            bool isFinished = time['isFinished'];
+            FeedTimeComponent feedTimeData = FeedTimeComponent(
+                controller.petId, id, prev, future, isFinished);
+            timeList.add(feedTimeData);
+          }
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.grey.withOpacity(0.7),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: timeList,
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
   Widget _petImageArea() {
-    return Container(
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: Colors.grey.withOpacity(0.7),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: List.generate(30, (index) {
-            //TODO 여기서 controller로부터 model을 가져와 모델의 각각의 데이터를 넘겨주는방식
-            return GestureDetector(
-              onTap: () {
-                Get.toNamed('/detail/$index', arguments: {
-                  'imageUrl': 'assets/images/duri.png',
-                  'comment': '여기는 추억에 담긴 내용',
-                  'date': '여기는 추억이 담긴 날짜',
-                });
-              },
-              child: PetImageComponent(
-                'assets/images/duri.png',
-                '여기는 추억에 담긴 내용여기는 추억에 담긴 내용여기는 추억에 담긴 내용여기는 추억에 담긴 내용',
-                '2021 9/23 19:21',
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection(controller.petId)
+            .doc('moment')
+            .collection('moment')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
               ),
             );
-          }),
-        ),
-      ),
-    );
+          } else {
+            final moments = snapshot.data!.docs;
+            List<PetImageComponent> momentList = [];
+            for (var moment in moments) {
+              String id = moment.id;
+              String imageUrl = moment['imageUrl'].length == 0
+                  ? noImageUrl
+                  : moment['imageUrl'][0];
+              String comment = moment['comment'];
+              String date = moment['date'];
+              PetImageComponent momentData =
+                  PetImageComponent(id, imageUrl, comment, date);
+              momentList.add(momentData);
+            }
+            return Container(
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.grey.withOpacity(0.7),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: momentList,
+                ),
+              ),
+            );
+          }
+        });
   }
 
   Widget _addArea() {
     return Container(
-      margin: EdgeInsets.only(left: 20,right: 20,bottom: 10),
+      margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -169,8 +196,9 @@ class _MainScreenState extends State<MainScreen> {
       ],
     );
   }
+
   //displayName이 설정되지 않은경우
-  Widget _setPetNameArea(){
+  Widget _setPetNameArea() {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(30),

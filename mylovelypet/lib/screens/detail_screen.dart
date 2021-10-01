@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mypetmoments/components/constants.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key}) : super(key: key);
@@ -11,14 +12,22 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   var momentData = Get.arguments;
 
-
-  Widget _momentImage(String url){
-    return Container(
-      child: Image.asset(url),
-    );
+  Widget _momentImage(String url) {
+    if(url == noImageUrl){
+      return Container();
+    }
+    else{
+      return Container(
+        child: Center(
+          child: Image.network(
+            url,
+          ),
+        ),
+      );
+    }
   }
 
-  Widget _momentComment(String comment){
+  Widget _momentComment(String comment) {
     return Container(
       child: SingleChildScrollView(
         child: Text(comment),
@@ -28,6 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(momentData);
     return Scaffold(
       appBar: AppBar(),
       body: Container(

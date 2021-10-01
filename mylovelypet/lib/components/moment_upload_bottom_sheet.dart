@@ -318,6 +318,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       ],
     );
   }
+
   //TODO upload부분 조금더 깔끔하게
   Widget _uploadMoment() {
     return Container(
@@ -332,13 +333,12 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
               List<String> path = [];
               if (_imageFiles.isNotEmpty) {
                 for (int i = 0; i < _imageFiles.length; i++) {
-                  Future<String> downloadUrl = _firebaseStorage
-                      .uploadFile("images/${petController.petId}",
-                          File(_imageFiles[i].path));
+                  Future<String> downloadUrl = _firebaseStorage.uploadFile(
+                      "images/${petController.petId}",
+                      File(_imageFiles[i].path));
                   path.add(await downloadUrl);
                 }
               }
-
               String togetherDate = dateFormattingWithYearAndMd(momentTime);
               var body = {
                 'date': togetherDate,
@@ -349,7 +349,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
               await FirebaseFirestore.instance
                   .collection(petController.petId)
                   .doc('moment')
-                  .collection('${momentTime}_${DateTime.now()}')
+                  .collection('moment')
                   .add(body);
               Get.back();
             },

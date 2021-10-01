@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+
+const noImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/260px-Noimage.svg.png';
 //Style
 final feedTimeTextStyle = TextStyle(
   fontSize: 12.0,
@@ -42,3 +44,5 @@ String dateFormattingWithMdh(String dates){
   DateTime parsedDate = DateTime.parse(dates);
   return DateFormat.Md().add_Hm().format(parsedDate);
 }
+
+

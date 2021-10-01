@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PetImageComponent extends StatefulWidget {
+  final String id;
   final String imageUrl;
   final String comment;
-  final String momentTime;
+  final String date;
 
-  PetImageComponent(this.imageUrl, this.comment, this.momentTime);
+  PetImageComponent(this.id, this.imageUrl, this.comment, this.date);
 
   @override
   State<PetImageComponent> createState() => _PetImageComponentState();
@@ -14,35 +16,46 @@ class PetImageComponent extends StatefulWidget {
 class _PetImageComponentState extends State<PetImageComponent> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Image.asset(
-              widget.imageUrl,
-              width: 100,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed('/detail/${widget.id}', arguments: {
+          'imageUrl': widget.imageUrl,
+          'comment': widget.comment,
+          'date': widget.date,
+        });
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
+          children: [
+            Container(
+              child: Image.network(
+                widget.imageUrl,
+                width: 100,
+                height: 100,
+              ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 150,
-                child: Text(
-                  widget.comment,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '내용 : ${widget.comment}',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
-              ),
-              SizedBox(height: 10,),
-              Text('일시 : ${widget.momentTime}'),
-            ],
-          ),
-        ],
+                Container(
+                  height: 10,
+                  margin: EdgeInsets.only(bottom: 10),
+                ),
+                Text(
+                  '일시 : ${widget.date}',
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
