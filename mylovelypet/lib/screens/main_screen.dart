@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mypetmoments/components/constants.dart';
@@ -32,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
           .collection(controller.petId)
           .doc('feedTime')
           .collection('time')
+          .orderBy('previousTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -42,7 +44,23 @@ class _MainScreenState extends State<MainScreen> {
           );
         } else {
           final times = snapshot.data!.docs;
-          List<FeedTimeComponent> timeList = [];
+          List<Widget> timeList = [
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: mainTitleText('밥줘야하는시간'),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: mainTitleText('체크'),
+                  ),
+                ],
+              ),
+            ),
+          ];
           for (var time in times) {
             String id = time.id;
             String prev = time['previousTime'];
@@ -76,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
             .collection(controller.petId)
             .doc('moment')
             .collection('moment')
+            .orderBy('timeStamp')
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -86,7 +105,20 @@ class _MainScreenState extends State<MainScreen> {
             );
           } else {
             final moments = snapshot.data!.docs;
-            List<PetImageComponent> momentList = [];
+            List<Widget> momentList = [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: mainTitleText('이미지'),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: mainTitleText('추억'),
+                  ),
+                ],
+              ),
+            ];
             for (var moment in moments) {
               String id = moment.id;
               String imageUrl = moment['imageUrl'].length == 0
@@ -107,6 +139,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: momentList,
                 ),
               ),

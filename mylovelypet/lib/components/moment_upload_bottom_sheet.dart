@@ -345,6 +345,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
                 'imageUrl': path,
                 'place': selectedLocation,
                 'comment': comments,
+                'timeStamp': momentTime,
               };
               await FirebaseFirestore.instance
                   .collection(petController.petId)

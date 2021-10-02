@@ -12,6 +12,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   var momentData = Get.arguments;
 
+
   Widget _momentImage(String url) {
     if(url == noImageUrl){
       return Container();

@@ -16,13 +16,19 @@ class FeedTimeComponent extends StatefulWidget {
 }
 
 class _FeedTimeComponentState extends State<FeedTimeComponent> {
-  Widget isFinishedCheckbox(bool finish) {
-    if (!finish) {
-      return Container(
-        height: 30,
-        child: Checkbox(
-          value: widget.isFinished,
-          onChanged: (value)async {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 20),
+      child: CheckboxListTile(
+        title: Text(
+          dateFormattingWithMdh(widget.feedNextDate),
+          style: widget.isFinished ? feedTimeSelected : feedTimeTextStyle,
+        ),
+        secondary: Icon(Icons.food_bank),
+        value: widget.isFinished,
+        onChanged: (value) async{
+          if(widget.isFinished){
             await FirebaseFirestore.instance
                 .collection(widget.petId)
                 .doc('feedTime')
@@ -32,43 +38,9 @@ class _FeedTimeComponentState extends State<FeedTimeComponent> {
             setState(() {
               widget.isFinished = true;
             });
-          },
-        ),
-      );
-    }
-    return Container(
-      height: 30,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 30,
-        ),
-        Expanded(
-          child: Text(
-            dateFormattingWithMdh(widget.feedPrevDate) ,
-            style: feedTimeTextStyle,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            dateFormattingWithMdh(widget.feedNextDate) ,
-            style: widget.isFinished ? feedTimeSelected : feedTimeTextStyle,
-          ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isFinishedCheckbox(widget.isFinished),
-            ],
-          ),
-        )
-      ],
+          }
+        },
+      ),
     );
   }
 }
