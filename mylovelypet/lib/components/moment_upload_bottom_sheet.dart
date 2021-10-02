@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import '../controller/pet_controller.dart';
 import '../controller/place_controller.dart';
 import '../uploadFirebase/upload_firebase_storage.dart';
-import '../uploadFirebase/upload_firebase_firestore.dart';
 
 import 'constants.dart';
 

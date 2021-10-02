@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mypetmoments/components/login_bottom_sheet.dart';
-import 'package:mypetmoments/components/register_bottom_sheet.dart';
+import '../components/login_bottom_sheet.dart';
+import '../components/register_bottom_sheet.dart';
 import '../components/constants.dart';
 
 class LoginScreen extends StatelessWidget {

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class FeedTimeComponent extends StatefulWidget {
-  String petId;
-  String id;
-  String feedPrevDate;
-  String feedNextDate;
-  bool isFinished;
+  final String petId;
+  final String id;
+  final String feedPrevDate;
+  final String feedNextDate;
+  final bool isFinished;
   FeedTimeComponent(this.petId, this.id, this.feedPrevDate, this.feedNextDate,
       this.isFinished);
 
@@ -18,6 +18,7 @@ class FeedTimeComponent extends StatefulWidget {
 class _FeedTimeComponentState extends State<FeedTimeComponent> {
   @override
   Widget build(BuildContext context) {
+    bool isFinished = widget.isFinished;
     return Container(
       margin: EdgeInsets.only(right: 20),
       child: CheckboxListTile(
@@ -26,9 +27,9 @@ class _FeedTimeComponentState extends State<FeedTimeComponent> {
           style: widget.isFinished ? feedTimeSelected : feedTimeTextStyle,
         ),
         secondary: Icon(Icons.food_bank),
-        value: widget.isFinished,
+        value: isFinished,
         onChanged: (value) async{
-          if(widget.isFinished){
+          if(!widget.isFinished){
             await FirebaseFirestore.instance
                 .collection(widget.petId)
                 .doc('feedTime')
@@ -36,7 +37,7 @@ class _FeedTimeComponentState extends State<FeedTimeComponent> {
                 .doc(widget.id)
                 .update({'isFinished': true});
             setState(() {
-              widget.isFinished = true;
+             isFinished = true;
             });
           }
         },
