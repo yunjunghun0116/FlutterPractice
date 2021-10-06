@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'constants.dart';
+import '../../../components/constants.dart';
 
 class LoginBottomSheet extends StatelessWidget {
   @override
@@ -89,9 +89,16 @@ class LoginBottomSheet extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
+    return
+      Container(
+        height: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          color: basicColor,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -101,7 +108,7 @@ class LoginBottomSheet extends StatelessWidget {
             _loginButton(),
           ],
         ),
-      ),
+
     );
   }
 }

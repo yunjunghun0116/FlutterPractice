@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'screens/main_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/detail_screen.dart';
-import 'screens/start_screen.dart';
+import 'screens/mainScreen/main_screen.dart';
+import 'screens/homeScreen/home_screen.dart';
+import 'screens/detailScreen/detail_screen.dart';
+import 'screens/startScreen/start_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'MyLovelyPet',
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-        primaryColor: Colors.black,
-      ),
+      theme: ThemeData.dark(),
       initialRoute: '/',
       getPages: [
         GetPage(

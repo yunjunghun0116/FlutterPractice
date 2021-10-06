@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mypetmoments/controller/api_connect.dart';
+import 'api_connect.dart';
 
 class PlaceController extends GetxController {
   static PlaceController get to => Get.find();

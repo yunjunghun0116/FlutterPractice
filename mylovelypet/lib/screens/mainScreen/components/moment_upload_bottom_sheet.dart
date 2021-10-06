@@ -1,18 +1,17 @@
-import 'dart:io';
+import 'dart:io'; //File 사용
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../controller/pet_controller.dart';
-import '../controller/place_controller.dart';
-import '../uploadFirebase/upload_firebase_storage.dart';
-
-import 'constants.dart';
+import '../../../../../controller/pet_controller.dart';
+import '../../../../../controller/place_controller.dart';
+import '../../../../../uploadFirebase/upload_firebase_storage.dart';
+import '../../../../../components/constants.dart';
 
 class MomentUploadBottomSheet extends StatefulWidget {
-  //시간 장소 이미지 코멘트
   @override
   _MomentUploadBottomSheetState createState() =>
       _MomentUploadBottomSheetState();
@@ -43,10 +42,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       child: Column(
         children: [
           ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
-            ),
+            style: whiteButtonStyle,
             onPressed: () {
               DatePicker.showDateTimePicker(
                 context,
@@ -104,7 +100,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       child: Column(
         children: [
           ElevatedButton(
-            style: greenButtonStyle,
+            style: whiteButtonStyle,
             onPressed: () async {
               XFile? image =
                   await _picker.pickImage(source: ImageSource.gallery);
@@ -114,7 +110,13 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
                 _imageFiles.add(_image!);
               });
             },
-            child: Text('이미지 추가하기'),
+            child: Container(
+              width: 100,
+              child: Text(
+                '이미지 추가하기',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
@@ -126,13 +128,19 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       child: Column(
         children: [
           ElevatedButton(
-            style: greenButtonStyle,
+            style: whiteButtonStyle,
             onPressed: () {
               setState(() {
                 isCommentAdd = !isCommentAdd;
               });
             },
-            child: Text('내용 입력하기'),
+            child: Container(
+              width: 100,
+              child: Text(
+                '내용 입력하기',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
@@ -158,7 +166,12 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
                 onPressed: () async {
                   await controller.getList(placeController.text);
                 },
-                child: Text('검색하기'),
+                child: Container(
+                  child: Text(
+                    '검색하기',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),
@@ -171,7 +184,6 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
   Widget _findResultArea() {
     return Obx(() {
       return Container(
-        color: Colors.grey,
         child: SingleChildScrollView(
           child: Column(
             children: controller.placeList.map((element) {
@@ -229,21 +241,29 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
         child: Container(
           margin: EdgeInsets.all(30),
           height: 400,
-          color: Colors.grey,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            color: Colors.blueGrey,
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: _findWithApi(),
               ),
               ElevatedButton(
-                style: greenButtonStyle,
+                style: whiteButtonStyle,
                 onPressed: () {
                   setState(() {
                     isLocationFind = !isLocationFind;
                   });
                 },
-                child: Text('선택완료'),
+                child: Container(
+                  width: 100,
+                  child: Text(
+                    '선택 완료',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
@@ -260,36 +280,69 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
         child: Container(
           margin: EdgeInsets.all(30),
           height: 400,
-          color: Colors.grey,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            color: Colors.blueGrey,
+          ),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
                   child: Column(
                     children: [
-                      Text('추억에 대한 설명 작성하기'),
-                      TextField(
-                        keyboardType: TextInputType.text,
-                        controller: commentController,
-                        onChanged: (value) {
-                          setState(() {
-                            comments = value;
-                          });
-                        },
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        child: Text(
+                          '추억',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      Text(comments),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        child: TextField(
+                          keyboardType: TextInputType.text,
+                          controller: commentController,
+                          decoration: InputDecoration(
+                            hintText: '추억에 대한 설명을 적어주세요~',
+                          ),
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            setState(() {
+                              comments = value;
+                            });
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    comments,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 10,
+                  ),
+                ),
                 ElevatedButton(
-                  style: greenButtonStyle,
+                  style: whiteButtonStyle,
                   onPressed: () {
                     setState(() {
                       isCommentAdd = !isCommentAdd;
                     });
                   },
-                  child: Text('작성완료'),
+                  child: Container(
+                    width: 100,
+                    child: Text(
+                      '작성완료',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -306,25 +359,30 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
       children: [
         Text(selectedLocation),
         ElevatedButton(
-          style: greenButtonStyle,
+          style: whiteButtonStyle,
           onPressed: () {
             setState(() {
               isLocationFind = !isLocationFind;
             });
           },
-          child: Text('지역설정하기'),
+          child: Container(
+            width: 100,
+            child: Text(
+              '지역설정하기',
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
       ],
     );
   }
 
-  //TODO upload부분 조금더 깔끔하게
   Widget _uploadMoment() {
     return Container(
       child: Column(
         children: [
           ElevatedButton(
-            style: greenButtonStyle,
+            style: whiteButtonStyle,
             onPressed: () async {
               setState(() {
                 isUploading = !isUploading;
@@ -353,20 +411,30 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
                   .add(body);
               Get.back();
             },
-            child: Text('추억 저장하기'),
+            child: Container(
+              width: 100,
+              child: Text(
+                '추억 저장하기',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _mainSheet() {
-    if (isUploading) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      return Stack(
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        color: basicColor,
+      ),
+      child: Stack(
         children: [
           SingleChildScrollView(
             child: Container(
@@ -398,15 +466,7 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
           _findLocation(),
           _commentWriteArea(),
         ],
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: _mainSheet(),
+      ),
     );
   }
 }

@@ -11,7 +11,7 @@ class PetController extends GetxController {
     super.onInit();
   }
 
-  String get petName => petData!.displayName!;
+  String get petName => petData!.displayName ?? 'Pet';
   String get petId => petData!.uid;
 
   void changePetName(String newName) async {

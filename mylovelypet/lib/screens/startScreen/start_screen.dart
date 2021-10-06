@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import '../homeScreen/home_screen.dart';
 
 class StartScreen extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();

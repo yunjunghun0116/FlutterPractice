@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import '../uploadFirebase/upload_firebase_firestore.dart';
-import '../controller/pet_controller.dart';
-import 'constants.dart';
+import '../../../../../uploadFirebase/upload_firebase_firestore.dart';
+import '../../../../../controller/pet_controller.dart';
+import '../../../../../components/constants.dart';
 
 class FeedTimeBottomSheet extends StatefulWidget {
   //시각 횟수 양
@@ -25,10 +25,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
       child: Column(
         children: [
           ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
-            ),
+            style: whiteButtonStyle,
             onPressed: () {
               DatePicker.showDateTimePicker(
                 context,
@@ -73,7 +70,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
             value: feedMountPercent.toDouble(),
             min: 0.0,
             max: 100.0,
-            activeColor: Colors.green.withOpacity(0.3),
+            activeColor: Colors.white.withOpacity(0.5),
             inactiveColor: Colors.grey.withOpacity(0.3),
             onChanged: (double newValue) {
               setState(() {
@@ -91,10 +88,7 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
-        ),
+        style: whiteButtonStyle,
         onPressed: () async {
           DateTime nextFeedTime = feedTime.add(
             Duration(hours: 9),
@@ -114,22 +108,22 @@ class _FeedTimeBottomSheetState extends State<FeedTimeBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(20.0),
-        topRight: Radius.circular(20.0),
-      ),
-      child: Container(
-        height: 300,
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _dateSettings(),
-            _feedPercentSettings(),
-            _feedButton(),
-          ],
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
+        color: basicColor,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _dateSettings(),
+          _feedPercentSettings(),
+          _feedButton(),
+        ],
       ),
     );
   }

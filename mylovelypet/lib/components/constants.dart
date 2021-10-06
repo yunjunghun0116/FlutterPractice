@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 
 const noImageUrl =
     'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Noimage.svg/260px-Noimage.svg.png';
+
+const basicColor = Color(0xff21254A);
+
 //Style
 final feedTimeTextStyle = TextStyle(
   fontSize: 20.0,
@@ -18,17 +21,15 @@ final feedTimeSelected = TextStyle(
   decoration: TextDecoration.lineThrough,
 );
 
-final greenButtonStyle = ButtonStyle(
-  backgroundColor: MaterialStateProperty.all(Colors.green.withOpacity(0.3)),
+final whiteButtonStyle = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all(Colors.white.withOpacity(0.5)),
+  elevation: MaterialStateProperty.all(5),
 );
 
 //loginScreen
 final loginButtonStyle = ButtonStyle(
   backgroundColor: MaterialStateProperty.all(
-    Colors.lightGreen.withOpacity(0.5),
-  ),
-  foregroundColor: MaterialStateProperty.all(
-    Colors.yellow,
+    Colors.purpleAccent,
   ),
 );
 final loginTextStyle = TextStyle(
