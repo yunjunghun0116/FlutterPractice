@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/delete_bottom_sheet.dart';
@@ -11,12 +12,21 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  var momentData;
+
+  String petId = '';
+  String momentId = '';
+  String imageUrl = '';
+  String comment = '';
+  String date = '';
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    momentData = Get.arguments;
+    var momentData = Get.arguments;
+    petId = momentData['petId'];
+    momentId = momentData['id'];
+    imageUrl = momentData['imageUrl'];
+    comment = momentData['comment'];
+    date = momentData['date'];
   }
 
   Widget _momentImage(double height, String url) {
@@ -47,7 +57,10 @@ class _DetailScreenState extends State<DetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('추억에 대한 내용'),
+            Text('추억에 대한 설명',style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),),
             SizedBox(
               height: 20,
             ),
@@ -59,8 +72,6 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _momentEditArea() {
-    String petId = momentData['petId'];
-    String momentId = momentData['id'];
     return Container(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -72,7 +83,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   MaterialStateProperty.all(Colors.green.withOpacity(0.5)),
             ),
             //TODO 수정하기 기능 추가하기.
-            onPressed: () {},
+            onPressed: () {
+              //TODO 버튼클릭시 bottomSheet 올려준후에
+              //TODO 바텀시트에서 설명 수정할 수 있도록 기능추
+            },
             child: Container(
               width: 100,
               child: Text(
@@ -105,7 +119,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    print(momentData);
     return Scaffold(
       backgroundColor: basicColor,
       body: Stack(
@@ -113,8 +126,8 @@ class _DetailScreenState extends State<DetailScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _momentImage(height, momentData['imageUrl']),
-              _momentComment(momentData['comment']),
+              _momentImage(height, imageUrl),
+              _momentComment(comment),
               Spacer(),
               _momentEditArea(),
             ],

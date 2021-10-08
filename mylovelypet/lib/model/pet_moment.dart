@@ -12,7 +12,6 @@ class PetMoment {
 
   void changeComment(String s){
     this.comment = s;
-    //TODO 변경된 comment를 새로 저장해주는 방식
   }
 
   String get momentImageUrl => imageUrl;
