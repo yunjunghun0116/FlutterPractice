@@ -1,6 +1,8 @@
 name: mypetmoments
 description: A new Flutter project.
 
+# 키저장소 비밀번호 : a1041714
+
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
@@ -32,8 +34,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-flutter:
 
+flutter:
   uses-material-design: true
 
   assets:
