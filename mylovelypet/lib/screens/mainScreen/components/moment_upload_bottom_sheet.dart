@@ -295,34 +295,47 @@ class _MomentUploadBottomSheetState extends State<MomentUploadBottomSheet> {
                         child: Text(
                           '추억',
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 30),
-                        child: TextField(
-                          keyboardType: TextInputType.text,
-                          controller: commentController,
-                          decoration: InputDecoration(
-                            hintText: '추억에 대한 설명을 적어주세요~',
-                          ),
-                          maxLines: 3,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            setState(() {
-                              comments = value;
-                            });
-                          },
+                        child: Stack(
+                          children: [
+                            TextField(
+                              keyboardType: TextInputType.text,
+                              controller: commentController,
+                              decoration: InputDecoration(
+                                hintText: '추억',
+                              ),
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              onChanged: (value) {
+                                setState(() {
+                                  comments = value;
+                                });
+                              },
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              child: Icon(
+                                Icons.keyboard,
+                                size: 24,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  margin: EdgeInsets.symmetric(vertical: 10,horizontal: 30),
                   child: Text(
                     comments,
                     overflow: TextOverflow.ellipsis,
