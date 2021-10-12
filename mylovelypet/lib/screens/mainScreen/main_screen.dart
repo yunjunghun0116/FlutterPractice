@@ -15,10 +15,84 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   PetController controller = Get.put(PetController());
+  bool isNameEditing = false;
+  bool isNameChangeFinished = false;
+  String petDisplayName = '';
+  TextEditingController petNameController = TextEditingController();
 
   @override
-  initState() {
+  initState(){
     super.initState();
+    petDisplayName = controller.petName;
+  }
+
+  Widget _isNameChangedArea(){
+    if(isNameChangeFinished){
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('동물 이름'),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  isNameEditing = false;
+                });
+              },
+              icon: Icon(
+                Icons.clear,
+              ),
+            ),
+          ],
+        ),
+        TextField(
+          controller: petNameController,
+          decoration: InputDecoration(hintText: '10자이내 동물이름을 작성하세요~'),
+        ),
+        ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.indigo),
+          ),
+          onPressed: () async {
+            setState(() {
+              isNameChangeFinished = true;
+            });
+            controller.changePetName(petNameController.text);
+            setState(() {
+              isNameEditing = false;
+              isNameChangeFinished = false;
+              petDisplayName = petNameController.text;
+              petNameController.text = '';
+            });
+          },
+          child: Text('이름 수정하기'),
+        ),
+      ],
+    );
+  }
+
+  Widget _isChangeNameArea() {
+    if (isNameEditing) {
+      return Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 30,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.blueGrey,
+        ),
+        height: 200,
+        child: _isNameChangedArea(),
+      );
+    }
+    return Container();
   }
 
   @override
@@ -29,9 +103,20 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'My Lovely ${controller.petName}',
+          'My Lovely ${petDisplayName}',
         ),
         actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isNameEditing = !isNameEditing;
+              });
+            },
+            icon: Icon(
+              Icons.create,
+              color: Colors.black,
+            ),
+          ),
           IconButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
@@ -45,20 +130,25 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: SafeArea(
         child: Container(
-          child: Column(
+          child: Stack(
             children: [
-              Expanded(
-                flex: 3,
-                child: FeedTimeArea(controller.petId),
+              Column(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: FeedTimeArea(controller.petId),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: PetImageArea(controller.petId),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: AddArea(),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 5,
-                child: PetImageArea(controller.petId),
-              ),
-              Expanded(
-                flex: 1,
-                child: AddArea(),
-              ),
+              _isChangeNameArea(),
             ],
           ),
         ),
