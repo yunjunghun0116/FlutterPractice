@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "915959548250",
+    "project_id": "myniceapp-ce4d0",
+    "storage_bucket": "myniceapp-ce4d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915959548250:android:9b5c4d63988d2c508e8b63",
+        "android_client_info": {
+          "package_name": "com.junghun.myniceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915959548250-3g0401cv6jb02rg8vegi0upmevl00ohe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.myniceapp",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "915959548250-rbgkpkan8eacfv3hkuctic7uj4lhv4q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF_JKksjOBvIOmxZ8UbGjTzIgK0vTna4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915959548250-rbgkpkan8eacfv3hkuctic7uj4lhv4q0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "915959548250-2i5ij11qdtk2hj81ekfb65ft0uneiebh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.myniceapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -55,7 +55,9 @@ class _DeleteBottomSheetState extends State<DeleteBottomSheet> {
               ),
               ElevatedButton(
                 style: whiteButtonStyle,
-                onPressed: () {},
+                onPressed: () {
+                  Get.back();
+                },
                 child: Container(
                   child: Text('아니요'),
                 ),
