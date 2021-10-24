@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_library/screens/first_screen.dart';
 import 'package:getx_library/screens/fourth_screen.dart';
+import 'package:getx_library/screens/getx_statement/statement_home_screen.dart';
 import 'package:getx_library/screens/home_screen.dart';
 import 'package:getx_library/screens/second_screen.dart';
 import 'package:getx_library/screens/third_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/second', page: ()=>const SecondScreen()),
         GetPage(name: '/third', page: ()=>const ThirdScreen()),
         GetPage(name: '/fourth/:id', page: ()=>const FourthScreen()),
+        GetPage(name: '/statement', page: ()=>const StatementHomeScreen()),
       ],
     );
   }

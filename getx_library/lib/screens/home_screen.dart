@@ -108,6 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ));
                 },
               ),
+              const Divider(),
+              CustomButton(
+                title: 'GetX StateManagement Screen',
+                onClicked: () {
+                  Get.toNamed('/statement');
+                },
+              ),
             ],
           ),
         ),
