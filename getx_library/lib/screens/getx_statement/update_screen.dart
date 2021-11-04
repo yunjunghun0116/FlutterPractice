@@ -15,7 +15,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('On Update'),
+        title: const Text('On Update test app'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
