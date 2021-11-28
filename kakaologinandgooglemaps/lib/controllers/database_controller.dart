@@ -14,6 +14,10 @@ class DatabaseController extends GetxController {
     update();
   }
 
+  void controllerClear(){
+    _sharedPreferences!.clear();
+  }
+
   void setUserInfo(String userData) async {
     await _sharedPreferences!.setString('userInfo', userData);
   }

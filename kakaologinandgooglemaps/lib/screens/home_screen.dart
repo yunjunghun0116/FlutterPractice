@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kakaologinandgooglemaps/controllers/database_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+  final DatabaseController controller = DatabaseController.to;
+
+
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2),(){
+      Map<String,dynamic>? userInfo = controller.getUserInfo();
+      if(userInfo!=null){
+        Get.toNamed('/google');
+      }else{
+        Get.toNamed('/kakao');
+      }
+
+    });
     return const Scaffold(
       body: Center(
         child: Text('Loading...'),

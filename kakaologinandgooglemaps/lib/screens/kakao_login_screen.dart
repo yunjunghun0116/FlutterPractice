@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:kakaologinandgooglemaps/controllers/database_controller.dart';
 
@@ -24,10 +25,14 @@ class _KakaoLoginScreenState extends State<KakaoLoginScreen> {
     try {
       String authCode = await AuthCodeClient.instance.request();
       Future<OAuthToken> token = AuthApi.instance.issueAccessToken(authCode);
-      TokenManagerProvider manager = TokenManagerProvider.instance;
-      manager.manager.setToken(await token);
-      print('authCode : $authCode');
-      print('token : ${token.then((value) => print(value.scopes))}');
+      TokenManager manager = TokenManagerProvider.instance.manager;
+      (manager.setToken(await token)).then((value) async {
+        //manager에 토큰저장완료했기때문에 유저정보를 가져올수있음
+        User user = await UserApi.instance.me();
+        controller.setUserInfo(jsonEncode(user.kakaoAccount));
+      }).then((value) {
+        Get.toNamed('/google');
+      });
     } on KakaoAuthException catch (e) {
       print(e);
     } on KakaoClientException catch (e) {
@@ -69,7 +74,7 @@ class _KakaoLoginScreenState extends State<KakaoLoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  onTap: ()async{
+                  onTap: () async {
                     User user = await UserApi.instance.me();
                     controller.setUserInfo(jsonEncode(user.kakaoAccount));
                   },
@@ -81,9 +86,9 @@ class _KakaoLoginScreenState extends State<KakaoLoginScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: (){
-                    Map<String,dynamic>? user = controller.getUserInfo();
-                    if(user != null){
+                  onTap: () {
+                    Map<String, dynamic>? user = controller.getUserInfo();
+                    if (user != null) {
                       print(user['email']);
                     }
                   },
@@ -96,7 +101,6 @@ class _KakaoLoginScreenState extends State<KakaoLoginScreen> {
                 ),
               ],
             ),
-
           ],
         ),
       ),

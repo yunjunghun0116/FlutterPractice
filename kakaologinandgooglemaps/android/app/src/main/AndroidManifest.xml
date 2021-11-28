@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kakaologinandgooglemaps">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
         android:label="kakaologinandgooglemaps"
         android:icon="@mipmap/ic_launcher">
@@ -30,6 +33,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <!--TODO 이곳에 카카오정보를 넣기 -->
                 <data android:scheme="kakaoeb012a94bf47a3cf04c493f381e9ec60" android:host="oauth"/>
             </intent-filter>
         </activity>
@@ -38,5 +42,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBvD79Y7m_UW7pzWAnsZsA7-EgKmEKviEA"/>
     </application>
 </manifest>

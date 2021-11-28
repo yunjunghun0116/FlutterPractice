@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:kakaologinandgooglemaps/controllers/database_controller.dart';
+import 'package:kakaologinandgooglemaps/controllers/location_controller.dart';
+import 'package:kakaologinandgooglemaps/screens/google_map_screen.dart';
 import 'package:kakaologinandgooglemaps/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:kakaologinandgooglemaps/screens/kakao_login_screen.dart';
@@ -10,6 +12,8 @@ void main() {
   runApp(const MyApp());
 }
 
+
+//googleapi key : AIzaSyBvD79Y7m_UW7pzWAnsZsA7-EgKmEKviEA
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -18,21 +22,26 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: BindingsBuilder((){
         Get.put(DatabaseController());
+        Get.put(LocationController());
       }),
       debugShowCheckedModeBanner: false,
       title: 'KakaoLoginAndGoogleMaps',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/kakao',
+      initialRoute: '/',
       getPages: [
         GetPage(
           name: '/',
-          page: () => const HomeScreen(),
+          page: () => HomeScreen(),
         ),
         GetPage(
           name: '/kakao',
           page: () => const KakaoLoginScreen(),
+        ),
+        GetPage(
+          name: '/google',
+          page: () => GoogleMapScreen(),
         ),
       ],
     );

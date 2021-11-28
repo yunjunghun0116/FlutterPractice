@@ -52,19 +52,26 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
+    <!-- TODO 카카오 정보로그인 -->
 	<key>LSApplicationQueriesSchemes</key>
     <array>
         <!-- common -->
         <string>kakaoeb012a94bf47a3cf04c493f381e9ec60</string>
-
         <!-- KakaoTalk login -->
         <string>kakaokompassauth</string>
         <string>storykompassauth</string>
-
         <!-- KakaoLink -->
         <string>kakaolink</string>
         <string>kakaotalk-5.9.7</string>
-      </array>
+    </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location when open.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app needs access to location when in the background.</string>
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+      <key>YourPurposeKey</key>
+      <string>The example App requires temporary access to the device&apos;s precise location.</string>
+    </dict>
 </dict>
 </plist>
