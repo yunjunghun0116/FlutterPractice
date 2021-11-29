@@ -25,6 +25,10 @@ dependencies:
   json_serializable: ^6.0.1
   geolocator: ^7.7.1
 
+  flutter_form_builder: ^7.0.0
+  flutter_typeahead: ^3.2.3
+  uuid: ^3.0.5
+
   shared_preferences: ^2.0.9
   get: ^4.3.8
 

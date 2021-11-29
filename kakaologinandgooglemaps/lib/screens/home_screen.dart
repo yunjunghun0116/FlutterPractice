@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2),(){
       Map<String,dynamic>? userInfo = controller.getUserInfo();
       if(userInfo!=null){
-        Get.toNamed('/google');
+        Get.toNamed('/googleauto');
       }else{
         Get.toNamed('/kakao');
       }
