@@ -6,16 +6,17 @@ import 'package:kakaologinandgooglemaps/models/place_detail.dart';
 import 'package:uuid/uuid.dart';
 import '../utils/google_map_services.dart';
 import '../models/place.dart';
+import 'package:geolocator/geolocator.dart';
 
-class PlaceAutoCompleteScreen extends StatefulWidget {
-  const PlaceAutoCompleteScreen({Key? key}) : super(key: key);
+class PlaceWithLocationScreen extends StatefulWidget {
+  const PlaceWithLocationScreen({Key? key}) : super(key: key);
 
   @override
-  State<PlaceAutoCompleteScreen> createState() =>
-      _PlaceAutoCompleteScreenState();
+  State<PlaceWithLocationScreen> createState() =>
+      _PlaceWithLocationScreenState();
 }
 
-class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
+class _PlaceWithLocationScreenState extends State<PlaceWithLocationScreen> {
   final TextEditingController _searchController = TextEditingController();
   var uuid = const Uuid();
   var sessionToken;
@@ -23,21 +24,72 @@ class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
   PlaceDetail? placeDetail;
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = Set();
+  //geolocator때문에 필요한것
+  Position? position;
+  double distance = 0.0;
+  String myAddress = '';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _markers.add(
-      const Marker(
-        markerId: MarkerId('initialPosition'),
-        position: LatLng(36.59288, 127.29237),
-        infoWindow: InfoWindow(
-          title: 'MyPosition',
-          snippet: 'Where am I?',
-        ),
-      ),
+    //GPS사용가능한지?
+    _checkGPSAvailability();
+  }
+
+  void _checkGPSAvailability() async {
+    LocationPermission geolocationStatus = await Geolocator.checkPermission();
+    print(geolocationStatus);
+    if (geolocationStatus == LocationPermission.denied ||
+        geolocationStatus == LocationPermission.deniedForever) {
+      print('check');
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('GPS 사용불가'),
+              content: const Text('GPS 사용불가로 인해 해당 기능을 사용할수 없습니다.'),
+              actions: [
+                ElevatedButton(
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          }).then((value) => Navigator.pop(context));
+    } else {
+      await _getGPSLocation();
+    }
+  }
+
+  Future<void> _getGPSLocation() async {
+    position = await Geolocator.getCurrentPosition();
+    print(position!.latitude);
+    print(position!.longitude);
+
+    myAddress = await GoogleMapServices.getAddressFromLocation(
+      position!.latitude,
+      position!.longitude,
     );
+    _setMyLocation(position!.latitude, position!.longitude);
+  }
+
+  void _setMyLocation(double lat, double lng) {
+    setState(() {
+      _markers.add(
+        Marker(
+          markerId: const MarkerId('initialPosition'),
+          position: LatLng(lat, lng),
+          infoWindow: InfoWindow(
+            title: '내 위치',
+            snippet: myAddress,
+          ),
+        ),
+      );
+    });
   }
 
   Future<void> _moveCamera() async {
@@ -53,6 +105,13 @@ class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
       ),
     );
 
+    await _getGPSLocation();
+    myAddress = await GoogleMapServices.getAddressFromLocation(
+        position!.latitude, position!.longitude);
+
+    distance = Geolocator.distanceBetween(position!.latitude,
+        position!.longitude, placeDetail!.lat, placeDetail!.lng);
+    print('distance : $distance');
     setState(() {
       _markers.add(
         Marker(
@@ -71,49 +130,11 @@ class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
       return Container();
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.branding_watermark),
-            title: Text(placeDetail!.name),
-          ),
-        ),
-        placeDetail!.formattedAddress != ''
-            ? Card(
-                child: ListTile(
-                  leading: const Icon(Icons.location_city),
-                  title: Text(placeDetail!.formattedAddress),
-                ),
-              )
-            : Container(),
-        placeDetail!.formattedPhoneNumber != ''
-            ? Card(
-                child: ListTile(
-                  leading: const Icon(Icons.phone),
-                  title: Text(placeDetail!.formattedPhoneNumber),
-                ),
-              )
-            : Container(),
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.favorite),
-            title: Text('${placeDetail!.rating}'),
-          ),
-        ),
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.place),
-            title: Text(placeDetail!.vicinity),
-          ),
-        ),
-        placeDetail!.website != ''
-            ? Card(
-                child: ListTile(
-                  leading: const Icon(Icons.place),
-                  title: Text(placeDetail!.website),
-                ),
-              )
-            : Container(),
+        Text('내 위치 : $myAddress'),
+        Text('찾은 곳 위치 : ${placeDetail!.formattedAddress}'),
+        Text('거리 : ${(distance / 1000).toStringAsFixed(2)} km'),
       ],
     );
   }
@@ -121,14 +142,14 @@ class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Places Autocomplete')),
+      appBar: AppBar(title: const Text('Places With Location')),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         child: SingleChildScrollView(
           child: Column(
             children: [
               const Center(
-                child: Text('Place Autocomplete'),
+                child: Text('Places With Location'),
               ),
               TypeAheadField(
                 debounceDuration: const Duration(milliseconds: 500),
@@ -187,6 +208,7 @@ class _PlaceAutoCompleteScreenState extends State<PlaceAutoCompleteScreen> {
                 ),
               ),
               _placeInfo(),
+              ElevatedButton(onPressed: (){}, child: const Text('장소 선택하러 가기'),),
             ],
           ),
         ),

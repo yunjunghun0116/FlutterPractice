@@ -44,4 +44,18 @@ class GoogleMapServices {
 
     return placeDetail;
   }
+  //static 이유
+  static Future<String> getAddressFromLocation(double lat,double lng)async{
+    const String baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
+    String url = '$baseUrl?latlng=$lat,$lng&key=$apiKey&language=ko';
+
+    final http.Response response = await http.get(Uri.parse(url));
+    final Map<String, dynamic> responseData = jsonDecode(response.body);
+    print('responseData:$responseData');
+    final formattedAddress = responseData['results'][0]['formatted_address'];
+    print('formattedAddress : $formattedAddress');
+
+    return formattedAddress;
+
+  }
 }
