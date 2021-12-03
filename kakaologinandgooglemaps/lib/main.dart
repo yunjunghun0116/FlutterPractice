@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:kakaologinandgooglemaps/controllers/database_controller.dart';
+import 'package:kakaologinandgooglemaps/controllers/pick_location_controller.dart';
 import 'package:kakaologinandgooglemaps/screens/google_map_screen.dart';
 import 'package:kakaologinandgooglemaps/screens/home_screen.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: BindingsBuilder((){
         Get.put(DatabaseController());
+        Get.put(PickLocationController());
       }),
       debugShowCheckedModeBanner: false,
       title: 'KakaoLoginAndGoogleMaps',

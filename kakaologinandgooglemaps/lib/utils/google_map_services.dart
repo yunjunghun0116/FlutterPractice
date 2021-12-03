@@ -44,8 +44,9 @@ class GoogleMapServices {
 
     return placeDetail;
   }
+
   //static 이유
-  static Future<String> getAddressFromLocation(double lat,double lng)async{
+  static Future<String> getAddressFromLocation(double lat, double lng) async {
     const String baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
     String url = '$baseUrl?latlng=$lat,$lng&key=$apiKey&language=ko';
 
@@ -56,6 +57,9 @@ class GoogleMapServices {
     print('formattedAddress : $formattedAddress');
 
     return formattedAddress;
+  }
 
+  static String getStaticMap(double latitude, double longitude) {
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=&$latitude,$longitude&zoom=14&size=400x400&key=$apiKey';
   }
 }
