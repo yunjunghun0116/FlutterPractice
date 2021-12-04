@@ -6,8 +6,6 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   final DatabaseController controller = DatabaseController.to;
 
-
-
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 2),(){

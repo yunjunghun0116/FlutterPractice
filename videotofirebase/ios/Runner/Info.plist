@@ -41,5 +41,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>kakao4311d55ec882339f8e101ed43a44bdc0</string>
+        <string>kakaokompassauth</string>
+        <string>storykompassauth</string>
+        <string>kakaolink</string>
+        <string>kakaotalk-5.9.7</string>
+    </array>
 </dict>
 </plist>
