@@ -26,6 +26,11 @@ dependencies:
   get: ^4.5.1
   http: ^0.13.4
 
+  file_picker: ^4.2.7
+  image_picker: ^0.8.4+4
+  video_player: ^2.2.7
+  path: ^1.8.0
+
 
 dev_dependencies:
   flutter_test:

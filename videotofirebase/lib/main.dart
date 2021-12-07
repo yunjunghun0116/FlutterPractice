@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
-import './screens/HomeScreen/home_screen.dart';
+import 'package:videotofirebase/screens/UploadScreen/upload_screen.dart';
 import './screens/MainScreen/main_screen.dart';
 import './screens/SplashScreen/splash_screen.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.black
       ),
-      initialRoute: '/welcome',
+      initialRoute: '/upload',
       getPages: [
         GetPage(
           name: '/welcome',
@@ -37,6 +37,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/',
           page: () => const MainScreen(),
+        ),
+        GetPage(
+          name: '/upload',
+          page: () => const UploadScreen(),
         ),
       ],
     );
