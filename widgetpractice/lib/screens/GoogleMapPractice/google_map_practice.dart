@@ -8,11 +8,24 @@ class GoogleMapPractice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text('구글맵'),
-          GoogleMapContainer(),
-        ],
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+              child: const Text(
+                '구글맵',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+            const GoogleMapContainer(),
+          ],
+        ),
       ),
     );
   }

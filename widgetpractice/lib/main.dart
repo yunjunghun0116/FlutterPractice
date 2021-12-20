@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgetpractice/screens/GoogleMapPractice/google_map_practice.dart';
+import 'screens/GoogleMapPractice/google_map_practice.dart';
 import 'screens/CustomScrollViewPractice/custom_scroll_view_practice.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
       ),
-      home: const CustomScrollViewPracitce(),
+      home: const GoogleMapPractice(),
     );
   }
 }
