@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:widgetpractice/controllers/google_map_data_controller.dart';
 import '../google_map/google_map_screen.dart';
 import '../sliver/sliver_screen.dart';
 
@@ -10,6 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final GoogleMapDataController _googleMapController = Get.put(GoogleMapDataController());
   int _currentIndex = 0;
 
   Widget _getMainArea() {
@@ -23,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         );
       case 1:
-        return const GoogleMapScreen();
+        return GoogleMapScreen();
       case 2:
         return const CustomScrollViewPractice();
       default:

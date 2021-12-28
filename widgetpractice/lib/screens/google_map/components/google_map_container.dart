@@ -4,7 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapContainer extends StatefulWidget {
-  const GoogleMapContainer({Key? key}) : super(key: key);
+  final double lat;
+  final double lng;
+  final double zoom;
+  //lat,lng 바꿔주는함수
+  final Function positionChange;
+  //카메라이동함수
+  final Function cameraMove;
+  final Completer<GoogleMapController> controller;
+  const GoogleMapContainer({
+    Key? key,
+    required this.lat,
+    required this.lng,
+    required this.zoom,
+    required this.positionChange,
+    required this.controller,
+    required this.cameraMove,
+  }) : super(key: key);
 
   @override
   _GoogleMapContainerState createState() => _GoogleMapContainerState();
@@ -12,25 +28,47 @@ class GoogleMapContainer extends StatefulWidget {
 
 class _GoogleMapContainerState extends State<GoogleMapContainer> {
   final Set<Marker> _markers = {};
-  final Completer<GoogleMapController> _controller = Completer();
-  final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(36.475, 127.255375),
-    zoom: 14,
-  );
+
+  CameraPosition? _startPosition;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _startPosition = CameraPosition(
+      target: LatLng(widget.lat, widget.lng),
+      zoom: widget.zoom,
+    );
+    _markers.add(
+      Marker(
+        markerId: const MarkerId('myLocation'),
+        position: LatLng(widget.lat, widget.lng),
+        infoWindow: const InfoWindow(
+          title: '내 위치',
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.width * 0.8,
       child: GoogleMap(
         markers: _markers,
         mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        myLocationEnabled: true,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+        initialCameraPosition: _startPosition!,
+        zoomControlsEnabled: true,
+        myLocationButtonEnabled: false,
+        onMapCreated: (GoogleMapController _controller) {
+          widget.controller.complete(_controller);
         },
-        onCameraMove: (CameraPosition position){
+        onTap: (LatLng position) {
+          widget.positionChange(CameraPosition(target: position));
+          widget.cameraMove(position.latitude,position.longitude);
+        },
+        onCameraMove: (CameraPosition position) {
           print('${position.target.latitude},${position.target.longitude}');
         },
       ),
