@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widgetpractice/controllers/google_map_data_controller.dart';
+import 'package:widgetpractice/screens/home/home_screen.dart';
 import '../google_map/google_map_screen.dart';
 import '../sliver/sliver_screen.dart';
 
@@ -18,15 +19,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget _getMainArea() {
     switch (_currentIndex) {
       case 0:
-        return SafeArea(
-          child: Column(
-            children: const [
-              Text('홈 화면'),
-            ],
-          ),
-        );
+        return  const HomeScreen();
       case 1:
-        return GoogleMapScreen();
+        return const GoogleMapScreen();
       case 2:
         return const CustomScrollViewPractice();
       default:

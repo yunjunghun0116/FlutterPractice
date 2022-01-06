@@ -10,11 +10,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 2),(){
       Map<String,dynamic>? userInfo = controller.getUserInfo();
-      if(userInfo!=null){
-        Get.toNamed('/googleauto');
-      }else{
-        Get.toNamed('/kakao');
-      }
+      print(userInfo);
+      Get.toNamed('/kakao');
 
     });
     return const Scaffold(
