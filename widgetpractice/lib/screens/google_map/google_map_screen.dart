@@ -103,7 +103,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   GoogleMapControlButton(
                     title: '위치 검색하기',
                     onClicked: () {
-                      _controller.searchLocationWithQuery('세종');
+                      // _controller.searchLocationWithQuery('세종시 첫마을');
+                      _controller.searchLocationWithOpenApi('나리로 38',1);
                     },
                   ),
                   GoogleMapControlButton(
