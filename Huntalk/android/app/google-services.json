@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "225866916768",
+    "project_id": "chatapp-b93e5",
+    "storage_bucket": "chatapp-b93e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225866916768:android:b42e5a3c692db5e8befac5",
+        "android_client_info": {
+          "package_name": "com.junghun.huntalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225866916768-s577klutf70sqbjcknq3q70qjipm003r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.huntalk",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "225866916768-e3e4qqh9hqmfkog2o96ofkr6rnetv7iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtHHNu2PTlRARSqIBzZmIqpkP5RS_p7pY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225866916768-e3e4qqh9hqmfkog2o96ofkr6rnetv7iq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "225866916768-08o8iem1r99nf7k8bfhge6vrbekuvj8m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.huntalk"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

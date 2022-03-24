@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:widgetpractice/constants.dart';
 import 'package:widgetpractice/screens/home/components/home_screen_first_location_select.dart';
 import 'package:widgetpractice/screens/home/components/home_screen_second_location_select.dart';
+import 'package:widgetpractice/screens/main/main_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

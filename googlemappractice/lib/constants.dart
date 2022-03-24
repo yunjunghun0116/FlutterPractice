@@ -1,1 +1,0 @@
-const String kGoogleApiKey = 'AIzaSyBvD79Y7m_UW7pzWAnsZsA7-EgKmEKviEA';

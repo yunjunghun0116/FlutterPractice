@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widgetpractice/constants.dart';
 import 'package:widgetpractice/controllers/google_map_data_controller.dart';
 import 'package:widgetpractice/screens/home/home_screen.dart';
+import 'package:widgetpractice/screens/kakao_map/kakao_map_screen.dart';
 import '../google_map/google_map_screen.dart';
 import '../sliver/sliver_screen.dart';
 
@@ -23,6 +25,8 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return const GoogleMapScreen();
       case 2:
+        return const KakaoMapScreen();
+      case 3:
         return const CustomScrollViewPractice();
       default:
         return Container();
@@ -40,6 +44,9 @@ class _MainScreenState extends State<MainScreen> {
             _currentIndex = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
@@ -48,6 +55,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: '구글맵',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: '카카오맵(웹뷰)',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.album_outlined),
