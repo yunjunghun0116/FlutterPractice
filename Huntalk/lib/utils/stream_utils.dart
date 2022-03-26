@@ -7,4 +7,12 @@ class StreamUtils{
     return _firestore
         .collection('user').snapshots();
   }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChatRoomStream(String userId) {
+    return _firestore
+        .collection('chatroom').where('userList',arrayContains: userId).snapshots();
+  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChatStream(String chatRoomId) {
+    return _firestore
+        .collection('chatroom').doc(chatRoomId).collection('chat').orderBy('timeStamp').snapshots();
+  }
 }

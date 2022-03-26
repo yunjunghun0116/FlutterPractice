@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huntalk/models/chatRoom.dart';
 import 'package:huntalk/models/user.dart';
 
 class UserController extends GetxController {
@@ -65,21 +66,32 @@ class UserController extends GetxController {
   }
 
   Future<bool> uploadProfileImage(File file) async {
-    try{
+    try {
       String destination = 'images/${user!.id}';
       final ref = _fireStorage.ref(destination);
       TaskSnapshot uploadedFile = await ref.putFile(file);
-      if(user!.imageUrl.isEmpty){
+      if (user!.imageUrl.isEmpty) {
         String downloadUrl = await uploadedFile.ref.getDownloadURL();
-        await _firestore.collection('user').doc(user!.id).update({
-          'imageUrl':downloadUrl
-        });
+        await _firestore
+            .collection('user')
+            .doc(user!.id)
+            .update({'imageUrl': downloadUrl});
       }
       return true;
-    }catch(e){
+    } catch (e) {
       print('uploadProfileImageErrorMsg: $e');
       return false;
     }
-
   }
+
+  Future<void> updateUser()async{
+    DocumentSnapshot _userData = await _firestore.collection('user').doc(user!.id).get();
+    user = User.fromJson({
+      'id':_userData.id,
+      ..._userData.data() as Map<String,dynamic>
+    });
+    update();
+  }
+
+
 }

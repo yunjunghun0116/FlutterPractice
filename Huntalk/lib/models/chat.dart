@@ -3,12 +3,14 @@ class Chat {
   final String senderId;
   final String message;
   final String messageType;
+  final String timeStamp;
 
   Chat({
     required this.id,
     required this.senderId,
     required this.message,
     required this.messageType,
+    required this.timeStamp,
   });
 
   factory Chat.fromJson(json) => Chat(
@@ -16,6 +18,7 @@ class Chat {
     senderId: json['senderId'],
     message: json['message'],
     messageType: json['messageType'],
+      timeStamp:json['timeStamp']
   );
 
   Map<String, dynamic> toMap() {
@@ -24,6 +27,7 @@ class Chat {
       'senderId':senderId,
       'message':message,
       'messageType':messageType,
+      'timeStamp':timeStamp,
     };
   }
 }

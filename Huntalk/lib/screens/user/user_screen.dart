@@ -13,7 +13,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  String imageUrl = '';
   final picker = ImagePicker();
 
   Future<bool> updateImage() async {
@@ -30,20 +29,25 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(UserController.to.user!.name),
-        GestureDetector(
-          onTap: () async {
-            await updateImage();
-          },
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text('이미지 확인하기'),
+    return Center(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(UserController.to.user!.name),
           ),
-        ),
-        Text(imageUrl),
-      ],
+          GestureDetector(
+            onTap: () async {
+              await updateImage();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              color: Colors.grey.withOpacity(0.3),
+              child: const Text('이미지 수정하기'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

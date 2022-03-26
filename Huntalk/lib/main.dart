@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huntalk/controllers/chat_controller.dart';
 import 'package:huntalk/controllers/local_controller.dart';
 import 'package:huntalk/controllers/user_controller.dart';
 import 'package:huntalk/screens/chat/chat_screen.dart';
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(UserController());
     Get.put(LocalController());
-    Get.put(ChatController());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
