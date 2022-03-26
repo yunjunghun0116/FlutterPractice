@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huntalk/controllers/user_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String _email = '';
   String _password = '';
 
-  void buttonPressed(BuildContext context) {
+  void buttonPressed(BuildContext context) async {
     if (!phoneChecked) {
       Get.dialog(
         const Dialog(
@@ -35,16 +36,27 @@ class _RegisterPageState extends State<RegisterPage> {
     if (_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
       _formKey.currentState!.save();
-      print('name: ' +
-          _name +
-          ',phone: ' +
-          _phone +
-          ',email: ' +
-          _email +
-          ',password: ' +
-          _password);
-      Future.delayed(
-          const Duration(seconds: 1), () => Get.offAllNamed('/main'));
+      bool registered = await UserController.to.registerUser(
+        name: _name,
+        phone: _phone,
+        email: _email,
+        password: _password,
+      );
+      if (registered) {
+        Future.delayed(
+            const Duration(seconds: 1), () => Get.offAllNamed('/main'));
+      } else {
+        Get.dialog(
+          Dialog(
+            child: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 100,
+              child: const Text('회원가입을 실패했습니다'),
+            ),
+          ),
+        );
+      }
     }
   }
 
