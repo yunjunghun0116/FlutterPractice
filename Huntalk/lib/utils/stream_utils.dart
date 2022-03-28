@@ -9,7 +9,7 @@ class StreamUtils{
   }
   Stream<QuerySnapshot<Map<String, dynamic>>> getChatRoomStream(String userId) {
     return _firestore
-        .collection('chatroom').where('userList',arrayContains: userId).snapshots();
+        .collection('chatroom').where('userIdList',arrayContains: userId).snapshots();
   }
   Stream<QuerySnapshot<Map<String, dynamic>>> getChatStream(String chatRoomId) {
     return _firestore

@@ -7,7 +7,11 @@ import 'package:huntalk/utils/chat_utils.dart';
 import 'package:huntalk/utils/stream_utils.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final Function pageUpdateFunction;
+  const HomeScreen({
+    Key? key,
+    required this.pageUpdateFunction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,12 @@ class HomeScreen extends StatelessWidget {
                   user.id != UserController.to.user!.id
                       ? GestureDetector(
                           onTap: () async {
-                            String? chatId = await ChatUtils().chatWithUser(receiverId: user.id);
-                            print(chatId);
+                            String? chatId = await ChatUtils().chatWithUser(
+                              receiverId: user.id,
+                              receiverName: user.name,
+                              receiverImageUrl: user.imageUrl,
+                            );
+                            pageUpdateFunction(1);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(

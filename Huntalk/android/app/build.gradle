@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         applicationId "com.junghun.huntalk"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
