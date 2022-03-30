@@ -24,6 +24,17 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>프로필 이미지 수정을 위해 이 앱에서 카메라에 접근을 하려고 합니다.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not require access to the microphone.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>프로필 이미지 수정을 위해 이 앱에서 갤러리에 접근을 하려고 합니다.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -44,11 +55,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
-	<key>NSCameraUsageDescription</key>
-    <string>프로필 이미지 수정을 위해 이 앱에서 카메라에 접근을 하려고 합니다.</string>
-   	<key>NSMicrophoneUsageDescription</key>
-    <string>This app does not require access to the microphone.</string>
-   	<key>NSPhotoLibraryUsageDescription</key>
-   	<string>프로필 이미지 수정을 위해 이 앱에서 갤러리에 접근을 하려고 합니다.</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>NO</string>
 </dict>
 </plist>

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huntalk/controllers/local_controller.dart';
 import 'package:huntalk/models/chatRoom.dart';
 import 'package:huntalk/models/user.dart';
 
@@ -12,6 +13,21 @@ class UserController extends GetxController {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseStorage _fireStorage = FirebaseStorage.instance;
   User? user;
+
+  Future<bool> getUser(String id)async{
+    try{
+      DocumentSnapshot data = await _firestore.collection('user').doc(id).get();
+      user = User.fromJson({
+        'id':data.id,
+        ...data.data() as Map<String,dynamic>
+      });
+      update();
+      return true;
+    }catch(e){
+      return false;
+    }
+
+  }
 
   Future<bool> registerUser(
       {required String name,
@@ -30,14 +46,17 @@ class UserController extends GetxController {
         value.update({'imageUrl': ''});
         _id = value.id;
       });
+      LocalController.to.setId(_id);
       user = User(
-          id: _id,
-          name: name,
-          imageUrl: '',
-          email: email,
-          password: password,
-          phone: phone,
-          chatRoomList: []);
+        id: _id,
+        name: name,
+        imageUrl: '',
+        email: email,
+        password: password,
+        phone: phone,
+        chatRoomList: [],
+      );
+
       return true;
     } catch (e) {
       return false;
@@ -57,6 +76,7 @@ class UserController extends GetxController {
           'id': _loginData.docs.first.id,
           ..._loginData.docs.first.data() as Map<String, dynamic>
         });
+        LocalController.to.setId(_loginData.docs.first.id);
         return true;
       }
       return false;
@@ -84,14 +104,11 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> updateUser()async{
-    DocumentSnapshot _userData = await _firestore.collection('user').doc(user!.id).get();
-    user = User.fromJson({
-      'id':_userData.id,
-      ..._userData.data() as Map<String,dynamic>
-    });
+  Future<void> updateUser() async {
+    DocumentSnapshot _userData =
+        await _firestore.collection('user').doc(user!.id).get();
+    user = User.fromJson(
+        {'id': _userData.id, ..._userData.data() as Map<String, dynamic>});
     update();
   }
-
-
 }

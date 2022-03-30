@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:huntalk/screens/chat/chat_screen.dart';
 import 'package:huntalk/screens/home/home_screen.dart';
+import 'package:huntalk/screens/notification/notification_screen.dart';
 import 'package:huntalk/screens/user/user_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,8 +22,10 @@ class _MainScreenState extends State<MainScreen> {
         );
       case 1:
         return const ChatScreen();
-      default:
+      case 2:
         return const UserScreen();
+      default:
+        return const NotificationScreen();
     }
   }
 
@@ -44,7 +47,10 @@ class _MainScreenState extends State<MainScreen> {
       body: _getScreens(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentPageIndex,
+        type: BottomNavigationBarType.fixed,
         onTap: _pageChange,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined), label: 'Home'),
@@ -52,6 +58,8 @@ class _MainScreenState extends State<MainScreen> {
               icon: Icon(Icons.chat_bubble_outline), label: 'Chat'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: 'User'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.notifications), label: 'notifications'),
         ],
       ),
     );
