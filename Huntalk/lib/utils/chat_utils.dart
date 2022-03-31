@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:huntalk/constants.dart';
 import '../controllers/user_controller.dart';
 
 class ChatUtils {
@@ -98,16 +100,41 @@ class ChatUtils {
     });
   }
 
-  Future<String?> saveImageInStorage({required String chatroomId,required File image})async{
-    try{
+  Future<String?> saveImageInStorage(
+      {required String chatroomId, required File image}) async {
+    try {
       String destination = 'chatroom/$chatroomId';
       final ref = _fireStorage.ref(destination);
       TaskSnapshot uploadedFile = await ref.putFile(image);
       return await uploadedFile.ref.getDownloadURL();
-    }
-    catch(e){
+    } catch (e) {
       return null;
     }
+  }
 
+  Future<void> sendFCM({required String token}) async {
+    if (token == '') return;
+    http.Response data = await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      headers: {
+        'Authorization': 'key=$serverKey',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'direct_boot_ok': true,
+        'registration_ids': [
+          'fdIDdF_0Lk6WufOLFmiqzW:APA91bGTO9jvd9YYQDPfaa_j0Lysjh1zh460o6985JyVDLl21RVV2xSXBEDNAkU49jCVh71PV3jZ4qTREXfKMwJgK5v-0GkOgvFc6mrMvanX3dkVWkktxbnyKRmp5X1UbxuklpphuuJJ',
+          'dlo-KZsgT9KViBl86IIkCq:APA91bESIuShWRzpNmxw8YZ0kyFvSHU8RxpO1pzvbAJNaIZvATq3oxQm14AZotafOaF8_LNQsmjYd-5hynv-pglsM7yCXBbeKAGHT8B-KWh1Qrz1pGgN-Z4RXS1jpeT4oPTJfMdcci-o'
+        ],
+        'notification': {
+          'body': 'FCM body',
+          'title': 'FCM title',
+        },
+        'data': {
+          'body': 'FCM bodyx',
+          'title': 'FCM titlex',
+        },
+      }),
+    );
   }
 }

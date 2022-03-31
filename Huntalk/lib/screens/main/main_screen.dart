@@ -53,13 +53,21 @@ class _MainScreenState extends State<MainScreen> {
         selectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline), label: 'Chat'),
+            icon: Icon(Icons.chat_bubble_outline),
+            label: 'Chat',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: 'User'),
+            icon: Icon(Icons.person_outline),
+            label: 'User',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.notifications), label: 'notifications'),
+            icon: Icon(Icons.notifications_outlined),
+            label: 'notifications',
+          ),
         ],
       ),
     );

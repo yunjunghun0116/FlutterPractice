@@ -12,8 +12,8 @@ class StartScreen extends StatelessWidget {
   Future<void> isSignIn()async{
     String? userId = await LocalController.to.getId();
     if(userId != null){
-      UserController.to.getUser(userId);
-      Get.offAll(()=>const MainScreen());
+      await UserController.to.getUser(userId);
+      if(UserController.to.user!=null) Get.off(()=>const MainScreen());
     }
   }
 

@@ -30,7 +30,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final TextEditingController _messageController = TextEditingController();
   static final picker = ImagePicker();
   static final chatUtils = ChatUtils();
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController(
+    initialScrollOffset: 0,
+  );
   String imageUrl = '';
 
   Future<void> selectImage() async {
@@ -65,6 +67,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             QuerySnapshot chatData = snapshot.data;
+            WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 1),
+                curve: Curves.easeOut,
+              );
+            });
 
             return SizedBox(
               width: double.infinity,
@@ -244,9 +253,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                   );
                                 }
                                 _scrollController.animateTo(
-                                    _scrollController.position.maxScrollExtent,
-                                    duration: Duration(milliseconds: 300),
-                                    curve: Curves.easeOut,);
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeOut,
+                                );
                                 _messageController.clear();
                                 setState(() {
                                   imageUrl = '';
