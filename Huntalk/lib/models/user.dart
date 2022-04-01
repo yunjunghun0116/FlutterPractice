@@ -7,6 +7,7 @@ class User {
   final String email;
   final String password;
   final String phone;
+  final String notificationToken;
   final List chatRoomList;
 
   User({
@@ -16,6 +17,7 @@ class User {
     required this.email,
     required this.password,
     required this.phone,
+    required this.notificationToken,
     required this.chatRoomList,
   });
 
@@ -26,6 +28,7 @@ class User {
         email: json['email'],
         password: json['password'],
         phone: json['phone'],
+        notificationToken: json['notificationToken'] ?? '',
         chatRoomList: json['chatRoomList'].map((chatRoom) {
           return {
             'id': chatRoom['id'],
@@ -42,6 +45,7 @@ class User {
       'email': email,
       'password': password,
       'phone': phone,
+      'notificationToken': notificationToken,
       'chatRoomList': chatRoomList,
     };
   }

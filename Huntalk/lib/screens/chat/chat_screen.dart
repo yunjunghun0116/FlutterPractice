@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huntalk/controllers/user_controller.dart';
 import 'package:huntalk/models/chatRoom.dart';
+import 'package:huntalk/models/user.dart';
 import 'package:huntalk/screens/chat_detail/chat_detail_screen.dart';
 import 'package:huntalk/utils/local_utils.dart';
 
@@ -25,13 +26,13 @@ class ChatScreen extends StatelessWidget {
               Map<String, dynamic> contactPerson = chatRoom.userList.firstWhere(
                   (element) => element['id'] != UserController.to.user!.id);
               return GestureDetector(
-                onTap: () {
+                onTap: () async{
+                  User user = await UserController.to.getUserWithId(contactPerson['id']);
+                  print(user.notificationToken);
                   Get.to(
                     () => ChatDetailScreen(
                       chatRoom: chatRoom,
-                      contactPersonId: contactPerson['id'],
-                      contactPersonName: contactPerson['name'],
-                      contactPersonImageUrl: contactPerson['imageUrl'],
+                      user: user,
                     ),
                   );
                 },

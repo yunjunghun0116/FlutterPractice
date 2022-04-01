@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huntalk/controllers/fcm_controller.dart';
 import 'package:huntalk/screens/chat/chat_screen.dart';
 import 'package:huntalk/screens/home/home_screen.dart';
 import 'package:huntalk/screens/notification/notification_screen.dart';
@@ -12,6 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   int _currentPageIndex = 0;
 
   Widget _getScreens() {
@@ -33,6 +36,13 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       _currentPageIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(FCMController());
   }
 
   @override

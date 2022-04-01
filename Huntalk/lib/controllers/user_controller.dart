@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huntalk/controllers/fcm_controller.dart';
 import 'package:huntalk/controllers/local_controller.dart';
 import 'package:huntalk/models/chatRoom.dart';
 import 'package:huntalk/models/user.dart';
@@ -33,7 +34,7 @@ class UserController extends GetxController {
       {required String name,
       required String phone,
       required String email,
-      required String password}) async {
+      required String password,}) async {
     try {
       String _id = '';
       await _firestore.collection('user').add({
@@ -54,6 +55,7 @@ class UserController extends GetxController {
         email: email,
         password: password,
         phone: phone,
+        notificationToken: '',
         chatRoomList: [],
       );
 
@@ -104,11 +106,33 @@ class UserController extends GetxController {
     }
   }
 
-  Future<void> updateUser() async {
+  Future<void> refreshUser() async {
     DocumentSnapshot _userData =
         await _firestore.collection('user').doc(user!.id).get();
     user = User.fromJson(
         {'id': _userData.id, ..._userData.data() as Map<String, dynamic>});
     update();
+  }
+
+  Future<bool> updateUser(Map<String,dynamic> body)async{
+    try{
+      await _firestore
+          .collection('user')
+          .doc(user!.id).update(body);
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
+
+  Future<User> getUserWithId(String id)async{
+    DocumentSnapshot userData = await _firestore
+        .collection('user')
+        .doc(id).get();
+    return User.fromJson({
+      'id':userData.id,
+      ...userData.data() as Map<String,dynamic>
+    });
   }
 }

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:huntalk/controllers/fcm_controller.dart';
+import 'package:huntalk/controllers/user_controller.dart';
 import 'package:huntalk/models/chat.dart';
 import 'package:huntalk/models/chatRoom.dart';
 import 'package:huntalk/utils/chat_utils.dart';
@@ -9,17 +11,15 @@ import 'package:huntalk/utils/local_utils.dart';
 import 'package:huntalk/utils/stream_utils.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/user.dart';
+
 class ChatDetailScreen extends StatefulWidget {
   final ChatRoom chatRoom;
-  final String contactPersonName;
-  final String contactPersonId;
-  final String contactPersonImageUrl;
+  final User user;
   const ChatDetailScreen({
     Key? key,
     required this.chatRoom,
-    required this.contactPersonName,
-    required this.contactPersonId,
-    required this.contactPersonImageUrl,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -60,7 +60,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         backgroundColor: const Color(0xFF26253A),
         foregroundColor: Colors.white,
         elevation: 0,
-        title: Text(widget.contactPersonName),
+        title: Text(widget.user.name),
       ),
       body: StreamBuilder(
         stream: StreamUtils().getChatStream(widget.chatRoom.id),
@@ -74,7 +74,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 curve: Curves.easeOut,
               );
             });
-
             return SizedBox(
               width: double.infinity,
               child: Column(
@@ -94,7 +93,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               width: double.infinity,
                               child: Column(
                                 crossAxisAlignment:
-                                    chat.senderId == widget.contactPersonId
+                                    chat.senderId == widget.user.id
                                         ? CrossAxisAlignment.start
                                         : CrossAxisAlignment.end,
                                 children: [
@@ -106,11 +105,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                         topLeft: const Radius.circular(5),
                                         topRight: const Radius.circular(5),
                                         bottomLeft: chat.senderId ==
-                                                widget.contactPersonId
+                                                widget.user.id
                                             ? const Radius.circular(0)
                                             : const Radius.circular(5),
                                         bottomRight: chat.senderId ==
-                                                widget.contactPersonId
+                                            widget.user.id
                                             ? const Radius.circular(5)
                                             : const Radius.circular(0),
                                       ),
@@ -138,7 +137,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                             );
                           }
                           return Container(
-                            alignment: chat.senderId == widget.contactPersonId
+                            alignment: chat.senderId == widget.user.id
                                 ? Alignment.centerLeft
                                 : Alignment.centerRight,
                             width: double.infinity,
@@ -244,6 +243,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                     chatRoomId: widget.chatRoom.id,
                                     message: _messageController.text,
                                     messageType: 'text',
+                                  );
+                                  print(widget.user.notificationToken);
+                                  await FCMController.to.sendFCM(
+                                    token: widget.user.notificationToken,
+                                    title: UserController.to.user!.name,
+                                    message: _messageController.text,
                                   );
                                 } else {
                                   await chatUtils.sendMessageInChatRoom(
