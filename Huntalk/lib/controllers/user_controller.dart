@@ -121,7 +121,6 @@ class UserController extends GetxController {
           .doc(user!.id).update(body);
       return true;
     }catch(e){
-      print(e);
       return false;
     }
   }

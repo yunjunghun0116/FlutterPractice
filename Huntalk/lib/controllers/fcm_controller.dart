@@ -76,11 +76,7 @@ class FCMController extends GetxController {
         content: message.data['body'],
       );
     });
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      showNotification(
-        title: message.data['title'],
-        content: message.data['body'],
-      );
+    FirebaseMessaging.onBackgroundMessage((RemoteMessage message)async{
     });
   }
 
@@ -110,9 +106,7 @@ class FCMController extends GetxController {
       },
       body: jsonEncode({
         'direct_boot_ok': true,
-        'registration_ids': [
-          token,
-        ],
+        'to': token,
         'notification': {
           'title': title,
           'body': message,
