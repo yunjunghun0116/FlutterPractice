@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "434892280401",
+    "project_id": "todoapp-3239a",
+    "storage_bucket": "todoapp-3239a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434892280401:android:f0fc5708838d3d31e49e70",
+        "android_client_info": {
+          "package_name": "com.junghun.todoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434892280401-h2anombnha38km4sj9qu67s6pdrhqji7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.todoapp",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "434892280401-drumj65012pr3pkse1k93fmf6t485s0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB08oEDetip2FuISe4ghDrcK2tysAbHOKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434892280401-drumj65012pr3pkse1k93fmf6t485s0g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "434892280401-025r1861u08epkhm2gsgmo5s378g49dr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.junghun.todoapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
