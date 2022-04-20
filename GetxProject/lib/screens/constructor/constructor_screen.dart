@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ConstructorScreen extends StatelessWidget {
   final String name;
@@ -14,7 +15,14 @@ class ConstructorScreen extends StatelessWidget {
     print(name);
     print(age);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: Navigator.canPop(context)?IconButton(
+          onPressed: (){
+            Get.back(result: 'hello');
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ):null,
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

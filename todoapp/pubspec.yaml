@@ -1,5 +1,5 @@
 name: todoapp
-description: A new Flutter project.
+description: TodoApp With GetX
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -15,16 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.1
   shared_preferences: ^2.0.13
-
-  firebase_core: ^1.14.1
-  firebase_auth: ^3.3.14
-  cloud_firestore: ^3.1.12
-  firebase_storage: ^10.2.12
+  flutter_datetime_picker: ^1.5.1
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^1.0.0
 
 flutter:
@@ -34,6 +30,7 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
   # fonts:
   #   - family: Schyler
   #     fonts:

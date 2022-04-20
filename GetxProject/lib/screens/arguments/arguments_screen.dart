@@ -6,11 +6,19 @@ class ArgumentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context)!.settings.arguments);
+    Map<String,dynamic> data = ModalRoute.of(context)!.settings.arguments as Map<String,dynamic>;
     print(Get.arguments);
     var args = Get.arguments;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            // Get.back();
+            Get.back(result: '부산');
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

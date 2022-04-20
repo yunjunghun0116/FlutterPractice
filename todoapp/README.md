@@ -1,6 +1,6 @@
 # todoapp
 
-A new Flutter project.
+TodoApp With GetX
 
 ## Getting Started
 
