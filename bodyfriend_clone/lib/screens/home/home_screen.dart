@@ -1,10 +1,14 @@
 import 'package:bodyfriend_clone/components/massage_chair_card.dart';
 import 'package:bodyfriend_clone/constants.dart';
+import 'package:bodyfriend_clone/controllers/chair_controller.dart';
 import 'package:bodyfriend_clone/screens/home/components/carousel_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/custom_icon_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/top_login_button.dart';
+import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
+import '../../models/chair.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,11 +19,10 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: kWhiteColor,
       appBar: AppBar(
         backgroundColor: kSubBlackColor,
-        title: const Text(
-          'BODYFRIEND',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Image.asset(
+          'assets/memberships/membership_images/ic_logo_fill_ver@3x.png',
+          fit: BoxFit.cover,
+          height: 30,
         ),
         centerTitle: true,
         actions: [
@@ -35,6 +38,12 @@ class HomeScreen extends StatelessWidget {
           const TopLoginButton(),
           const CustomIconArea(),
           const CarouselArea(),
+          FutureBuilder(
+            future: NetworkUtils().getBanner(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return Container();
+            },
+          ),
           Container(
             width: double.infinity,
             height: 10,
@@ -73,37 +82,22 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          RaisedButton(onPressed: (){}),
           SizedBox(
             height: 300,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(width: 10),
-                MassageChairCard(
-                  widgetWidth: 130,
-                  imageUrl: 'assets/images/image_1.jpeg',
-                  title: '팬텀메디컬케어\n(제이드그린)',
-                  price: '5,800,000',
-                  rentalPrice: '99,500',
-                ),
-                SizedBox(width: 10),
-                MassageChairCard(
-                  widgetWidth: 130,
-                  imageUrl: 'assets/images/image_2.jpeg',
-                  title: '더팬텀(카카오화이트)',
-                  price: '5,400,000',
-                  rentalPrice: '94,500',
-                ),
-                SizedBox(width: 10),
-                MassageChairCard(
-                  widgetWidth: 130,
-                  imageUrl: 'assets/images/image_3.jpeg',
-                  title: '더팬텀(블레이징블랙)',
-                  price: '5,400,000',
-                  rentalPrice: '94,500',
-                ),
-              ],
+              children: ChairController.to.chairList.map((Chair chair) {
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(width: 10),
+                    MassageChairCard(
+                      widgetWidth: 130,
+                      chair: chair,
+                    ),
+                  ],
+                );
+              }).toList(),
             ),
           ),
         ],
@@ -114,8 +108,7 @@ class HomeScreen extends StatelessWidget {
         overlayOpacity: 0,
         children: [
           SpeedDialChild(
-            onTap: (){
-            },
+            onTap: () {},
             child: const Text(
               '정품\n등록',
               style: TextStyle(color: kWhiteColor),
