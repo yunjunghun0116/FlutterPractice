@@ -1,16 +1,13 @@
 # todoapp
 
-TodoApp With GetX
+GetxController 상태를 관리해주는 객체 -> Get.put() 메모리에 올린다
+View -> 어떤 Controller를 사용해서 해당 함수를 진행할까? A,B,C  한 화면 A,B 두개의 컨트롤러
+Get.find()
+ControllerA A = Get.put(ControllerA());
+ControllerB B = Get.put(ControllerB());
+void A(){
+    Get.find<ControllerA>().send();
+    Get.find<ControllerB>().send();
+}
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Create Read Update Delete

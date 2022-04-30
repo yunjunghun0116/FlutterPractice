@@ -5,6 +5,7 @@ import 'package:todoapp/models/todo.dart';
 import '../../../utils/local_utils.dart';
 
 class TodoListTile extends StatelessWidget {
+
   final Todo todo;
   const TodoListTile({
     Key? key,
@@ -26,8 +27,7 @@ class TodoListTile extends StatelessWidget {
       title: Text(
         todo.todo,
         style: TextStyle(
-          decoration:
-          todo.state == 2 ? TextDecoration.lineThrough : null,
+          decoration: todo.state == 2 ? TextDecoration.lineThrough : null,
         ),
       ),
       subtitle: Text(
@@ -37,7 +37,7 @@ class TodoListTile extends StatelessWidget {
       ),
       trailing: todo.state == 1
           ? GestureDetector(
-              onTap: () =>  TodoController.to.todoStateUpdate(id: todo.id),
+              onTap: () => TodoController.to.todoStateUpdate(id: todo.id),
               child: const Text(
                 '완료',
                 style: TextStyle(
@@ -45,7 +45,15 @@ class TodoListTile extends StatelessWidget {
                 ),
               ),
             )
-          : null,
+          : GestureDetector(
+              onTap: () => TodoController.to.deleteTodo(id: todo.id),
+              child: const Text(
+                '삭제',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            ),
     );
   }
 }

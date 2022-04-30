@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todoapp/controllers/todo_controller.dart';
 import 'package:todoapp/screens/todo/components/todo_list_tile.dart';
-import 'package:todoapp/utils/local_utils.dart';
-
 import '../../models/todo.dart';
 
 class TodoScreen extends GetView<TodoController> {
