@@ -1,14 +1,15 @@
+import 'package:bodyfriend_clone/models/event_banner.dart';
 import 'package:get/get.dart';
 
 class NetworkUtils extends GetConnect {
-  Future<void> getBanner() async {
+  Future<List<EventBanner>> getBanner() async {
     Response data = await get(
-      'https://dapi.kakao.com/v3/search/book?target=title',
-      headers: {
-        'Authorization': 'KakaoAK a33bed6fb12716b0522c1a1685377dfa',
-      },
-      query: {'query': '미움받을 용기'},
-      contentType: 'application/json',
+      'http://dapi.bodyfriend.co.kr/api/v1/main/banner'
     );
+    List eventBannerList = data.body['data'];
+    List<EventBanner> bannerList = eventBannerList.map((e){
+      return EventBanner.fromJson(e);
+    }).toList();
+    return bannerList;
   }
 }

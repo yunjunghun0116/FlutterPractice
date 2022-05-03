@@ -1,5 +1,4 @@
 import 'package:bodyfriend_clone/models/chair.dart';
-import 'package:bodyfriend_clone/utils/format_utils.dart';
 import 'package:get/get.dart';
 
 class ChairController extends GetxController {
@@ -34,6 +33,7 @@ class ChairController extends GetxController {
       pointUser: [],
     ),
   ];
+
   List<Chair> get chairList => _chairList;
 
   void addChair({
@@ -55,4 +55,6 @@ class ChairController extends GetxController {
     );
     update();
   }
+
+
 }
