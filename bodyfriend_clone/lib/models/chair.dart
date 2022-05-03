@@ -17,4 +17,13 @@ class Chair {
     required this.pointUser,
   });
 
+  factory Chair.fromJson(json) => Chair(
+        id: json['id'],
+        imageUrl: json['imageUrl'],
+        title: json['title'],
+        price: json['price'],
+        rentalPrice: json['rentalPrice'],
+        point: json['point'],
+        pointUser: json['pointUser'],
+      );
 }
