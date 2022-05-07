@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bodyfriend_clone/models/event_banner.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +15,10 @@ class NetworkUtils extends GetConnect {
     return bannerList;
   }
 
-  Future<List<Chair>> getChair() async {
+  Future<List> getMainList() async {
     Response data = await get('$_baseUrl/api/v1/main/list');
-    List chairListData = data.body['data'][0]['goodsList'];
-    List<Chair> chairList = chairListData.map((e){
-      return Chair.fromJson(e);
-    }).toList();
-    return chairList;
+    List chairListData = data.body['data'];
+    return chairListData;
   }
 
   Future<void> getCategory() async{

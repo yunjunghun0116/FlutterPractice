@@ -8,16 +8,5 @@ class ChairController extends GetxController {
   List<Chair> _chairList = [];
   List<Chair> get chairList => _chairList;
 
-  @override
-  void onInit() {
-    super.onInit();
-    getChairList();
-  }
-
-  Future<void> getChairList() async {
-    List<Chair> chairListData = await NetworkUtils().getChair();
-    _chairList = chairListData;
-    update();
-  }
 
 }

@@ -1,4 +1,7 @@
+import 'package:bodyfriend_clone/screens/home/pages/bottom_sheets/count_bottom_sheets.dart';
+import 'package:bodyfriend_clone/screens/home/pages/bottom_sheets/time_bottom_sheets.dart';
 import 'package:bodyfriend_clone/screens/home/pages/components/sleep_button.dart';
+import 'package:bodyfriend_clone/utils/local_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -30,6 +33,7 @@ class _SleepRecordPageState extends State<SleepRecordPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -111,31 +115,91 @@ class _SleepRecordPageState extends State<SleepRecordPage> {
                 ),
               ],
             ),
+            Spacer(),
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Image.asset(
+                    'assets/memberships/Mask Group@3x.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(right: 30, bottom: 20),
+                      alignment: Alignment.centerRight,
+                      decoration: BoxDecoration(
+                        color: kBlackColor.withOpacity(0.9),
+                      ),
+                      child: const Text(
+                        '사용시간을 선택해\n기록해 보세요!',
+                        style: TextStyle(
+                          color: kWhiteColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Spacer(),
             SleepButton(
-              iconSrc: 'assets/memberships/ic_awakened@3x.png',
+              iconSrc: 'assets/memberships/ic_sleep@3x.png',
               title: '자리에 누운 시간',
-              value: '00:00',
-              onPressed: () {},
+              value:
+                  '${onSleepTimeHour < 10 ? '0$onSleepTimeHour' : onSleepTimeHour}:${onSleepTimeMinute < 10 ? '0$onSleepTimeMinute' : onSleepTimeMinute}',
+              onPressed: () async {
+                List? result = await Get.bottomSheet(const TimeBottomSheets());
+                if (result != null) {
+                  setState(() {
+                    onSleepTimeHour = result[2]==0?result[0]:result[0]+12;
+                    onSleepTimeMinute = result[1];
+                  });
+                }
+              },
             ),
             const SizedBox(height: 10),
             SleepButton(
               iconSrc: 'assets/memberships/ic_awakened@3x.png',
               title: '잠에서 깨어난 시간',
-              value: '00:00',
-              onPressed: () {},
+              value:
+              '${onAwakeTimeHour < 10 ? '0$onAwakeTimeHour' : onAwakeTimeHour}:${onAwakeTimeMinute < 10 ? '0$onAwakeTimeMinute' : onAwakeTimeMinute}',
+              onPressed: () async {
+                List? result = await Get.bottomSheet(const TimeBottomSheets());
+                if (result != null) {
+                  setState(() {
+                    onAwakeTimeHour = result[2]==0?result[0]:result[0]+12;
+                    onAwakeTimeMinute = result[1];
+                  });
+                }
+              },
             ),
             const SizedBox(height: 10),
             SleepButton(
-              iconSrc: 'assets/memberships/ic_awakened@3x.png',
+              iconSrc: 'assets/memberships/ic_wake_up@3x.png',
               title: '중간에 깬 횟수',
-              value: '00:00',
-              onPressed: () {},
+              value: '${wakeUpDuringSleep ?? '선택'}',
+              onPressed: () async{
+                List? result = await Get.bottomSheet(const CountBottomSheets());
+                if(result!=null){
+                  setState(() {
+                    wakeUpDuringSleep = result[0];
+                  });
+                }
+              },
             ),
             const SizedBox(height: 10),
             SleepButton(
-              iconSrc: 'assets/memberships/ic_awakened@3x.png',
+              iconSrc: 'assets/memberships/ic_sleep_total@3x.png',
               title: '총 수면 시간',
-              value: '00:00',
+              value: timeDifference(onSleepTimeHour, onSleepTimeMinute, onAwakeTimeHour, onAwakeTimeMinute),
               onPressed: () {},
             ),
             const SizedBox(height: 10),

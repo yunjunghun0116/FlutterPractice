@@ -95,27 +95,31 @@ class _TimeRecordPageState extends State<TimeRecordPage> {
                 ),
               ],
             ),
-            const Spacer(flex: 1,),
+            const Spacer(
+              flex: 1,
+            ),
             Row(
               children: [
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.only(right: 30,bottom: 20),
+                  margin: const EdgeInsets.only(right: 30, bottom: 20),
                   alignment: Alignment.centerRight,
                   decoration: BoxDecoration(
                     color: kBlackColor.withOpacity(0.9),
                   ),
-                  child: const Text('사용시간을 선택해\n기록해 보세요!',style: TextStyle(
-                    color: kWhiteColor,
-                  ),),
+                  child: const Text(
+                    '사용시간을 선택해\n기록해 보세요!',
+                    style: TextStyle(
+                      color: kWhiteColor,
+                    ),
+                  ),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-
                 Stack(
                   children: [
                     Container(
