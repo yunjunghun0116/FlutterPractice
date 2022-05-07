@@ -1,29 +1,37 @@
+import 'package:bodyfriend_clone/models/category.dart';
+
 class Chair {
-  final String id;
-  final String imageUrl;
-  final String title;
+  final int id;
+  final String name;
+  final String shortDesc;
+  final String listImage;
   final int price;
-  final int rentalPrice;
-  final double point;
-  final List pointUser;
+  final int rentPrice;
+  final int popularScore;
+  final List detailImage;
+  final int salesCount;
 
   Chair({
     required this.id,
-    required this.imageUrl,
-    required this.title,
+    required this.name,
+    required this.shortDesc,
+    required this.listImage,
     required this.price,
-    required this.rentalPrice,
-    required this.point,
-    required this.pointUser,
+    required this.rentPrice,
+    required this.popularScore,
+    required this.detailImage,
+    required this.salesCount,
   });
 
   factory Chair.fromJson(json) => Chair(
         id: json['id'],
-        imageUrl: json['imageUrl'],
-        title: json['title'],
+        name: json['name'],
+        shortDesc: json['shortDesc'],
+        listImage: json['listImage'],
         price: json['price'],
-        rentalPrice: json['rentalPrice'],
-        point: json['point'],
-        pointUser: json['pointUser'],
+        rentPrice: json['rentPrice'],
+        popularScore: json['popularScore'],
+        detailImage: json['detailImage'],
+        salesCount: json['salesCount']??0,
       );
 }

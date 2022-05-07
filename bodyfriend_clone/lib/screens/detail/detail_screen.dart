@@ -1,5 +1,6 @@
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/models/chair.dart';
+import 'package:bodyfriend_clone/screens/detail/components/carousel_image_area.dart';
 import 'package:bodyfriend_clone/utils/format_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -39,18 +40,13 @@ class DetailScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Image.asset(
-            chair.imageUrl,
-            fit: BoxFit.cover,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width,
-          ),
+          CarouselImageArea(imageList: chair.detailImage),
           Container(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(chair.title.replaceAll('\n', '')),
+                Text(chair.name),
                 const SizedBox(height: 5),
                 RichText(
                   text: TextSpan(
@@ -76,7 +72,7 @@ class DetailScreen extends StatelessWidget {
                       style: const TextStyle(color: kBlackColor),
                       children: [
                         TextSpan(
-                            text: getPrice(chair.rentalPrice),
+                            text: getPrice(chair.rentPrice),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -97,26 +93,25 @@ class DetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        getRating(chair.point),
-                        Text('${chair.point}'),
+                        getRating(chair.popularScore / 20),
+                        Text('${chair.popularScore / 20}'),
                         const SizedBox(width: 5),
-                        Text(
-                          '${chair.pointUser.length} 건',
-                          style: const TextStyle(
-                            color: kGreyColor,
-                            fontSize: 14,
-                          ),
-                        )
                       ],
                     ),
-                    const Icon(Icons.favorite_border,color: kGreyColor,size: 20,),
+                    const Icon(
+                      Icons.favorite_border,
+                      color: kGreyColor,
+                      size: 20,
+                    ),
                   ],
                 ),
-                const SizedBox(height: 30,child: Divider(),),
+                const SizedBox(
+                  height: 30,
+                  child: Divider(),
+                ),
               ],
             ),
           ),
-          
         ],
       ),
     );

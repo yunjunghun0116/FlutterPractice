@@ -32,7 +32,6 @@ flutter:
   assets:
     - assets/images/
     - assets/memberships/
-    - assets/memberships/membership_images/
 
   # fonts:
   #   - family: Schyler

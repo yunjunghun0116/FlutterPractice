@@ -7,6 +7,7 @@ import 'package:bodyfriend_clone/screens/home/components/top_login_button.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:get/get.dart';
 
 import '../../models/chair.dart';
 
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kSubBlackColor,
         title: Image.asset(
-          'assets/memberships/membership_images/ic_logo_fill_ver@3x.png',
+          'assets/memberships/ic_logo_fill_ver@3x.png',
           fit: BoxFit.cover,
           height: 30,
         ),
@@ -38,12 +39,6 @@ class HomeScreen extends StatelessWidget {
           const TopLoginButton(),
           const CustomIconArea(),
           const CarouselArea(),
-          FutureBuilder(
-            future: NetworkUtils().getBanner(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              return Container();
-            },
-          ),
           Container(
             width: double.infinity,
             height: 10,
@@ -82,23 +77,26 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: ChairController.to.chairList.map((Chair chair) {
-                return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(width: 10),
-                    MassageChairCard(
-                      widgetWidth: 130,
-                      chair: chair,
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
+          GetBuilder<ChairController>(
+            builder: (_) {
+              return SizedBox(
+                height: 300,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: ChairController.to.chairList.map((Chair chair) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(width: 10),
+                        MassageChairCard(
+                          chair: chair,
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -108,7 +106,9 @@ class HomeScreen extends StatelessWidget {
         overlayOpacity: 0,
         children: [
           SpeedDialChild(
-            onTap: () {},
+            onTap: () {
+              ChairController.to.getChairList();
+            },
             child: const Text(
               '정품\n등록',
               style: TextStyle(color: kWhiteColor),

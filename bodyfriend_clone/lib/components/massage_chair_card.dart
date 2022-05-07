@@ -7,11 +7,9 @@ import 'package:get/get.dart';
 import '../constants.dart';
 
 class MassageChairCard extends StatelessWidget {
-  final double widgetWidth;
   final Chair chair;
   const MassageChairCard({
     Key? key,
-    required this.widgetWidth,
     required this.chair,
   }) : super(key: key);
 
@@ -24,7 +22,7 @@ class MassageChairCard extends StatelessWidget {
         ),
       ),
       child: Container(
-        width: widgetWidth,
+        width: 130,
         margin: const EdgeInsets.only(right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +33,7 @@ class MassageChairCard extends StatelessWidget {
               height: 130,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(chair.imageUrl),
+                  image: NetworkImage(chair.listImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,7 +47,7 @@ class MassageChairCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text(chair.title),
+            Text(chair.name.replaceAll('(','\n(')),
             const SizedBox(height: 5),
             RichText(
               text: TextSpan(
@@ -65,12 +63,12 @@ class MassageChairCard extends StatelessWidget {
                 ],
               ),
             ),
-            RichText(
+            chair.rentPrice >0 ?RichText(
               text: TextSpan(
                 style: const TextStyle(color: kGreyColor, fontSize: 12),
                 children: [
                   TextSpan(
-                    text: getPrice(chair.rentalPrice),
+                    text: getPrice(chair.rentPrice),
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.black,
@@ -79,7 +77,7 @@ class MassageChairCard extends StatelessWidget {
                   const TextSpan(text: '원 / 렌탈가(월)'),
                 ],
               ),
-            ),
+            ):Container(),
           ],
         ),
       ),

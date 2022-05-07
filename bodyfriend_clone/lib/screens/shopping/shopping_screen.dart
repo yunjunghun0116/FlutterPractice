@@ -1,3 +1,4 @@
+import 'package:bodyfriend_clone/constants.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingScreen extends StatelessWidget {
@@ -6,6 +7,7 @@ class ShoppingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kWhiteColor,
       appBar: AppBar(
         title: Text('쇼핑'),
       ),
@@ -13,26 +15,18 @@ class ShoppingScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/memberships/img_chair_bg.png',
-              alignment: Alignment.topCenter,
-              width: 200,
-              height: 73,
-              fit: BoxFit.fitWidth,
-            ),
-            Image.asset(
-              'assets/memberships/img_chair_bg.png',
-              alignment: Alignment.center,
-              width: 200,
-              height: 73,
-              fit: BoxFit.fitWidth,
-            ),
-            Image.asset(
-              'assets/memberships/img_chair_bg.png',
+            Container(
               alignment: Alignment.bottomCenter,
-              width: 200,
-              height: 73,
-              fit: BoxFit.fitWidth,
+              width: 135,
+              height: 150,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/memberships/img_chair_bg@3x.png'
+                  ),
+                )
+              ),
+              child: Image.asset('assets/memberships/img_chair_3@3x.png'),
             ),
           ],
         ),

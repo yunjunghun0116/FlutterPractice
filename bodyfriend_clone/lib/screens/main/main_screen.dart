@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Center(
         child: IndexedStack(
           index: _currentIndex,
-          children: const [
+          children:  const [
             HomeScreen(),
             EventScreen(),
             ShoppingScreen(),
