@@ -35,3 +35,14 @@ A Screen
 B Screen
 C Screen
 
+모바일 <-> 서버
+넘겨줄때,받을때 둘다 가리킴
+1) FutureBuilder-future요청중 -> 데이터 없는상태
+2) 데이터를 서버로부터 받았을때 200 404 400 401  snapshot(X) -> 새로운 snapshot으로 업데이트
+
+ListView , SingleChildScrollView+Column/Row
+카테고리 : 10개, 각각 이미지
+이미지 100만 -> 유저가 보는 이미지 : 2~3개 장점 : 메모리의 효율 더 올릴수있고, 속도가 빠르다
+1) ListView -> 화면에 보여지는 부분만 렌더링
+2) SingleChildScrollView -> children에 속한 위젯들을 모두 렌더링
+

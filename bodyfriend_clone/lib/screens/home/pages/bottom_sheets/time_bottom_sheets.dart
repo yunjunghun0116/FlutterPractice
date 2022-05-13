@@ -79,7 +79,7 @@ class _TimeBottomSheetsState extends State<TimeBottomSheets> {
                 children: [
                   Expanded(
                     child: CupertinoPicker(
-                      offAxisFraction:-0.3,
+                      offAxisFraction: -0.3,
                       magnification: 1.1,
                       selectionOverlay: Container(
                         margin: const EdgeInsets.only(left: 10),
@@ -89,8 +89,7 @@ class _TimeBottomSheetsState extends State<TimeBottomSheets> {
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(5),
                               bottomLeft: Radius.circular(5),
-                            )
-                        ),
+                            )),
                       ),
                       itemExtent: 30,
                       onSelectedItemChanged: (value) {
@@ -104,24 +103,22 @@ class _TimeBottomSheetsState extends State<TimeBottomSheets> {
                   Expanded(
                     child: CupertinoPicker(
                       useMagnifier: true,
-                      magnification:1.1,
-                      offAxisFraction:0.3,
+                      magnification: 1.1,
+                      offAxisFraction: 0.3,
                       selectionOverlay: Container(
                         margin: const EdgeInsets.only(right: 10),
                         height: 30,
-
                         decoration: const BoxDecoration(
                             color: kLightGreyColor,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(5),
-                            bottomRight: Radius.circular(5),
-                          )
-                        ),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(5),
+                              bottomRight: Radius.circular(5),
+                            )),
                       ),
                       itemExtent: 30,
                       onSelectedItemChanged: (value) {
                         setState(() {
-                          minute=value;
+                          minute = value;
                         });
                       },
                       children: kMinutesTextList,
@@ -143,8 +140,7 @@ class _TimeBottomSheetsState extends State<TimeBottomSheets> {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: ()=>Get.back(
-                    ),
+                    onTap: () => Get.back(),
                     child: Container(
                       alignment: Alignment.center,
                       child: const Text(
@@ -155,9 +151,7 @@ class _TimeBottomSheetsState extends State<TimeBottomSheets> {
                 ),
                 Expanded(
                   child: GestureDetector(
-                    onTap: ()=>Get.back(
-                      result: [hour,minute,ampmState]
-                    ),
+                    onTap: () => Get.back(result: [hour, minute, ampmState]),
                     child: Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 20),

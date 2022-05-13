@@ -1,6 +1,8 @@
 import 'package:bodyfriend_clone/screens/home/components/custom_icon_button.dart';
 import 'package:bodyfriend_clone/screens/home/pages/sleep_record_page.dart';
 import 'package:bodyfriend_clone/screens/home/pages/time_record_page.dart';
+import 'package:bodyfriend_clone/screens/home/pages/vip_class_page.dart';
+import 'package:bodyfriend_clone/screens/home/pages/water_record_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,12 +38,16 @@ class CustomIconArea extends StatelessWidget {
             CustomIconButton(
               title: '물마시기',
               icon: Icons.water_drop_outlined,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(()=>const WaterRecordPage());
+              },
             ),
             CustomIconButton(
               title: 'VIP클래스',
               icon: Icons.edit_outlined,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(()=>const VIPClassPage());
+              },
             ),
             CustomIconButton(
               title: '체성분분석',

@@ -21,9 +21,15 @@ class NetworkUtils extends GetConnect {
     return chairListData;
   }
 
-  Future<void> getCategory() async{
-    Response data = await get('$_baseUrl/api/v1/main/category');
-    print('data : ${data.statusCode}');
+  Future<List> getVIPBannerList() async{
+    Response data = await get('$_baseUrl/api/v1/healingClass/top/banner');
+    List dataList = data.body['data']['imageBanner'];
+    return dataList;
+  }
+
+  Future<void> getVIPClassList() async{
+    Response data = await get('$_baseUrl/api/v1/healingClass');
+    print(data.body);
     List chairList = data.body['data'];
   }
 

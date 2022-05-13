@@ -1,5 +1,3 @@
-import 'package:bodyfriend_clone/models/category.dart';
-
 class Chair {
   final int id;
   final String name;
