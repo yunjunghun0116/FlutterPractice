@@ -27,10 +27,13 @@ class NetworkUtils extends GetConnect {
     return dataList;
   }
 
-  Future<void> getVIPClassList() async{
-    Response data = await get('$_baseUrl/api/v1/healingClass');
-    print(data.body);
-    List chairList = data.body['data'];
+  Future<List> getVIPClassList() async{
+    Response data = await get('$_baseUrl/api/v1/healingClass/fetchPage',headers: {
+      'page':'0',
+      'size':'20'
+    });
+    List classList = data.body['data']['content'];
+    return classList;
   }
 
 }

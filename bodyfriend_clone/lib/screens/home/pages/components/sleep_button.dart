@@ -17,7 +17,7 @@ class SleepButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed(),
+      onTap: ()=>onPressed(),
       child: Container(
         padding: const EdgeInsets.all(10),
         width: double.infinity,
