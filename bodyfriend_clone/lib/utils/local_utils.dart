@@ -18,3 +18,12 @@ String getDateTime(int times){
   DateTime _dateTime = DateTime.fromMillisecondsSinceEpoch(times*1000);
   return '${_dateTime.year}.${_dateTime.month >= 10?_dateTime.month:'0${_dateTime.month}'}.${_dateTime.day >= 10?_dateTime.day:'0${_dateTime.day}'}';
 }
+
+String getApplyDateTime(int startTimes,int endTimes){
+  DateTime startApplyDateTime = DateTime.fromMillisecondsSinceEpoch(startTimes*1000);
+  DateTime endApplyDateTime = DateTime.fromMillisecondsSinceEpoch(endTimes*1000);
+  if(endApplyDateTime.year!=startApplyDateTime.year){
+    return '${getDateTime(startTimes)} ~ ${getDateTime(endTimes)}';
+  }
+  return '${getDateTime(startTimes)} ~ ${getDateTime(endTimes).substring(5)}';
+}

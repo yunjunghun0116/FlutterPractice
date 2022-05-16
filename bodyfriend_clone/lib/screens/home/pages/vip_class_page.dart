@@ -28,7 +28,6 @@ class _VIPClassPageState extends State<VIPClassPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -53,8 +52,9 @@ class _VIPClassPageState extends State<VIPClassPage> {
       body: ListView(
         children: [
           FutureBuilder(
-            future: NetworkUtils().getVIPBannerList(),
+            future: NetworkUtils().getVIPBannerList(), //return값을 future로 받는 함수
             builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //위젯을 구성하는 부분
               if (snapshot.hasData) {
                 List vipBannerList = snapshot.data;
                 return CarouselSlider(
@@ -67,21 +67,21 @@ class _VIPClassPageState extends State<VIPClassPage> {
                     ),
                   ),
                   items: vipBannerList.map((banner) {
-                    return Container(
+                    return SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: CachedNetworkImage(
                         imageUrl: banner,
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                                colorFilter:
-                                ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        placeholder: (context, url) => CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        placeholder: (context, url) => Container(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     );
                   }).toList(),
@@ -128,16 +128,22 @@ class _VIPClassPageState extends State<VIPClassPage> {
                 Row(
                   children: [
                     Container(
-                      width: 25,
-                      height: 25,
+                      width: 20,
+                      height: 20,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Image.asset(
                         'assets/memberships/ic_question_mark_line_18px@3x.png',
                         fit: BoxFit.cover,
                         color: kBlackColor,
                       ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text('VIP클래스란',style: TextStyle(
+                        color: kGreyColor,
+                      ),),
                     ),
                   ],
                 ),

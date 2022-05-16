@@ -1,8 +1,6 @@
 import 'package:bodyfriend_clone/models/event_banner.dart';
 import 'package:get/get.dart';
 
-import '../models/chair.dart';
-
 class NetworkUtils extends GetConnect {
   final String _baseUrl = 'http://dapi.bodyfriend.co.kr';
 
@@ -34,6 +32,11 @@ class NetworkUtils extends GetConnect {
     });
     List classList = data.body['data']['content'];
     return classList;
+  }
+
+  Future<void> getVIPClassDetail(int id)async{
+    Response data = await get('$_baseUrl/api/v1/healingClass/$id/detail');
+    print(data.body['data']);
   }
 
 }

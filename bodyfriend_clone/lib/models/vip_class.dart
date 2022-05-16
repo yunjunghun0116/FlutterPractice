@@ -8,6 +8,8 @@ class VIPClass {
   final String eventStartTime;
   final String eventEndTime;
   final String eventMinute;
+  final int applyStartDate;
+  final int applyEndDate;
   final int price;
 
   VIPClass({
@@ -20,7 +22,9 @@ class VIPClass {
     required this.eventStartTime,
     required this.eventEndTime,
     required this.eventMinute,
-    required this.price
+    required this.applyStartDate,
+    required this.applyEndDate,
+    required this.price,
   });
 
   factory VIPClass.fromJson(Map<String, dynamic> json) {
@@ -34,7 +38,9 @@ class VIPClass {
       eventStartTime: json['eventStartTime'],
       eventEndTime: json['eventEndTime'],
       eventMinute: json['eventMinute'],
-        price:json['price']
+      applyStartDate: json['applyStartDate'],
+      applyEndDate: json['applyEndDate'],
+      price: json['price'],
     );
   }
 }
