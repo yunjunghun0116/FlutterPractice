@@ -7,6 +7,7 @@ import 'package:huntalk/controllers/fcm_controller.dart';
 import 'package:huntalk/controllers/local_controller.dart';
 import 'package:huntalk/models/chatRoom.dart';
 import 'package:huntalk/models/user.dart';
+import 'package:uuid/uuid.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.find();
@@ -14,6 +15,7 @@ class UserController extends GetxController {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseStorage _fireStorage = FirebaseStorage.instance;
   User? user;
+  final Uuid _uuid = const Uuid();
 
   Future<bool> getUser(String id)async{
     try{
@@ -36,16 +38,14 @@ class UserController extends GetxController {
       required String email,
       required String password,}) async {
     try {
-      String _id = '';
-      await _firestore.collection('user').add({
+      String _id = _uuid.v4();
+      await _firestore.collection('user').doc(_id).set({
         'name': name,
         'email': email,
         'password': password,
         'phone': phone,
         'chatRoomList': [],
-      }).then((value) {
-        value.update({'imageUrl': ''});
-        _id = value.id;
+        'imageUrl':''
       });
       LocalController.to.setId(_id);
       user = User(

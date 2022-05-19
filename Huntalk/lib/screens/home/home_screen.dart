@@ -34,18 +34,23 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          user.imageUrl,
+                  user.imageUrl.isNotEmpty
+                      ? Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                user.imageUrl,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(
+                          width: 50,
+                          height: 50,
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

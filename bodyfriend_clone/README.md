@@ -46,3 +46,8 @@ ListView , SingleChildScrollView+Column/Row
 1) ListView -> 화면에 보여지는 부분만 렌더링
 2) SingleChildScrollView -> children에 속한 위젯들을 모두 렌더링
 
+
+
+
+
+flutter_datetime_picker -> 문제점 timePicker기능 혹은 일만 기록하기에 불편 -> 코드 분석후 직접 해당 라이브러리에 존재하는 기능을 구현해봄

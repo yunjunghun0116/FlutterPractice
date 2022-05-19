@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "44556163444",
+    "project_id": "recordmoment-6e5c5",
+    "storage_bucket": "recordmoment-6e5c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44556163444:android:f37fab81dd193263cbb421",
+        "android_client_info": {
+          "package_name": "com.junghun.record_moment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44556163444-vr2g9hj64ao7ogkdfnjdr91tn371esvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junghun.record_moment",
+            "certificate_hash": "ac50f6f1e2d26ea3813854c854390ef8b516a0aa"
+          }
+        },
+        {
+          "client_id": "44556163444-u10t9tipup71e9r37ofu8o2fkme7d9ki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt6gXXFyN7hzVGOmeMnw6hfmzAof7fRcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44556163444-u10t9tipup71e9r37ofu8o2fkme7d9ki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

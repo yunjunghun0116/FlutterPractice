@@ -22,6 +22,7 @@ dependencies:
   image_picker: ^0.8.4+11
   flutter_local_notifications: ^9.4.0
   firebase_messaging: ^11.2.11
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
