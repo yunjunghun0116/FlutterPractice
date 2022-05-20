@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bodyfriend_clone/models/vip_class.dart';
 import 'package:bodyfriend_clone/screens/home/pages/bottom_sheets/filter_bottom_sheets.dart';
 import 'package:bodyfriend_clone/screens/home/pages/components/vip_class_card.dart';
@@ -9,6 +11,9 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+
 class VIPClassPage extends StatefulWidget {
   const VIPClassPage({Key? key}) : super(key: key);
 
@@ -19,6 +24,7 @@ class VIPClassPage extends StatefulWidget {
 class _VIPClassPageState extends State<VIPClassPage> {
   List selectedLocationList = [];
   late int nowDateTime;
+  final pdf = pw.Document();
 
   @override
   void initState() {
@@ -140,10 +146,13 @@ class _VIPClassPageState extends State<VIPClassPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
-                      child: const Text('VIP클래스란',style: TextStyle(
-                        color: kGreyColor,
-                      ),),
+                      onTap: () async {},
+                      child: const Text(
+                        'VIP클래스란',
+                        style: TextStyle(
+                          color: kGreyColor,
+                        ),
+                      ),
                     ),
                   ],
                 ),

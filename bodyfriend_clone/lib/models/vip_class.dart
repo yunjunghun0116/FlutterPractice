@@ -1,3 +1,5 @@
+import 'package:flutter_html/flutter_html.dart';
+
 class VIPClass {
   final int id;
   final String title;

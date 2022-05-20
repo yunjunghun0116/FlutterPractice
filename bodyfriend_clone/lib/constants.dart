@@ -10,6 +10,7 @@ const Color kBlueColor = Color(0xFF1AA2F3);
 const Color kWhiteColor = Color(0xFFFFFFFF);
 const Color kSubBlackColor = Color(0xBB000000);
 const Color kBackgroundColor = Color(0xFFF8F8F8);
+const Color kMintColor = Color(0xFF36D3B1);
 
 NumberFormat kPriceNumberFormat = NumberFormat('###,###,###');
 

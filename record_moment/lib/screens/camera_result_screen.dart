@@ -35,20 +35,6 @@ class _CameraResultScreenState extends State<CameraResultScreen> {
                 height: MediaQuery.of(context).size.width,
               ),
             ),
-            // CustomTextFormField(
-            //   label: '제목',
-            //   onSaved: (val) {},
-            //   validator: (val) {
-            //     return null;
-            //   },
-            // ),
-            // CustomTextFormField(
-            //   label: '내용',
-            //   onSaved: (val) {},
-            //   validator: (val) {
-            //     return null;
-            //   },
-            // ),
             TextField(
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,

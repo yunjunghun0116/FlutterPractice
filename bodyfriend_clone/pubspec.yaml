@@ -15,10 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.1.1
   flutter_speed_dial: ^5.1.0
-  get: ^4.6.1
+  get: ^4.6.3
   flutter_datetime_picker: ^1.5.1
   intl: ^0.17.0
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.1
+  flutter_html: ^2.2.1
+  pdf: ^3.8.0
 
 dev_dependencies:
   flutter_test:

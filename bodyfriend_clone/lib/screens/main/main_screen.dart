@@ -1,5 +1,5 @@
 import 'package:bodyfriend_clone/constants.dart';
-import 'package:bodyfriend_clone/controllers/chair_controller.dart';
+import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/screens/connect/connect_screen.dart';
 import 'package:bodyfriend_clone/screens/event/event_screen.dart';
 import 'package:bodyfriend_clone/screens/home/home_screen.dart';
@@ -21,8 +21,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    Get.put(ChairController());
+    Get.put(UserController());
   }
 
   @override
