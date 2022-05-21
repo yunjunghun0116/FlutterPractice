@@ -1,5 +1,6 @@
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
+import 'package:bodyfriend_clone/screens/home/components/top_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,28 +22,28 @@ class TopUserButton extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${controller.user!.name}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        controller.user!.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('님'),
-                      SizedBox(width: 5),
+                      const Text('님'),
+                      const SizedBox(width: 5),
                       Container(
                         padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: kMintColor,
                         ),
                         child: Text(
                           controller.user!.memberGradeType,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: kWhiteColor,
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       FutureBuilder(future: UserController.to.getUserPoint(),builder: (context,snapshot){
                         if(snapshot.hasData){
-                          return Text('${snapshot.data}P',style: TextStyle(
+                          return Text('${snapshot.data}P',style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),);
@@ -52,17 +53,17 @@ class TopUserButton extends StatelessWidget {
 
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     children: [
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('보유쿠폰'),
+                            const Text('보유쿠폰'),
                             FutureBuilder(future: UserController.to.getCouponCount(),builder: (context,snapshot){
                               if(snapshot.hasData){
-                                return Text('${snapshot.data}',style: TextStyle(
+                                return Text('${snapshot.data}',style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),);
@@ -72,15 +73,15 @@ class TopUserButton extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Text(' | '),
+                      const Text(' | '),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('사용중 제품'),
+                            const Text('사용중 제품'),
                             FutureBuilder(future: UserController.to.getUsingCount(),builder: (context,snapshot){
                               if(snapshot.hasData){
-                                return Text('${snapshot.data}',style: TextStyle(
+                                return Text('${snapshot.data}',style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),);
@@ -115,11 +116,11 @@ class TopUserButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.person_outline,color: kWhiteColor,),
-                  Text('친구초대',style: TextStyle(
+                  const Icon(Icons.person_outline,color: kWhiteColor,),
+                  const Text('친구초대',style: TextStyle(
                     color: kWhiteColor,
                   ),),
-                  Text('0',style: TextStyle(color: kWhiteColor,),),
+                  const Text('0',style: const TextStyle(color: kWhiteColor,),),
                 ],
               ),
             ),

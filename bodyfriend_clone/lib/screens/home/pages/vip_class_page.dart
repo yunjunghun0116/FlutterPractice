@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bodyfriend_clone/models/vip_class.dart';
 import 'package:bodyfriend_clone/screens/home/pages/bottom_sheets/filter_bottom_sheets.dart';
 import 'package:bodyfriend_clone/screens/home/pages/components/vip_class_card.dart';
+import 'package:bodyfriend_clone/screens/home/pages/vip_class_info_page.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -146,7 +147,29 @@ class _VIPClassPageState extends State<VIPClassPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () async {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const VIPClassInfoPage(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              const begin = Offset(0, 1);
+                              const end = Offset.zero;
+                              const curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+                              return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child);
+                            },
+                            transitionDuration: const Duration(milliseconds: 500),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'VIP클래스란',
                         style: TextStyle(

@@ -35,89 +35,155 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: GetBuilder<UserController>(builder: (controller) {
-        if (controller.user != null) {
-          return ListView(children: [
-            const TopUserButton(),
-            const CustomIconArea(),
-            const CarouselArea(),
-            Container(
-              width: double.infinity,
-              height: 10,
-              color: kBackgroundColor,
-            ),
-            FutureBuilder(
-              future: NetworkUtils().getMemberMainList(controller.user!.id, controller.user!.accessToken),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
-                if (snapshot.hasData) {
-                  List mainList = snapshot.data;
-                  return Column(
-                    children: mainList.map((mainItem) {
-                      List goodsList = mainItem['goodsList'];
-                      return Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      mainItem['title'],
-                                      style: const TextStyle(
-                                        color: kBlackColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+        return ListView(children: [
+          controller.user!=null?const TopUserButton():const TopLoginButton(),
+          const CustomIconArea(),
+          const CarouselArea(),
+          Container(
+            width: double.infinity,
+            height: 10,
+            color: kBackgroundColor,
+          ),
+          controller.user!=null?FutureBuilder(
+            future: NetworkUtils().getMemberMainList(controller.user!.id, controller.user!.accessToken),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
+              if (snapshot.hasData) {
+                List mainList = snapshot.data;
+                return Column(
+                  children: mainList.map((mainItem) {
+                    List goodsList = mainItem['goodsList'];
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    mainItem['title'],
+                                    style: const TextStyle(
+                                      color: kBlackColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    const Text(
-                                      '더보기 +',
-                                      style: TextStyle(
-                                        color: kGreyColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  mainItem['description'],
-                                  style: const TextStyle(
-                                    color: kGreyColor,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 250,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: goodsList.map((chair) {
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(width: 10),
-                                    MassageChairCard(
-                                      chair: Chair.fromJson(chair),
+                                  const Text(
+                                    '더보기 +',
+                                    style: TextStyle(
+                                      color: kGreyColor,
                                     ),
-                                  ],
-                                );
-                              }).toList(),
-                            ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                mainItem['description'],
+                                style: const TextStyle(
+                                  color: kGreyColor,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      );
-                    }).toList(),
-                  );
-                }
-                return Container();
-              },
-            ),
-          ]);
-        }
-        return const TopLoginButton();
+                        ),
+                        SizedBox(
+                          height: 250,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: goodsList.map((chair) {
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(width: 10),
+                                  MassageChairCard(
+                                    chair: Chair.fromJson(chair),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                );
+              }
+              return Container();
+            },
+          ):FutureBuilder(
+            future: NetworkUtils().getMainList(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
+              if (snapshot.hasData) {
+                List mainList = snapshot.data;
+                return Column(
+                  children: mainList.map((mainItem) {
+                    List goodsList = mainItem['goodsList'];
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    mainItem['title'],
+                                    style: const TextStyle(
+                                      color: kBlackColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Text(
+                                    '더보기 +',
+                                    style: TextStyle(
+                                      color: kGreyColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                mainItem['description'],
+                                style: const TextStyle(
+                                  color: kGreyColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 250,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: goodsList.map((chair) {
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(width: 10),
+                                  MassageChairCard(
+                                    chair: Chair.fromJson(chair),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                );
+              }
+              return Container();
+            },
+          ),
+        ]);
       }),
       floatingActionButton: SpeedDial(
         icon: Icons.add,
