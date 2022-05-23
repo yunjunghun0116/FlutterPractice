@@ -20,8 +20,9 @@ dependencies:
   intl: ^0.17.0
   cached_network_image: ^3.2.1
   flutter_html: ^2.2.1
-  pdf: ^3.8.0
+  webview_flutter: ^2.0.4
   syncfusion_flutter_pdfviewer: ^20.1.56-beta
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:

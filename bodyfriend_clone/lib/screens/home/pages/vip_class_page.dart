@@ -12,9 +12,6 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-
 class VIPClassPage extends StatefulWidget {
   const VIPClassPage({Key? key}) : super(key: key);
 
@@ -25,7 +22,6 @@ class VIPClassPage extends StatefulWidget {
 class _VIPClassPageState extends State<VIPClassPage> {
   List selectedLocationList = [];
   late int nowDateTime;
-  final pdf = pw.Document();
 
   @override
   void initState() {

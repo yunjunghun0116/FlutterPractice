@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:bodyfriend_clone/models/event_banner.dart';
 import 'package:bodyfriend_clone/models/user.dart';
+import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
 class NetworkUtils extends GetConnect {
@@ -23,8 +26,11 @@ class NetworkUtils extends GetConnect {
   Future<List> getMemberMainList(int userId, String accessToken) async {
     Response data = await get('$_baseUrl/api/v1/main/list',
         headers: {'Authorization': 'Bearer $accessToken'});
-    List listData = data.body['data'];
-    return listData;
+    if (data.isOk) {
+      List listData = data.body['data'];
+      return listData;
+    }
+    return [];
   }
 
   Future<List> getVIPBannerList() async {
@@ -49,17 +55,17 @@ class NetworkUtils extends GetConnect {
     };
   }
 
-  Future<User> postLoginUser() async {
+  Future<User> postLoginUser({
+    required String loginId,
+    required String userIdx,
+  }) async {
+    //해쉬작업
+    List<int> hashString = utf8.encode('${userIdx}UNO');
+    Digest hash = sha256.convert(hashString); //나누어진 결과물(String X)
+
     Response loginResult = await post(
       '$_baseUrl/api/v1/auth/united/login',
-      {
-        'loginId': 'leedg5845',
-        'password': 'body123!',
-        'userIdx': '205915',
-        'hash':
-            '6a4b86bb3070318381be7c65a6f6d53412973ea07b14dc60efb94671a938eb3d',
-        'result': true
-      },
+      {'loginId': loginId, 'userIdx': userIdx, 'hash': hash.toString(), 'result': true},
     );
     return User.fromJson(loginResult.body['data']);
   }

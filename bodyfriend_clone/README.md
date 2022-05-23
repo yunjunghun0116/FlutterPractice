@@ -47,6 +47,21 @@ ListView , SingleChildScrollView+Column/Row
 2) SingleChildScrollView -> children에 속한 위젯들을 모두 렌더링
 
 
+Web(JavaScript) <-> App(Dart)
+WebView -> JavaScript코드 -> 화면 제작
+        -> 주소를 통해 -> 화면 제작
+
+함수호출 -> JavaScript코드 수행 -> name onMessageReceived
+JS
+window.채널이름(name).postMessage(var value)
+
+name -> message
+
+
+
+
+
+
 
 
 

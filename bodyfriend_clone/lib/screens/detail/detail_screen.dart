@@ -2,7 +2,6 @@ import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/models/chair.dart';
 import 'package:bodyfriend_clone/screens/detail/components/carousel_image_area.dart';
 import 'package:bodyfriend_clone/utils/format_utils.dart';
-import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -31,6 +30,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(chair.id);
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
