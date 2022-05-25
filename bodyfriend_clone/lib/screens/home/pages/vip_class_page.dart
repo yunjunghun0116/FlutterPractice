@@ -144,6 +144,10 @@ class _VIPClassPageState extends State<VIPClassPage> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        // Navigator.push(context, MaterialPageRoute(builder: (context){
+                        //   return const VIPClassInfoPage();
+                        // }));
+
                         Navigator.push(
                           context,
                           PageRouteBuilder(
@@ -154,7 +158,7 @@ class _VIPClassPageState extends State<VIPClassPage> {
                                 secondaryAnimation, child) {
                               const begin = Offset(0, 1);
                               const end = Offset.zero;
-                              const curve = Curves.ease;
+                              const curve = Curves.easeIn;
 
                               var tween = Tween(begin: begin, end: end)
                                   .chain(CurveTween(curve: curve));
@@ -162,7 +166,8 @@ class _VIPClassPageState extends State<VIPClassPage> {
                                   position: animation.drive(tween),
                                   child: child);
                             },
-                            transitionDuration: const Duration(milliseconds: 500),
+                            transitionDuration:
+                                const Duration(milliseconds: 500),
                           ),
                         );
                       },

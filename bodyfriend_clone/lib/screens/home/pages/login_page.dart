@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
           javascriptChannels: {
             JavascriptChannel(
                 name: 'setNative',
-                onMessageReceived: (message) {
-                  Map<String, dynamic> data = jsonDecode(message.message);
+                onMessageReceived: (javascriptData) {
+                  Map<String, dynamic> data = jsonDecode(javascriptData.message);
                   Get.back(result: data);
                 }),
             JavascriptChannel(

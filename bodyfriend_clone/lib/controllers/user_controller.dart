@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:get/get.dart';
 import '../models/user.dart';
@@ -10,10 +11,19 @@ class UserController extends GetxController {
   User? user;
 
   void loginUser({required String loginId,required String userIdx}) async {
-    user = await NetworkUtils().postLoginUser(
+    User? result = await NetworkUtils().postLoginUser(
       loginId: loginId,
       userIdx: userIdx,
     );
+    if(result !=null){
+      user=result;
+      update();
+    }
+  }
+
+  void signOut(){
+    user = null;
+    LocalController().clearSharedPreferences();
     update();
   }
 
@@ -32,4 +42,6 @@ class UserController extends GetxController {
   Future<List> getMainList() async {
     return NetworkUtils().getMemberMainList(user!.id, user!.accessToken);
   }
+
+
 }

@@ -59,6 +59,29 @@ name -> message
 
 
 
+MVC -> Model View Controller + Service
+
+View -> Controller -> Service -> Repository/Server요청
+
+        Model(프로젝트 안에서 사용되는 객체의 정의) 여러곳에서도 올바르게 객체의 변수의 값에 접근할 수 있다
+        Getter/Setter -> Map 전혀 사용 X
+                      Model로써 객체가 만들어져있어야 해당 객체의 변수의 값에 접근 -> 게터세터방식
+                      객체지향설계 / 객체지향프로그래밍
+
+
+데이터 송수신 -> 데이터를 누락되거나 오류가 생기지 않도록 감싸주는 작업
+Header-Body-Trailer
+Header : 실제 데이터에대한 정보들 (실제 데이터정보의 길이/크기)
+Body : 실제 데이터
+Trailer : 오류에 대한 검증 작업들
+
+Map -> 바로 내 기기로 넘어올수 없다! -> String/int/Map/Set/null -> Json 변환후에
+
+
+
+
+
+
 
 
 

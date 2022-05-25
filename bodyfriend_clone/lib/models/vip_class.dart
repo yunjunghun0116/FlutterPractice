@@ -11,8 +11,11 @@ class VIPClass {
   final int applyStartDate;
   final int applyEndDate;
   final int price;
+  final String status;
+  final String? imageForm;
+  final bool? applied;
 
-  VIPClass({
+  VIPClass( {
     required this.id,
     required this.title,
     required this.detailImage,
@@ -24,7 +27,7 @@ class VIPClass {
     required this.eventMinute,
     required this.applyStartDate,
     required this.applyEndDate,
-    required this.price,
+    required this.price,required this.status, required this.imageForm, required this.applied,
   });
 
   factory VIPClass.fromJson(Map<String, dynamic> json) {
@@ -41,6 +44,9 @@ class VIPClass {
       applyStartDate: json['applyStartDate'],
       applyEndDate: json['applyEndDate'],
       price: json['price'],
+      status: json['status'],
+      imageForm: json['imageForm'],
+      applied: json['applied'],
     );
   }
 }

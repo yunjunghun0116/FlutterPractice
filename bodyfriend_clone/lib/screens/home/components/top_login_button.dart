@@ -15,7 +15,6 @@ class TopLoginButton extends StatelessWidget {
     return GestureDetector(
       onTap: ()async {
         Map<String,dynamic>? userData = await Get.to(()=>LoginPage());
-        print(userData);
         if(userData!=null){
           UserController.to.loginUser(userIdx: userData['userIdx'],loginId: userData['userId']);
         }

@@ -1,3 +1,4 @@
+import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 
 class UserScreen extends StatelessWidget {
@@ -8,6 +9,18 @@ class UserScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('user'),
+      ),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              UserController.to.signOut();
+            },
+            child: Text(
+              '로그아웃',
+            ),
+          )
+        ],
       ),
     );
   }

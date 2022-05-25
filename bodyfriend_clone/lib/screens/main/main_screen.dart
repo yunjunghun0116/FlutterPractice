@@ -20,13 +20,6 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Get.put(UserController());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

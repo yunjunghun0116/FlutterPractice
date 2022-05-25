@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/models/event_banner.dart';
 import 'package:bodyfriend_clone/models/user.dart';
+import 'package:bodyfriend_clone/models/vip_class.dart';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
@@ -46,16 +48,12 @@ class NetworkUtils extends GetConnect {
     return classList;
   }
 
-  Future<Map<String, dynamic>> getVIPClassDetail(int id) async {
+  Future<VIPClass> getVIPClassDetail(int id) async {
     Response data = await get('$_baseUrl/api/v1/healingClass/$id/detail');
-    return {
-      'image': data.body['data']['imageForm'],
-      'status': data.body['data']['status'],
-      'applied': data.body['data']['applied'],
-    };
+    return VIPClass.fromJson(data.body['data']);
   }
 
-  Future<User> postLoginUser({
+  Future<User?> postLoginUser({
     required String loginId,
     required String userIdx,
   }) async {
@@ -67,7 +65,15 @@ class NetworkUtils extends GetConnect {
       '$_baseUrl/api/v1/auth/united/login',
       {'loginId': loginId, 'userIdx': userIdx, 'hash': hash.toString(), 'result': true},
     );
-    return User.fromJson(loginResult.body['data']);
+
+    await LocalController().setLoginId(loginId);
+    await LocalController().setUserIdx(userIdx);
+
+    if(loginResult.body['status']=='success'){
+      return User.fromJson(loginResult.body['data']);
+    }
+    return null;
+
   }
 
   Future<int> getUserPoint(int userId, String accessToken) async {

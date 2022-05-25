@@ -16,7 +16,7 @@ class VIPClassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => VIPClassDetailPage(vipClass: vipclass)),
+      onTap: () => Get.to(() => VIPClassDetailPage(vipClassId: vipclass.id)),
       child: Container(
         padding: const EdgeInsets.all(16),
         child: Column(

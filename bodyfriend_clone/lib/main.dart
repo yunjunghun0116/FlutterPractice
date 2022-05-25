@@ -1,4 +1,6 @@
+import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/screens/main/main_screen.dart';
+import 'package:bodyfriend_clone/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +17,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: const MainScreen(),
+      home: const SplashScreen(),
+      initialBinding: BindingsBuilder((){
+        Get.put(UserController());
+      })
+
+    ,
     );
   }
 }
