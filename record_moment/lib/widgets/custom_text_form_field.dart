@@ -4,11 +4,17 @@ class CustomTextFormField extends StatelessWidget {
   final String label;
   final FormFieldSetter onSaved;
   final FormFieldValidator validator;
+  final TextInputType inputType;
+  final bool obsecure;
+  final int? maxLines;
   const CustomTextFormField({
     Key? key,
     required this.label,
     required this.onSaved,
     required this.validator,
+    this.inputType = TextInputType.text,
+    this.obsecure = false,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -19,8 +25,10 @@ class CustomTextFormField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-            onSaved: (val)=>onSaved(val),
-            validator: (val)=>validator(val),
+            onSaved: (val) => onSaved(val),
+            validator: (val) => validator(val),
+            keyboardType: inputType,
+            obscureText: obsecure,
             decoration: InputDecoration(
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelStyle: const TextStyle(
@@ -33,9 +41,7 @@ class CustomTextFormField extends StatelessWidget {
                 ),
               ),
             ),
-            keyboardType: TextInputType.text,
-            maxLines: 100,
-            minLines: 1,
+            maxLines: obsecure ? 1 : maxLines,
           )
         ],
       ),
