@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
       if(loginId!=null && userIdx != null){
         UserController.to.loginUser(loginId: loginId, userIdx: userIdx);
       }
-      Get.to(()=>MainScreen());
+      Get.offAll(()=>const MainScreen());
     });
     return Scaffold(
       body: SizedBox(

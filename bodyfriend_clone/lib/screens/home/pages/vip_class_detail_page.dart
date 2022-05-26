@@ -29,12 +29,10 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
         if (snapshot.hasData) {
           VIPClass vipClass = snapshot.data;
           String statusText = vipClass.status == 'ACTIVE'
-              ? (!vipClass.applied!
-              ? '신청하기'
-              : '신청마감')
+              ? (vipClass.applied! ? '신청완료' : '신청하기')
               : '신청마감';
           Color buttonColor =
-          vipClass.status == 'ACTIVE' ? kMainColor : kGreyColor;
+              vipClass.status == 'ACTIVE' ? kMainColor : kGreyColor;
           return Scaffold(
             appBar: AppBar(
               backgroundColor: kWhiteColor,
@@ -125,8 +123,8 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
                               color: kGreyColor,
                             ),
                           ),
-                          Text(getApplyDateTime(vipClass.applyStartDate,
-                              vipClass.applyEndDate)),
+                          Text(getApplyDateTime(
+                              vipClass.applyStartDate, vipClass.applyEndDate)),
                           const SizedBox(width: 10),
                           const Text(
                             '참가비 ',
@@ -136,17 +134,17 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
                           ),
                           vipClass.price > 0
                               ? Container(
-                            padding: const EdgeInsets.all(2),
-                            child: Text(
-                              '${vipClass.price} 원',
-                            ),
-                          )
+                                  padding: const EdgeInsets.all(2),
+                                  child: Text(
+                                    '${vipClass.price} 원',
+                                  ),
+                                )
                               : Container(
-                            padding: const EdgeInsets.all(2),
-                            child: const Text(
-                              '무료',
-                            ),
-                          ),
+                                  padding: const EdgeInsets.all(2),
+                                  child: const Text(
+                                    '무료',
+                                  ),
+                                ),
                         ],
                       ),
                     ],
@@ -160,49 +158,49 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
                 ),
                 isFullImage
                     ? GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isFullImage = !isFullImage;
-                    });
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(16),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: kGreyColor),
-                    ),
-                    child: const Text(
-                      'VIP클래스정보 접기',
-                      style: TextStyle(
-                        color: kGreyColor,
-                      ),
-                    ),
-                  ),
-                )
+                        onTap: () {
+                          setState(() {
+                            isFullImage = !isFullImage;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: kGreyColor),
+                          ),
+                          child: const Text(
+                            'VIP클래스정보 접기',
+                            style: TextStyle(
+                              color: kGreyColor,
+                            ),
+                          ),
+                        ),
+                      )
                     : GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isFullImage = !isFullImage;
-                    });
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.all(16),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: kGreyColor),
-                    ),
-                    child: const Text(
-                      'VIP클래스정보 더보기',
-                      style: TextStyle(
-                        color: kGreyColor,
+                        onTap: () {
+                          setState(() {
+                            isFullImage = !isFullImage;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: kGreyColor),
+                          ),
+                          child: const Text(
+                            'VIP클래스정보 더보기',
+                            style: TextStyle(
+                              color: kGreyColor,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
               ],
             ),
             bottomNavigationBar: GestureDetector(
@@ -218,8 +216,8 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
                   color: buttonColor,
                   gradient: vipClass.status == 'ACTIVE'
                       ? LinearGradient(
-                    colors: [kMainColor.withOpacity(0.7), kMainColor],
-                  )
+                          colors: [kMainColor.withOpacity(0.7), kMainColor],
+                        )
                       : null,
                 ),
                 child: Text(
