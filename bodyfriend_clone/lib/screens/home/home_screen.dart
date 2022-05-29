@@ -1,8 +1,11 @@
 import 'package:bodyfriend_clone/components/massage_chair_card.dart';
+import 'package:bodyfriend_clone/components/point_item_card.dart';
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
+import 'package:bodyfriend_clone/models/point_item.dart';
 import 'package:bodyfriend_clone/screens/home/components/carousel_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/custom_icon_area.dart';
+import 'package:bodyfriend_clone/screens/home/components/mall_container.dart';
 import 'package:bodyfriend_clone/screens/home/components/top_login_button.dart';
 import 'package:bodyfriend_clone/screens/home/components/top_user_button.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
@@ -34,162 +37,39 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: GetBuilder<UserController>(builder: (controller) {
-        return ListView(children: [
-          controller.user != null
-              ? const TopUserButton()
-              : const TopLoginButton(),
-          const CustomIconArea(),
-          const CarouselArea(),
-          Container(
-            width: double.infinity,
-            height: 10,
-            color: kBackgroundColor,
-          ),
-          controller.user != null
-              ? FutureBuilder(
-                  future: NetworkUtils().getMemberMainList(
-                      controller.user!.id, controller.user!.accessToken),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
-                    if (snapshot.hasData) {
-                      List mainList = snapshot.data;
-                      return Column(
-                        children: mainList.map((mainItem) {
-                          List goodsList = mainItem['goodsList'];
-                          return Column(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          mainItem['title'],
-                                          style: const TextStyle(
-                                            color: kBlackColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        const Text(
-                                          '더보기 +',
-                                          style: TextStyle(
-                                            color: kGreyColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      mainItem['description'],
-                                      style: const TextStyle(
-                                        color: kGreyColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 250,
-                                child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: goodsList.map((chair) {
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const SizedBox(width: 10),
-                                        MassageChairCard(
-                                          chair: Chair.fromJson(chair),
-                                        ),
-                                      ],
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
+      body: GetBuilder<UserController>(
+        builder: (controller) {
+          return ListView(children: [
+            controller.user != null
+                ? const TopUserButton()
+                : const TopLoginButton(),
+            const CustomIconArea(),
+            const CarouselArea(),
+            FutureBuilder(
+              future: controller.user != null
+                  ? NetworkUtils().getMemberMainList(
+                      controller.user!.id, controller.user!.accessToken)
+                  : NetworkUtils().getMainList(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
+                if (snapshot.hasData) {
+                  List mainList = snapshot.data;
+                  return Column(
+                    children: mainList.map((mainItem) {
+                      return MallContainer(
+                        goodsList: mainItem['goodsList'],
+                        title: mainItem['title'],
+                        description: mainItem['description'],
                       );
-                    }
-                    return Container();
-                  },
-                )
-              : FutureBuilder(
-                  future: NetworkUtils().getMainList(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때
-                    if (snapshot.hasData) {
-                      List mainList = snapshot.data;
-                      return Column(
-                        children: mainList.map((mainItem) {
-                          List goodsList = mainItem['goodsList'];
-                          return Column(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          mainItem['title'],
-                                          style: const TextStyle(
-                                            color: kBlackColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        const Text(
-                                          '더보기 +',
-                                          style: TextStyle(
-                                            color: kGreyColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      mainItem['description'],
-                                      style: const TextStyle(
-                                        color: kGreyColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 250,
-                                child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: goodsList.map((chair) {
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const SizedBox(width: 10),
-                                        MassageChairCard(
-                                          chair: Chair.fromJson(chair),
-                                        ),
-                                      ],
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-        ]);
-      }),
+                    }).toList(),
+                  );
+                }
+                return Container();
+              },
+            )
+          ]);
+        },
+      ),
       floatingActionButton: SpeedDial(
         icon: Icons.add,
         backgroundColor: kMainColor,

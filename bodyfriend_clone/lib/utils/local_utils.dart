@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 String timeDifference(
   int onSleepHours,
   int onSleepMinutes,
@@ -26,4 +28,9 @@ String getApplyDateTime(int startTimes,int endTimes){
     return '${getDateTime(startTimes)} ~ ${getDateTime(endTimes)}';
   }
   return '${getDateTime(startTimes)} ~ ${getDateTime(endTimes).substring(5)}';
+}
+
+Text getTextWithBenefits(Map<String,dynamic> benefit){
+  List<String> textList = benefit['text'].split(' ');
+  return Text('');
 }

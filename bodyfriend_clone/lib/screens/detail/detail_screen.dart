@@ -1,36 +1,23 @@
 import 'package:bodyfriend_clone/constants.dart';
+import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/models/chair.dart';
+import 'package:bodyfriend_clone/models/point_item.dart';
 import 'package:bodyfriend_clone/screens/detail/components/carousel_image_area.dart';
+import 'package:bodyfriend_clone/screens/detail/components/detail_benefits_area.dart';
+import 'package:bodyfriend_clone/screens/detail/components/detail_info_area.dart';
 import 'package:bodyfriend_clone/utils/format_utils.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
-  final Chair chair;
-  const DetailScreen({Key? key, required this.chair}) : super(key: key);
+import '../../utils/network_utils.dart';
 
-  Widget getRating(double point) {
-    List<Widget> _starList = [];
-    for (int i = 0; i < 5; i++) {
-      if (i < point.floor()) {
-        _starList.add(const Icon(
-          Icons.star,
-          size: 15,
-        ));
-      } else {
-        _starList.add(const Icon(
-          Icons.star_border,
-          size: 15,
-        ));
-      }
-    }
-    return Row(
-      children: _starList,
-    );
-  }
+class DetailScreen extends StatelessWidget {
+  final ItemType type;
+  final int id;
+  const DetailScreen({Key? key, required this.id, required this.type})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(chair.id);
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
@@ -39,81 +26,41 @@ class DetailScreen extends StatelessWidget {
         foregroundColor: kBlackColor,
         elevation: 0.5,
       ),
-      body: ListView(
-        children: [
-          CarouselImageArea(imageList: chair.detailImage),
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: FutureBuilder(
+        future: NetworkUtils().getItemDetailByIdAndToken(
+          id: id,
+          accessToken: UserController.to.user != null
+              ? UserController.to.user!.accessToken
+              : null,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            late dynamic item;
+            List? benefits;
+            if (type == ItemType.chair) {
+              item = Chair.fromJson(snapshot.data);
+              benefits = (snapshot.data as Map<String, dynamic>)['benefits'];
+              print(benefits);
+            } else {
+              item = PointItem.fromJson(snapshot.data);
+            }
+
+            return ListView(
               children: [
-                Text(chair.name),
-                const SizedBox(height: 5),
-                RichText(
-                  text: TextSpan(
-                      style: const TextStyle(color: kBlackColor),
-                      children: [
-                        TextSpan(
-                            text: getPrice(chair.price),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            )),
-                        const TextSpan(text: '원'),
-                        const TextSpan(
-                            text: ' / 구매가',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: kGreyColor,
-                            ))
-                      ]),
+                CarouselImageArea(imageList: item.detailImage),
+                DetailInfoArea(
+                  name: item.name,
+                  price: item.price,
+                  isChair: type == ItemType.chair,
+                  rentPrice: type == ItemType.chair ? item.rentPrice : null,
                 ),
-                RichText(
-                  text: TextSpan(
-                      style: const TextStyle(color: kBlackColor),
-                      children: [
-                        TextSpan(
-                            text: getPrice(chair.rentPrice),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            )),
-                        const TextSpan(text: '원'),
-                        const TextSpan(
-                            text: ' / 렌탈가(월)',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: kGreyColor,
-                            ))
-                      ]),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        getRating(chair.popularScore / 20),
-                        Text('${chair.popularScore / 20}'),
-                        const SizedBox(width: 5),
-                      ],
-                    ),
-                    const Icon(
-                      Icons.favorite_border,
-                      color: kGreyColor,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                  child: Divider(),
-                ),
+                DetailBenefitsArea(),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

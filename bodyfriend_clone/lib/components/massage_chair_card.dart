@@ -18,7 +18,8 @@ class MassageChairCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(
         () => DetailScreen(
-          chair: chair,
+          type: ItemType.chair,
+          id: chair.id,
         ),
       ),
       child: Container(

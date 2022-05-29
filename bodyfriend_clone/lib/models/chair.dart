@@ -8,6 +8,7 @@ class Chair {
   final int popularScore;
   final List detailImage;
   final int salesCount;
+  final String goodsInfo;
 
   Chair({
     required this.id,
@@ -19,6 +20,7 @@ class Chair {
     required this.popularScore,
     required this.detailImage,
     required this.salesCount,
+    required this.goodsInfo,
   });
 
   factory Chair.fromJson(json) => Chair(
@@ -30,6 +32,7 @@ class Chair {
         rentPrice: json['rentPrice'],
         popularScore: json['popularScore'],
         detailImage: json['detailImage'],
-        salesCount: json['salesCount']??0,
+        salesCount: json['salesCount'] ?? 0,
+        goodsInfo: json['goodsInfo'],
       );
 }
