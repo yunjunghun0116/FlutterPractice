@@ -19,11 +19,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final key = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입'),
+        title: const Text('회원가입'),
       ),
       body: Form(
+        key: key,
         child: Column(
           children: [
             CustomTextFormField(
@@ -39,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomTextFormField(
               label: '이메일',
               onSaved: (value) {
-                name = value;
+                email = value;
               },
               validator: (value) {
                 if (value == null) return '이메일을 입력해주세요!';
@@ -53,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomTextFormField(
               label: '비밀번호',
               onSaved: (value) {
-                name = value;
+                password = value;
               },
               validator: (value) {
                 if (value == null) return '비밀번호를 입력해주세요!';
@@ -77,7 +79,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     birthMonth = result[1];
                     birthDay = result[2];
                   });
-                  print(result);
                 }
               },
               child: Container(
@@ -92,6 +93,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Text('$birthyear년 $birthMonth월 $birthDay일'),
               ),
             ),
+            TextButton(onPressed: (){
+              if( key.currentState!.validate()){
+                key.currentState!.save();
+                print('name : $name\nemail : $email\npassword : $password');
+              }
+            }, child: Text('회원가입'),),
           ],
         ),
       ),

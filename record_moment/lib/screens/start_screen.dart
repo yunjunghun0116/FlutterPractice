@@ -5,8 +5,24 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final key = GlobalKey<FormState>();
+
     return Scaffold(
-      body: Column(),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Form(
+              key: key,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [],
+              ),
+            ),
+            Row(),
+          ],
+        ),
+      ),
     );
   }
 }
