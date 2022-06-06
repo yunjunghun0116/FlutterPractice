@@ -43,10 +43,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.bodyfriend_clone"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {

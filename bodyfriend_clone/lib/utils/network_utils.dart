@@ -3,7 +3,9 @@ import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:bodyfriend_clone/controllers/local_controller.dart';
+import 'package:bodyfriend_clone/models/category.dart';
 import 'package:bodyfriend_clone/models/event_banner.dart';
+import 'package:bodyfriend_clone/models/product_rating.dart';
 import 'package:bodyfriend_clone/models/user.dart';
 import 'package:bodyfriend_clone/models/vip_class.dart';
 import 'package:crypto/crypto.dart';
@@ -66,10 +68,15 @@ class NetworkUtils extends GetConnect {
 
     Response loginResult = await post(
       '$_baseUrl/api/v1/auth/united/login',
-      {'loginId': loginId, 'userIdx': userIdx, 'hash': hash.toString(), 'result': true},
+      {
+        'loginId': loginId,
+        'userIdx': userIdx,
+        'hash': hash.toString(),
+        'result': true
+      },
     );
 
-    if(loginResult.body['status']=='success'){
+    if (loginResult.body['status'] == 'success') {
       await LocalController().setLoginId(loginId);
       await LocalController().setUserIdx(userIdx);
       print('loginUser : ${loginResult.body['data']}');
@@ -99,17 +106,40 @@ class NetworkUtils extends GetConnect {
   }
 
   //TODO 이후 AccessToken을 통해 유저 데이터읽어올수 있도록 개발예정
-  Future<void> getUserDataWithToken(String accessToken) async{
+  Future<void> getUserDataWithToken(String accessToken) async {}
 
-
-  }
-
-  Future<void> getItemDetailByIdAndToken({required int id, String? accessToken})async{
+  Future<Map<String,dynamic>> getItemDetailByIdAndToken(
+      {required int id, String? accessToken}) async {
     Response data = await get(
       '$_baseUrl/api/v1/goods/$id/detail',
-      headers: accessToken!=null?{'Authorization': 'Bearer $accessToken'}:null,
+      headers:
+          accessToken != null ? {'Authorization': 'Bearer $accessToken'} : null,
     );
     return data.body['data'];
   }
+
+  Future<List<Category>> getCategory() async {
+    try{
+      Response data = await get('$_baseUrl/api/v1/main/category');
+      List result = data.body['data'];
+      return result.map((e){
+        return Category.fromJson(e);
+      }).toList();
+    }catch(e){
+      print(e);
+      return [];
+    }
+  }
+
+  Future<ProductRating?> getPoints(int goodsId) async {
+    try{
+      Response data = await get('$_baseUrl/api/v1/goods/$goodsId/review/grade');
+      return ProductRating.fromJson(data.body['data']);
+    }catch(e){
+      print(e);
+      return null;
+    }
+  }
+
 
 }

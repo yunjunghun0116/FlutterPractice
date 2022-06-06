@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,13 +14,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
-  late WebViewController _webViewController;//내가 나중에 사용할(Javascript작업할 webviewcontroller)
+  late WebViewController
+      _webViewController; //내가 나중에 사용할(Javascript작업할 webviewcontroller)
 
   final String newUrlString =
       'https://auth.bodyfriend.co.kr/auth/common/intro?client_id=membership';
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,36 +40,47 @@ class _LoginPageState extends State<LoginPage> {
             _webViewController = controller;
             _controller.complete(controller);
           },
+          gestureNavigationEnabled: true,
+          userAgent: 'random',
           javascriptChannels: {
             JavascriptChannel(
-                name: 'setNative',
-                onMessageReceived: (javascriptData) {
-                  Map<String, dynamic> data = jsonDecode(javascriptData.message);
-                  Get.back(result: data);
-                }),
+              name: 'setNative',
+              onMessageReceived: (javascriptData) {
+                print('check ${javascriptData.message}');
+                Map<String, dynamic> data = jsonDecode(javascriptData.message);
+                Get.back(result: data);
+              },
+            ),
             JavascriptChannel(
-                name: 'closePage',
-                onMessageReceived: (message) {
-                  Get.back();
-                }),
+              name: 'closePage',
+              onMessageReceived: (message) {
+                print('check');
+                Get.back();
+              },
+            ),
             JavascriptChannel(
-                name: 'getCurrentVersion',
-                onMessageReceived: (message) async {
-                  String? urlString = await _webViewController.currentUrl();
-                  if (urlString != null && urlString.contains(newUrlString)) {
-                    _webViewController.runJavascript('setCurrentVersion(true);');
-                    print('true 호출');
-                  } else {
-                    _webViewController
-                        .runJavascript('setCurrentVersion(false);');
-                    print('false 호출');
-                  }
-                }),
+              name: 'getCurrentVersion',
+              onMessageReceived: (message) async {
+                String? urlString = await _webViewController.currentUrl();
+                if (urlString != null && urlString.contains(newUrlString)) {
+                  _webViewController.runJavascript('setCurrentVersion(true);');
+                } else {
+                  _webViewController.runJavascript('setCurrentVersion(false);');
+                }
+              },
+            ),
+          },
+          onProgress: (value){
+            print(value);
+          },
+          onWebResourceError: (WebResourceError error){
+            Get.back();
           },
           initialUrl:
-              'https://auth.bodyfriend.co.kr/auth/common/login?client_id=membership',
+              'http://auth.bodyfriend.co.kr/auth/common/login?client_id=membership',
         ),
       ),
+
     );
   }
 }

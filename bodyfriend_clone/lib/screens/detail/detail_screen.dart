@@ -1,5 +1,6 @@
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
+import 'package:bodyfriend_clone/models/benefit.dart';
 import 'package:bodyfriend_clone/models/chair.dart';
 import 'package:bodyfriend_clone/models/point_item.dart';
 import 'package:bodyfriend_clone/screens/detail/components/carousel_image_area.dart';
@@ -35,13 +36,15 @@ class DetailScreen extends StatelessWidget {
         ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data);
             late dynamic item;
-            List? benefits;
+            List<Benefit>? benefits;
             if (type == ItemType.chair) {
               item = Chair.fromJson(snapshot.data);
-              benefits = (snapshot.data as Map<String, dynamic>)['benefits'];
-              print(benefits);
+              benefits =
+                  ((snapshot.data as Map<String, dynamic>)['benefits'] as List)
+                      .map((e) {
+                return Benefit.fromJson(e);
+              }).toList();
             } else {
               item = PointItem.fromJson(snapshot.data);
             }
@@ -50,12 +53,14 @@ class DetailScreen extends StatelessWidget {
               children: [
                 CarouselImageArea(imageList: item.detailImage),
                 DetailInfoArea(
+                  id: item.id,
                   name: item.name,
                   price: item.price,
                   isChair: type == ItemType.chair,
                   rentPrice: type == ItemType.chair ? item.rentPrice : null,
+                  reducePrice: type == ItemType.chair ? null : item.reducePrice,
                 ),
-                DetailBenefitsArea(),
+                DetailBenefitsArea(benefits: benefits),
               ],
             );
           }
