@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../controllers/user_controller.dart';
 

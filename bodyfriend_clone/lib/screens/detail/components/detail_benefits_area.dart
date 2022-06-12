@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
 import 'package:bodyfriend_clone/constants.dart';
-import 'package:bodyfriend_clone/models/benefit.dart';
+import 'package:bodyfriend_clone/models/benefit/benefit.dart';
 import 'package:flutter/material.dart';
 
 class DetailBenefitsArea extends StatelessWidget {

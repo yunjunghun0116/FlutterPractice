@@ -6,9 +6,8 @@ import 'package:bodyfriend_clone/screens/home/pages/water_record_page.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../constants.dart';
-import '../../../models/category.dart';
+import '../../../models/category/category.dart';
 
 class CustomIconArea extends StatelessWidget {
   const CustomIconArea({Key? key}) : super(key: key);
@@ -28,7 +27,6 @@ class CustomIconArea extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: data.map((category) {
-                    print(category.displayNo);
                     return CustomIconUrlButton(
                       category: category,
                       onPressed: () {

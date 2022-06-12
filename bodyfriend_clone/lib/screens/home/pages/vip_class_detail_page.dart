@@ -1,5 +1,5 @@
 import 'package:bodyfriend_clone/constants.dart';
-import 'package:bodyfriend_clone/models/vip_class.dart';
+import 'package:bodyfriend_clone/models/vip_class/vip_class.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

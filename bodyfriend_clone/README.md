@@ -78,6 +78,15 @@ Trailer : 오류에 대한 검증 작업들
 Map -> 바로 내 기기로 넘어올수 없다! -> String/int/Map/Set/null -> Json 변환후에
 
 
+데이터 직렬화 -> ToJson,FromJson -> Json을 통해서(int,double)
+직렬화 : 객체 -> Map
+역직렬화 : Map -> 객체
+
+
+
+
+
+
 
 
 

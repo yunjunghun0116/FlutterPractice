@@ -1,4 +1,4 @@
-import 'package:bodyfriend_clone/models/event_banner.dart';
+import 'package:bodyfriend_clone/models/event_banner/event_banner.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

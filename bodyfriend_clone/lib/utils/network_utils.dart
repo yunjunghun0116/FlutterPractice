@@ -1,23 +1,23 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:typed_data';
 
 import 'package:bodyfriend_clone/controllers/local_controller.dart';
-import 'package:bodyfriend_clone/models/category.dart';
-import 'package:bodyfriend_clone/models/event_banner.dart';
-import 'package:bodyfriend_clone/models/product_rating.dart';
-import 'package:bodyfriend_clone/models/user.dart';
-import 'package:bodyfriend_clone/models/vip_class.dart';
+import 'package:bodyfriend_clone/models/category/category.dart';
+import 'package:bodyfriend_clone/models/event_banner/event_banner.dart';
+import 'package:bodyfriend_clone/models/product_rating/product_rating.dart';
+import 'package:bodyfriend_clone/models/user/user.dart';
+import 'package:bodyfriend_clone/models/vip_class/vip_class.dart';
+import 'package:bodyfriend_clone/utils/api_manager.dart';
 import 'package:crypto/crypto.dart';
-import 'package:encrypt/encrypt.dart';
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 
-class NetworkUtils extends GetConnect {
+class NetworkUtils {
   final String _baseUrl = 'http://dapi.bodyfriend.co.kr';
 
   Future<List<EventBanner>> getBanner() async {
-    Response data = await get('$_baseUrl/api/v1/main/banner');
-    List eventBannerList = data.body['data'];
+    Response? data =
+        await APIManager().getResponse('$_baseUrl/api/v1/main/banner');
+    if (data == null) return [];
+    List eventBannerList = data.data['data'];
     List<EventBanner> bannerList = eventBannerList.map((e) {
       return EventBanner.fromJson(e);
     }).toList();
@@ -25,37 +25,39 @@ class NetworkUtils extends GetConnect {
   }
 
   Future<List> getMainList() async {
-    Response data = await get('$_baseUrl/api/v1/main/list');
-    List chairListData = data.body['data'];
+    Response? data =
+        await APIManager().getResponse('$_baseUrl/api/v1/main/list');
+    if (data == null) return [];
+    List chairListData = data.data['data'];
     return chairListData;
   }
 
   Future<List> getMemberMainList(int userId, String accessToken) async {
-    Response data = await get('$_baseUrl/api/v1/main/list',
+    Response? data = await APIManager().getResponse('$_baseUrl/api/v1/main/list',
         headers: {'Authorization': 'Bearer $accessToken'});
-    if (data.isOk) {
-      List listData = data.body['data'];
-      return listData;
-    }
-    return [];
+    if(data==null) return[];
+    List listData = data.data['data'];
+    return listData;
   }
 
   Future<List> getVIPBannerList() async {
-    Response data = await get('$_baseUrl/api/v1/healingClass/top/banner');
-    List dataList = data.body['data']['imageBanner'];
+    Response? data =  await APIManager().getResponse('$_baseUrl/api/v1/healingClass/top/banner');
+    if(data==null)return[];
+    List dataList = data.data['data']['imageBanner'];
     return dataList;
   }
 
   Future<List> getVIPClassList() async {
-    Response data = await get('$_baseUrl/api/v1/healingClass/fetchPage',
-        headers: {'page': '0', 'size': '20'});
-    List classList = data.body['data']['content'];
+    Response? data = await APIManager().getResponse('$_baseUrl/api/v1/healingClass/fetchPage',
+        parameters: {'page': '0', 'size': '20'});
+    if(data==null)return[];
+    List classList = data.data['data']['content'];
     return classList;
   }
 
   Future<VIPClass> getVIPClassDetail(int id) async {
-    Response data = await get('$_baseUrl/api/v1/healingClass/$id/detail');
-    return VIPClass.fromJson(data.body['data']);
+    Response? data = await APIManager().getResponse('$_baseUrl/api/v1/healingClass/$id/detail');
+    return VIPClass.fromJson(data!.data['data']);
   }
 
   Future<User?> postLoginUser({
@@ -66,9 +68,9 @@ class NetworkUtils extends GetConnect {
     List<int> hashString = utf8.encode('${userIdx}UNO');
     Digest hash = sha256.convert(hashString); //나누어진 결과물(String X)
 
-    Response loginResult = await post(
+    Response? loginResult = await APIManager().postResponse(
       '$_baseUrl/api/v1/auth/united/login',
-      {
+      parameters: {
         'loginId': loginId,
         'userIdx': userIdx,
         'hash': hash.toString(),
@@ -76,70 +78,72 @@ class NetworkUtils extends GetConnect {
       },
     );
 
-    if (loginResult.body['status'] == 'success') {
+    if (loginResult!.data['status'] == 'success') {
       await LocalController().setLoginId(loginId);
       await LocalController().setUserIdx(userIdx);
-      print('loginUser : ${loginResult.body['data']}');
-      return User.fromJson(loginResult.body['data']);
+      print('loginUser : ${loginResult.data['data']}');
+      return User.fromJson(loginResult.data['data']);
     }
     return null;
   }
 
   Future<int> getUserPoint(int userId, String accessToken) async {
-    Response data = await get('$_baseUrl/api/v1/point/history/$userId/amount',
+    Response? data = await APIManager().getResponse('$_baseUrl/api/v1/point/history/$userId/amount',
         headers: {'Authorization': 'Bearer $accessToken'});
-    return data.body['data']['amount'];
+    if(data==null)return 0;
+    return data.data['data']['amount'];
   }
 
   Future<int> getCouponCount(int userId, String accessToken) async {
-    Response data = await get('$_baseUrl/api/v1/coupon/$userId/list',
+    Response? data = await APIManager().getResponse('$_baseUrl/api/v1/coupon/$userId/list',
         headers: {'Authorization': 'Bearer $accessToken'});
-    return data.body['data'];
+    if(data==null)return 0;
+    return data.data['data'];
   }
 
   Future<int> getUsingCount(int userId, String accessToken) async {
-    Response data = await get(
+    Response? data = await APIManager().getResponse(
       '$_baseUrl/api/v1/myItem/amount?memberId=$userId',
       headers: {'Authorization': 'Bearer $accessToken'},
     );
-    return data.body['data'];
+    if(data==null)return 0;
+    return data.data['data'];
   }
 
   //TODO 이후 AccessToken을 통해 유저 데이터읽어올수 있도록 개발예정
   Future<void> getUserDataWithToken(String accessToken) async {}
 
-  Future<Map<String,dynamic>> getItemDetailByIdAndToken(
+  Future<Map<String, dynamic>> getItemDetailByIdAndToken(
       {required int id, String? accessToken}) async {
-    Response data = await get(
+    Response? data = await APIManager().getResponse(
       '$_baseUrl/api/v1/goods/$id/detail',
       headers:
           accessToken != null ? {'Authorization': 'Bearer $accessToken'} : null,
     );
-    return data.body['data'];
+    return data!.data['data'];
   }
 
   Future<List<Category>> getCategory() async {
-    try{
-      Response data = await get('$_baseUrl/api/v1/main/category');
-      List result = data.body['data'];
-      return result.map((e){
+    try {
+      Response? data = await APIManager().getResponse('$_baseUrl/api/v1/main/category');
+      if(data==null) return [];
+      List result = data.data['data'];
+      return result.map((e) {
         return Category.fromJson(e);
       }).toList();
-    }catch(e){
+    } catch (e) {
       print(e);
       return [];
     }
   }
 
   Future<ProductRating?> getPoints(int goodsId) async {
-    try{
-      Response data = await get('$_baseUrl/api/v1/goods/$goodsId/review/grade');
-      return ProductRating.fromJson(data.body['data']);
-    }catch(e){
+    try {
+      Response? data = await APIManager().getResponse('$_baseUrl/api/v1/goods/$goodsId/review/grade');
+      return ProductRating.fromJson(data!.data['data']);
+    } catch (e) {
       print(e);
       return null;
     }
   }
-
-
 }

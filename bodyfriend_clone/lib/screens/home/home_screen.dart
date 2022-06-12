@@ -2,7 +2,7 @@ import 'package:bodyfriend_clone/components/massage_chair_card.dart';
 import 'package:bodyfriend_clone/components/point_item_card.dart';
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
-import 'package:bodyfriend_clone/models/point_item.dart';
+import 'package:bodyfriend_clone/models/point_item/point_item.dart';
 import 'package:bodyfriend_clone/screens/home/components/carousel_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/custom_icon_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/mall_container.dart';
@@ -12,7 +12,7 @@ import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
-import '../../models/chair.dart';
+import '../../models/chair/chair.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

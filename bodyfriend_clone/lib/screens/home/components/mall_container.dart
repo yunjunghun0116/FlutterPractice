@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../components/massage_chair_card.dart';
 import '../../../components/point_item_card.dart';
 import '../../../constants.dart';
-import '../../../models/chair.dart';
-import '../../../models/point_item.dart';
+import '../../../models/chair/chair.dart';
+import '../../../models/point_item/point_item.dart';
 
 class MallContainer extends StatelessWidget {
   final String title;

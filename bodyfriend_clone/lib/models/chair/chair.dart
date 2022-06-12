@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'chair.g.dart';
+
+@JsonSerializable()
 class Chair {
   final int id;
   final String name;
@@ -23,16 +27,6 @@ class Chair {
     required this.goodsInfo,
   });
 
-  factory Chair.fromJson(json) => Chair(
-        id: json['id'],
-        name: json['name'],
-        shortDesc: json['shortDesc'],
-        listImage: json['listImage'],
-        price: json['price'],
-        rentPrice: json['rentPrice'],
-        popularScore: json['popularScore'],
-        detailImage: json['detailImage'],
-        salesCount: json['salesCount'] ?? 0,
-        goodsInfo: json['goodsInfo'],
-      );
+  factory Chair.fromJson(json) => _$ChairFromJson(json);
+  Map<String,dynamic> toJson() => _$ChairToJson(this);
 }

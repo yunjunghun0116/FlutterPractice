@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bodyfriend_clone/models/vip_class.dart';
+import 'package:bodyfriend_clone/models/vip_class/vip_class.dart';
 import 'package:bodyfriend_clone/screens/home/pages/bottom_sheets/filter_bottom_sheets.dart';
 import 'package:bodyfriend_clone/screens/home/pages/components/vip_class_card.dart';
 import 'package:bodyfriend_clone/screens/home/pages/vip_class_info_page.dart';

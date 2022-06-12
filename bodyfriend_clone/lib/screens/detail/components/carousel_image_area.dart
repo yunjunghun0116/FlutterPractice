@@ -26,6 +26,5 @@ class CarouselImageArea extends StatelessWidget {
         );
       }).toList(),
     );
-    ;
   }
 }

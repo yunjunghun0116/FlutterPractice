@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:get/get.dart';
-import '../models/user.dart';
+import '../models/user/user.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.find();

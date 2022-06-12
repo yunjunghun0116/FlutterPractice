@@ -1,4 +1,4 @@
-import 'package:bodyfriend_clone/models/vip_class.dart';
+import 'package:bodyfriend_clone/models/vip_class/vip_class.dart';
 import 'package:bodyfriend_clone/screens/home/pages/vip_class_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

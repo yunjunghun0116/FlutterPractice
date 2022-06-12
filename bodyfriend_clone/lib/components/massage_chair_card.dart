@@ -1,4 +1,4 @@
-import 'package:bodyfriend_clone/models/chair.dart';
+import 'package:bodyfriend_clone/models/chair/chair.dart';
 import 'package:bodyfriend_clone/screens/detail/detail_screen.dart';
 import 'package:bodyfriend_clone/utils/format_utils.dart';
 import 'package:flutter/material.dart';

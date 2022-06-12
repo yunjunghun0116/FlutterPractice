@@ -1,8 +1,8 @@
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
-import 'package:bodyfriend_clone/models/benefit.dart';
-import 'package:bodyfriend_clone/models/chair.dart';
-import 'package:bodyfriend_clone/models/point_item.dart';
+import 'package:bodyfriend_clone/models/benefit/benefit.dart';
+import 'package:bodyfriend_clone/models/chair/chair.dart';
+import 'package:bodyfriend_clone/models/point_item/point_item.dart';
 import 'package:bodyfriend_clone/screens/detail/components/carousel_image_area.dart';
 import 'package:bodyfriend_clone/screens/detail/components/detail_benefits_area.dart';
 import 'package:bodyfriend_clone/screens/detail/components/detail_info_area.dart';

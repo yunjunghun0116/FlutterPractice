@@ -1,4 +1,4 @@
-import 'package:bodyfriend_clone/models/point_item.dart';
+import 'package:bodyfriend_clone/models/point_item/point_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,13 +8,13 @@ import '../utils/format_utils.dart';
 
 class PointItemCard extends StatelessWidget {
   final PointItem pointItem;
-  const PointItemCard({Key? key,required this.pointItem}) : super(key: key);
+  const PointItemCard({Key? key, required this.pointItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.to(
-            () => DetailScreen(
+        () => DetailScreen(
           type: ItemType.pointItem,
           id: pointItem.id,
         ),
@@ -45,10 +45,14 @@ class PointItemCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text('포인트몰 | ${pointItem.name}',maxLines: 2,overflow: TextOverflow.ellipsis,),
+            Text(
+              '포인트몰 | ${pointItem.name}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
             const SizedBox(height: 5),
             Text(
-                '${getPrice(pointItem.reducePrice!=0?pointItem.reducePrice:pointItem.price)}P',
+                '${getPrice(pointItem.reducePrice != null && pointItem.reducePrice! > 0 ? pointItem.reducePrice! : pointItem.price)}P',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black,

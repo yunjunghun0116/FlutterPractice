@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'category.g.dart';
+
+@JsonSerializable()
 class Category {
   final int id;
   final String name;
@@ -23,18 +27,6 @@ class Category {
     this.modifiedAt,
   });
 
-  factory Category.fromJson(json) => Category(
-        id: json['id'],
-        name: json['name'],
-        icon: json['icon'],
-        type: json['type'],
-        displayNo: json['displayNo'],
-        deleted: json['deleted'],
-        createdBy: json['createdBy'],
-        createdAt: DateTime.parse(json['createdAt']),
-        modifiedBy: json['modifiedBy'],
-        modifiedAt: json['modifiedAt'] != null
-            ? DateTime.parse(json['modifiedAt'])
-            : null,
-      );
+  factory Category.fromJson(json) => _$CategoryFromJson(json);
+  Map<String,dynamic> toJson() =>_$CategoryToJson(this);
 }

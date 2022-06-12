@@ -1,4 +1,4 @@
-import 'package:bodyfriend_clone/models/category.dart';
+import 'package:bodyfriend_clone/models/category/category.dart';
 import 'package:flutter/material.dart';
 
 class CustomIconUrlButton extends StatelessWidget {
