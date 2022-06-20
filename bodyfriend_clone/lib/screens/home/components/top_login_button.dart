@@ -1,4 +1,5 @@
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
+import 'package:bodyfriend_clone/screens/login/login_screen.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,11 +15,10 @@ class TopLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()async {
-        Map<String,dynamic>? userData = await Get.to(()=>LoginPage());
+        Map<String,dynamic>? userData = await Get.to(()=>const LoginScreen());
         if(userData!=null){
           UserController.to.loginUser(userIdx: userData['userIdx'],loginId: userData['userId']);
         }
-
       },
       child: Container(
         padding: const EdgeInsets.all(20),
