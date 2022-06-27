@@ -1,6 +1,7 @@
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/screens/home/components/top_login_button.dart';
+import 'package:bodyfriend_clone/screens/invite/invite_screen.dart';
 import 'package:bodyfriend_clone/screens/point_history/point_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,42 +118,47 @@ class TopUserButton extends StatelessWidget {
               ),
             ),
           ),
-          FittedBox(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              height: 100,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                    kMainColor,
-                    kMainColor.withOpacity(0.6),
-                    kMainColor.withOpacity(0.8),
-                    kMainColor
-                  ])),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.person_outline,
-                    color: kWhiteColor,
-                  ),
-                  const Text(
-                    '친구초대',
-                    style: TextStyle(
+          GestureDetector(
+            onTap: (){
+              Get.to(()=>const InviteScreen());
+            },
+            child: FittedBox(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                height: 100,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                      kMainColor,
+                      kMainColor.withOpacity(0.6),
+                      kMainColor.withOpacity(0.8),
+                      kMainColor
+                    ])),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.person_outline,
                       color: kWhiteColor,
                     ),
-                  ),
-                  const Text(
-                    '0',
-                    style: const TextStyle(
-                      color: kWhiteColor,
+                    const Text(
+                      '친구초대',
+                      style: TextStyle(
+                        color: kWhiteColor,
+                      ),
                     ),
-                  ),
-                ],
+                    const Text(
+                      '0',
+                      style: const TextStyle(
+                        color: kWhiteColor,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

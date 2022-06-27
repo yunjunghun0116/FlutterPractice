@@ -5,12 +5,13 @@ const Color kMainColor = Color(0xFFB3875D);
 const Color kRedColor = Color(0xFFFF0000);
 const Color kBlackColor = Color(0xFF000000);
 const Color kGreyColor = Color(0xFF9C9E9F);
-const Color kLightGreyColor = Color(0x339C9E9F);
+const Color kLightGreyColor = Color(0x779C9E9F);
 const Color kBlueColor = Color(0xFF1AA2F3);
 const Color kWhiteColor = Color(0xFFFFFFFF);
 const Color kSubBlackColor = Color(0xBB000000);
 const Color kBackgroundColor = Color(0xFFF8F8F8);
 const Color kMintColor = Color(0xFF36D3B1);
+Color kLightBackgroundColor = kLightGreyColor.withOpacity(0.1);
 
 NumberFormat kPriceNumberFormat = NumberFormat('###,###,###');
 

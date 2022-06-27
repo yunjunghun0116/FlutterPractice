@@ -6,6 +6,7 @@ import 'package:bodyfriend_clone/models/category/category.dart';
 import 'package:bodyfriend_clone/models/event_banner/event_banner.dart';
 import 'package:bodyfriend_clone/models/point_history/point_history.dart';
 import 'package:bodyfriend_clone/models/product_rating/product_rating.dart';
+import 'package:bodyfriend_clone/models/recommend/recommend.dart';
 import 'package:bodyfriend_clone/models/user/user.dart';
 import 'package:bodyfriend_clone/models/vip_class/vip_class.dart';
 import 'package:bodyfriend_clone/utils/api_manager.dart';
@@ -118,9 +119,6 @@ class NetworkUtils {
     return data.data['data'];
   }
 
-  //TODO 이후 AccessToken을 통해 유저 데이터읽어올수 있도록 개발예정
-  Future<void> getUserDataWithToken(String accessToken) async {}
-
   Future<Map<String, dynamic>> getItemDetailByIdAndToken(
       {required int id, String? accessToken}) async {
     Response? data = await APIManager().getResponse(
@@ -197,4 +195,14 @@ class NetworkUtils {
       return [];
     }
   }
+
+  Future<Recommend> getUserRecommendedHistory(int userId,String accessToken)async{
+    Response? data = await APIManager().getResponse(
+      '$_baseUrl/api/v1/recommend/$userId',
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+    Recommend result = Recommend.fromJson(data?.data['data']);
+    return result;
+  }
+
 }

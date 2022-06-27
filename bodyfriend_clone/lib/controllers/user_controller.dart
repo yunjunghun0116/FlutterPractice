@@ -41,9 +41,4 @@ class UserController extends GetxController {
     return NetworkUtils().getMemberMainList(user!.id, user!.accessToken);
   }
 
-  Future<void> getDataWithToken({required String token})async{
-    return NetworkUtils().getUserDataWithToken(token);
-  }
-
-
 }
