@@ -4,6 +4,8 @@ import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/models/category/category.dart';
 import 'package:bodyfriend_clone/models/event_banner/event_banner.dart';
+import 'package:bodyfriend_clone/models/invite_history/invite_history.dart';
+import 'package:bodyfriend_clone/models/invite_reward/invite_reward.dart';
 import 'package:bodyfriend_clone/models/point_history/point_history.dart';
 import 'package:bodyfriend_clone/models/product_rating/product_rating.dart';
 import 'package:bodyfriend_clone/models/recommend/recommend.dart';
@@ -196,7 +198,8 @@ class NetworkUtils {
     }
   }
 
-  Future<Recommend> getUserRecommendedHistory(int userId,String accessToken)async{
+  Future<Recommend> getUserRecommendedHistory(
+      int userId, String accessToken) async {
     Response? data = await APIManager().getResponse(
       '$_baseUrl/api/v1/recommend/$userId',
       headers: {'Authorization': 'Bearer $accessToken'},
@@ -205,4 +208,22 @@ class NetworkUtils {
     return result;
   }
 
+  Future<InviteReward> getInviteReward(int userId, String accessToken) async {
+    Response? data = await APIManager().getResponse(
+      '$_baseUrl/api/v1/recommend/$userId/list',
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+    InviteReward result = InviteReward.fromJson(data?.data['data']);
+    return result;
+  }
+
+  Future<InviteHistory> getInviteRecommendHistory(
+      int userId, String accessToken) async {
+    Response? data = await APIManager().getResponse(
+        '$_baseUrl/api/v1/recommend/history',
+        headers: {'Authorization': 'Bearer $accessToken'},
+        parameters: {'size': 20, 'page': 0, 'memberId': userId});
+    InviteHistory result = InviteHistory.fromJson(data?.data['data']);
+    return result;
+  }
 }

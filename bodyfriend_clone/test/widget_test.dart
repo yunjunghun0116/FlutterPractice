@@ -26,5 +26,11 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+
+    List abc = ['hello','haha','wow'];
+    print('abc : $abc');
+    List bcd = ['wow',...abc];
+    List cde = ['wow'];
+    print('bcd : $bcd');
   });
 }
