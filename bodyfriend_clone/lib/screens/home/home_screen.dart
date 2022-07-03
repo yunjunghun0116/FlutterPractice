@@ -56,6 +56,9 @@ class HomeScreen extends StatelessWidget {
                   List mainList = snapshot.data;
                   return Column(
                     children: mainList.map((mainItem) {
+                      if(mainItem['goodsList'].isEmpty){
+                        return Container();
+                      }
                       return MallContainer(
                         goodsList: mainItem['goodsList'],
                         title: mainItem['title'],

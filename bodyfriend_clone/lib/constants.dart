@@ -15,6 +15,10 @@ Color kLightBackgroundColor = kLightGreyColor.withOpacity(0.1);
 
 NumberFormat kPriceNumberFormat = NumberFormat('###,###,###');
 
+//()안에들어가는것들은 허용값 & and | or ^:이것들로 시작해야한다
+//[0-9] [a-zA-Z] [a-zA-z0-9] {3,4} 3~4
+RegExp kNumberRegExp = RegExp('^(010|011|016|017|018|019)([0-9]{3,4})([0-9]{4})');
+
 enum ItemType {
   chair,pointItem
 }

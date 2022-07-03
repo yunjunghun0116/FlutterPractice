@@ -4,6 +4,7 @@ import 'package:bodyfriend_clone/models/recommend/recommend.dart';
 import 'package:bodyfriend_clone/screens/invite/components/invite_text_field.dart';
 import 'package:bodyfriend_clone/screens/invite_detail/invite_detail_screen.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +33,75 @@ class _InviteScreenState extends State<InviteScreen> {
     return true;
   }
 
+  void sendSMS(BuildContext context) {
+    if (canSendSMS()) {
+      if (kNumberRegExp.hasMatch(_phoneController.text) &&
+          _phoneController.text.length < 12) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Container(
+                width: 150,
+                decoration: BoxDecoration(
+                  color: kWhiteColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(
+                      '${_nameController.text}(${_phoneController.text})님께 초대문자\n(SMS)를 보내시겠습니까?',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: kLightGreyColor,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text('취소'),
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 50,
+                            color: kLightGreyColor,
+                          ),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text('확인'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -50,17 +120,18 @@ class _InviteScreenState extends State<InviteScreen> {
               height: MediaQuery.of(context).size.width / 2,
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                      'assets/memberships/img_top@3x.png',
-                    ),
-                    fit: BoxFit.cover,
-                  )),
+                image: AssetImage(
+                  'assets/memberships/img_top@3x.png',
+                ),
+                fit: BoxFit.cover,
+              )),
             ),
             kFriendInfoArea(
               nameController: _nameController,
               phoneController: _phoneController,
               refreshFunction: (String s) => setState(() {}),
               canSendSMS: () => canSendSMS(),
+              sendSMS: () => sendSMS(context),
             ),
             Divider(
               color: kLightBackgroundColor,
@@ -114,7 +185,9 @@ class _InviteScreenState extends State<InviteScreen> {
                       GestureDetector(
                         onTap: () => setState(() {
                           if (!isOpened) {
-                            _scrollController.jumpTo(980-MediaQuery.of(context).size.height+MediaQuery.of(context).padding.bottom);
+                            _scrollController.jumpTo(980 -
+                                MediaQuery.of(context).size.height +
+                                MediaQuery.of(context).padding.bottom);
                           }
                           isOpened = !isOpened;
                         }),
@@ -129,21 +202,24 @@ class _InviteScreenState extends State<InviteScreen> {
                   ),
                   isOpened
                       ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(),
-                      kNoticeText(
-                          '초대받을 친구의 이름은 실명으로 입력해주시고, 휴대폰번호를 정확하게 입력해주세요.'),
-                      kNoticeText(
-                          '부정확한 정보 입력 시 친구분께 초대코드가 전달되지 않을 수 있습니다.'),
-                      kNoticeText('초대할 수 있는 친구의 수에 제한은 없습니다.'),
-                      kNoticeText(
-                          '동일한 휴대폰 번호는 1번만 초대하실 수 있습니다. 단, 초대코드 유효기간 3개월이 지난 후에는 다시 초대하실 수 있습니다. (유효기간은 회사 정책에 따라 변경될 수 있습니다).'),
-                      kNoticeText('비정상적인 방법을 통한 친구 초대는 관리자에 의해 제한 또는 취소될 수 있습니다.'),
-                      kNoticeText('친구초대로 받을 수 있는 혜택은 화면 상단의 "친구초대란?"을 눌러 확인하실 수 있습니다.'),
-                      kNoticeText('친구초대는 당사의 사정에 의해 사전 고지 없이 변경 또는 중단될 수 있습니다.'),
-                    ],
-                  )
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Divider(),
+                            kNoticeText(
+                                '초대받을 친구의 이름은 실명으로 입력해주시고, 휴대폰번호를 정확하게 입력해주세요.'),
+                            kNoticeText(
+                                '부정확한 정보 입력 시 친구분께 초대코드가 전달되지 않을 수 있습니다.'),
+                            kNoticeText('초대할 수 있는 친구의 수에 제한은 없습니다.'),
+                            kNoticeText(
+                                '동일한 휴대폰 번호는 1번만 초대하실 수 있습니다. 단, 초대코드 유효기간 3개월이 지난 후에는 다시 초대하실 수 있습니다. (유효기간은 회사 정책에 따라 변경될 수 있습니다).'),
+                            kNoticeText(
+                                '비정상적인 방법을 통한 친구 초대는 관리자에 의해 제한 또는 취소될 수 있습니다.'),
+                            kNoticeText(
+                                '친구초대로 받을 수 있는 혜택은 화면 상단의 "친구초대란?"을 눌러 확인하실 수 있습니다.'),
+                            kNoticeText(
+                                '친구초대는 당사의 사정에 의해 사전 고지 없이 변경 또는 중단될 수 있습니다.'),
+                          ],
+                        )
                       : Container(),
                 ],
               ),
@@ -157,21 +233,22 @@ class _InviteScreenState extends State<InviteScreen> {
 
 Widget kNoticeText(String text) {
   return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Icon(
-        Icons.circle,
-        size: 3,
-        color: kGreyColor,
+      Container(
+        alignment: Alignment.center,
+        height: 12,
+        child: const Icon(
+          Icons.circle,
+          size: 2,
+          color: kGreyColor,
+        ),
       ),
       const SizedBox(width: 5),
       Expanded(
         child: Text(
           text,
-          style: const TextStyle(
-              color: kGreyColor,
-              fontSize: 10,
-              height: 1.2
-          ),
+          style: const TextStyle(color: kGreyColor, fontSize: 10, height: 1.2),
         ),
       ),
     ],
@@ -183,6 +260,7 @@ Widget kFriendInfoArea({
   required TextEditingController phoneController,
   required Function refreshFunction,
   required Function canSendSMS,
+  required Function sendSMS,
 }) {
   return Padding(
     padding: const EdgeInsets.all(16),
@@ -248,22 +326,25 @@ Widget kFriendInfoArea({
           textInputType: TextInputType.number,
         ),
         const SizedBox(height: 20),
-        Container(
-          alignment: Alignment.center,
-          width: double.infinity,
-          height: 50,
-          decoration: BoxDecoration(
-            color: canSendSMS() ? null : kLightGreyColor,
-            gradient: canSendSMS()
-                ? LinearGradient(
-                colors: [kMainColor.withOpacity(0.7), kMainColor])
-                : null,
-          ),
-          child: const Text(
-            '초대하기',
-            style: TextStyle(
-              color: kWhiteColor,
-              fontSize: 18,
+        GestureDetector(
+          onTap: () => sendSMS(),
+          child: Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: canSendSMS() ? null : kLightGreyColor,
+              gradient: canSendSMS()
+                  ? LinearGradient(
+                      colors: [kMainColor.withOpacity(0.7), kMainColor])
+                  : null,
+            ),
+            child: const Text(
+              '초대하기',
+              style: TextStyle(
+                color: kWhiteColor,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -285,13 +366,13 @@ Widget kFriendInfoArea({
 }
 
 Widget kInviteInfoArea(
-    BuildContext context, {
-      required bool inviteStatus,
-      required bool allPointStatus,
-      required Function invitePressed,
-      required Function allPointPressed,
-      required Function clearPressed,
-    }) {
+  BuildContext context, {
+  required bool inviteStatus,
+  required bool allPointStatus,
+  required Function invitePressed,
+  required Function allPointPressed,
+  required Function clearPressed,
+}) {
   return Stack(
     children: [
       Padding(
@@ -300,11 +381,11 @@ Widget kInviteInfoArea(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children:  [
+              children: [
                 const Text('초대 현황', style: TextStyle(fontSize: 16)),
                 const Spacer(),
                 GestureDetector(
-                  onTap: ()=>Get.to(()=>const InviteDetailScreen()),
+                  onTap: () => Get.to(() => const InviteDetailScreen()),
                   child: const Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
@@ -334,7 +415,7 @@ Widget kInviteInfoArea(
                                   padding: const EdgeInsets.all(8),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -352,7 +433,7 @@ Widget kInviteInfoArea(
                                               height: 16,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(10),
+                                                    BorderRadius.circular(10),
                                                 border: Border.all(
                                                     color: kGreyColor),
                                               ),
@@ -370,13 +451,13 @@ Widget kInviteInfoArea(
                                           children: [
                                             TextSpan(
                                                 text:
-                                                '${recommend.recommendNumber}',
+                                                    '${recommend.recommendNumber}',
                                                 style: const TextStyle(
                                                   color: kMainColor,
                                                 )),
                                             TextSpan(
                                                 text:
-                                                '/${recommend.nextBenefitNumber}',
+                                                    '/${recommend.nextBenefitNumber}',
                                                 style: const TextStyle(
                                                   color: kGreyColor,
                                                 )),
@@ -398,7 +479,7 @@ Widget kInviteInfoArea(
                                   padding: const EdgeInsets.all(8),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -416,7 +497,7 @@ Widget kInviteInfoArea(
                                               height: 16,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(10),
+                                                    BorderRadius.circular(10),
                                                 border: Border.all(
                                                     color: kGreyColor),
                                               ),
@@ -469,96 +550,96 @@ Widget kInviteInfoArea(
       ),
       inviteStatus
           ? Positioned(
-        top: 80,
-        left: 30,
-        child: Container(
-          width: 180,
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: kWhiteColor,
-            border: Border.all(color: kGreyColor),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    '초대 현황',
-                    style: TextStyle(fontSize: 12, color: kGreyColor),
-                  ),
-                  GestureDetector(
-                    onTap: () => clearPressed(),
-                    child: const Icon(
-                      Icons.clear,
-                      color: kGreyColor,
-                      size: 16,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                '내 초대를 받아 바디프렌드\n제품을 구매 또는 렌탈한 친구수',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: kGreyColor,
+              top: 80,
+              left: 30,
+              child: Container(
+                width: 180,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: kWhiteColor,
+                  border: Border.all(color: kGreyColor),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              )
-            ],
-          ),
-        ),
-      )
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          '초대 현황',
+                          style: TextStyle(fontSize: 12, color: kGreyColor),
+                        ),
+                        GestureDetector(
+                          onTap: () => clearPressed(),
+                          child: const Icon(
+                            Icons.clear,
+                            color: kGreyColor,
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      '내 초대를 받아 바디프렌드\n제품을 구매 또는 렌탈한 친구수',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: kGreyColor,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           : Container(),
       allPointStatus
           ? Positioned(
-        top: 80,
-        right: 30,
-        child: Container(
-          width: 140,
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: kWhiteColor,
-            border: Border.all(color: kGreyColor),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    '총 리워드',
-                    style:
-                    const TextStyle(fontSize: 12, color: kGreyColor),
-                  ),
-                  GestureDetector(
-                    onTap: () => clearPressed(),
-                    child: const Icon(
-                      Icons.clear,
-                      color: kGreyColor,
-                      size: 16,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                '친구초대 제도를 통해 \n나에게 지급된 포인트',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: kGreyColor,
+              top: 80,
+              right: 30,
+              child: Container(
+                width: 140,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: kWhiteColor,
+                  border: Border.all(color: kGreyColor),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              )
-            ],
-          ),
-        ),
-      )
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          '총 리워드',
+                          style:
+                              const TextStyle(fontSize: 12, color: kGreyColor),
+                        ),
+                        GestureDetector(
+                          onTap: () => clearPressed(),
+                          child: const Icon(
+                            Icons.clear,
+                            color: kGreyColor,
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      '친구초대 제도를 통해 \n나에게 지급된 포인트',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: kGreyColor,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           : Container(),
     ],
   );
