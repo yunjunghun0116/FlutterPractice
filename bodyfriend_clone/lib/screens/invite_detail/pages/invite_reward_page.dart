@@ -1,5 +1,6 @@
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/models/invite_reward/invite_reward.dart';
+import 'package:bodyfriend_clone/screens/invite_detail/pages/invite_benefit_page.dart';
 import 'package:bodyfriend_clone/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -244,18 +245,44 @@ Widget kInviteInfoArea(
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        color: kMainColor,
-                      )),
-                      child: const Text(
-                        '혜택 전체보기',
-                        style: TextStyle(
+                    GestureDetector(
+                      onTap:(){
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                           const InviteBenefitPage(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              const begin = Offset(0, 1);
+                              const end = Offset.zero;
+                              const curve = Curves.easeIn;
+
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+                              return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child);
+                            },
+                            transitionDuration:
+                            const Duration(milliseconds: 300),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(
                           color: kMainColor,
+                        )),
+                        child: const Text(
+                          '혜택 전체보기',
+                          style: TextStyle(
+                            color: kMainColor,
+                          ),
                         ),
                       ),
                     ),

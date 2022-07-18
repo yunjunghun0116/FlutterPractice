@@ -2,6 +2,7 @@ import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/screens/invite_detail/pages/invite_reward_page.dart';
 import 'package:bodyfriend_clone/screens/invite_detail/pages/invite_send_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InviteDetailScreen extends StatefulWidget {
   const InviteDetailScreen({Key? key}) : super(key: key);
@@ -60,19 +61,22 @@ class _InviteDetailScreenState extends State<InviteDetailScreen> {
               ),
             ),
             Expanded(child: _getScreen()),
-            Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [kMainColor.withOpacity(0.6),kMainColor.withOpacity(0.9)],
-                )
-              ),
-              child: const Text('초대하기',style: TextStyle(
-                color: kWhiteColor,
-              ),),
+            GestureDetector(
+              onTap: ()=>Get.back(),
+              child: Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [kMainColor.withOpacity(0.6),kMainColor.withOpacity(0.9)],
+                  )
+                ),
+                child: const Text('초대하기',style: TextStyle(
+                  color: kWhiteColor,
+                ),),
 
+              ),
             ),
           ],
         ),

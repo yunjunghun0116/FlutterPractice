@@ -4,6 +4,8 @@ import 'package:bodyfriend_clone/controllers/local_controller.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/models/category/category.dart';
 import 'package:bodyfriend_clone/models/event_banner/event_banner.dart';
+import 'package:bodyfriend_clone/models/invite_benefit/invite_benefit.dart';
+import 'package:bodyfriend_clone/models/invite_goods/invite_goods.dart';
 import 'package:bodyfriend_clone/models/invite_history/invite_history.dart';
 import 'package:bodyfriend_clone/models/invite_reward/invite_reward.dart';
 import 'package:bodyfriend_clone/models/point_history/point_history.dart';
@@ -225,5 +227,27 @@ class NetworkUtils {
         parameters: {'size': 20, 'page': 0, 'memberId': userId});
     InviteHistory result = InviteHistory.fromJson(data?.data['data']);
     return result;
+  }
+
+  Future<List<InviteBenefit>> getInviteBenefitList(
+      int userId, String accessToken) async {
+    Response? data = await APIManager().getResponse(
+      '$_baseUrl/api/v1/recommend/$userId/benefit',
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+
+    List dataList = data?.data['data'];
+
+    return dataList.map((e) {
+      return InviteBenefit.fromJson(e);
+    }).toList();
+  }
+
+  Future<String> getUseGuide(int userId, String accessToken) async {
+    Response? data = await APIManager().getResponse(
+      '$_baseUrl/api/v1/event/72/detail',
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+    return data?.data['data']['imageForm'];
   }
 }

@@ -3,6 +3,7 @@ import 'package:bodyfriend_clone/components/point_item_card.dart';
 import 'package:bodyfriend_clone/constants.dart';
 import 'package:bodyfriend_clone/controllers/user_controller.dart';
 import 'package:bodyfriend_clone/models/point_item/point_item.dart';
+import 'package:bodyfriend_clone/screens/guide_screen/guide_screen.dart';
 import 'package:bodyfriend_clone/screens/home/components/carousel_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/custom_icon_area.dart';
 import 'package:bodyfriend_clone/screens/home/components/mall_container.dart';
@@ -31,9 +32,12 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           const Icon(Icons.alarm),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const Icon(Icons.question_mark),
+          GestureDetector(
+            onTap: () => Get.to(() => const GuideScreen()),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: const Icon(Icons.question_mark),
+            ),
           ),
         ],
       ),
@@ -56,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                   List mainList = snapshot.data;
                   return Column(
                     children: mainList.map((mainItem) {
-                      if(mainItem['goodsList'].isEmpty){
+                      if (mainItem['goodsList'].isEmpty) {
                         return Container();
                       }
                       return MallContainer(

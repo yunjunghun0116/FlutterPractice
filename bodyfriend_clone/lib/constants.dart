@@ -6,6 +6,7 @@ const Color kRedColor = Color(0xFFFF0000);
 const Color kBlackColor = Color(0xFF000000);
 const Color kGreyColor = Color(0xFF9C9E9F);
 const Color kLightGreyColor = Color(0x779C9E9F);
+const Color kLightGreySubColor = Color(0x22AAAAAA);
 const Color kBlueColor = Color(0xFF1AA2F3);
 const Color kWhiteColor = Color(0xFFFFFFFF);
 const Color kSubBlackColor = Color(0xBB000000);

@@ -1,0 +1,43 @@
+import 'package:app/controllers/local_controller.dart';
+import 'package:app/models/home/user.dart';
+import 'package:app/utils/network_utils.dart';
+import 'package:get/get.dart';
+
+class UserController extends GetxController {
+  static UserController get to => Get.find();
+
+  User? user;
+
+  void loginUser({required String loginId, required String userIdx}) async {
+    User? result = await NetworkUtils().postLoginUser(
+      loginId: loginId,
+      userIdx: userIdx,
+    );
+    if (result != null) {
+      user = result;
+      update();
+    }
+  }
+
+  void signOut() {
+    user = null;
+    LocalController().clearSharedPreferences();
+    update();
+  }
+
+  Future<int> getUserPoint() async {
+    return NetworkUtils().getUserPoint(user!.id, user!.accessToken);
+  }
+
+  Future<int> getCouponCount() async {
+    return NetworkUtils().getCouponCount(user!.id, user!.accessToken);
+  }
+
+  Future<int> getUsingCount() async {
+    return NetworkUtils().getUsingCount(user!.id, user!.accessToken);
+  }
+
+  Future<List> getMainList() async {
+    return NetworkUtils().getMemberMainList(user!.id, user!.accessToken);
+  }
+}
