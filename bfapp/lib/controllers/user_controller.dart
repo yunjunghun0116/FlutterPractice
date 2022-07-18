@@ -8,7 +8,10 @@ class UserController extends GetxController {
 
   User? user;
 
-  void loginUser({required String loginId, required String userIdx}) async {
+  void loginUser({
+    required String loginId,
+    required String userIdx,
+  }) async {
     User? result = await NetworkUtils().postLoginUser(
       loginId: loginId,
       userIdx: userIdx,
@@ -21,7 +24,7 @@ class UserController extends GetxController {
 
   void signOut() {
     user = null;
-    LocalController().clearSharedPreferences();
+    LocalController.clearSharedPreferences();
     update();
   }
 

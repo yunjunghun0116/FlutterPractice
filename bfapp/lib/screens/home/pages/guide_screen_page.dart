@@ -24,34 +24,38 @@ class _GuideScreenState extends State<GuideScreen> {
         centerTitle: true,
         elevation: 1,
       ),
-      body: FutureBuilder(
-        future: NetworkUtils().getUserGuide(
-            UserController.to.user!.id, UserController.to.user!.accessToken),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            String imageUrl = snapshot.data as String;
-            return ListView(
-              children: [
-                Image.network(imageUrl),
-                SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width*5.4,
-                  child: WebView(
-                    initialUrl:
-                        'http://d.bodyfriend.co.kr/event/detail?id=72&width=${MediaQuery.of(context).size.width.toInt()}',
-                    onWebViewCreated: (controller) {
-                      webViewController = controller;
-                    },
-                    gestureNavigationEnabled: true,
-                    javascriptMode: JavascriptMode.unrestricted,
-                  ),
-                ),
-              ],
-            );
-          }
-          return Container();
-        },
-      ),
+      body: UserController.to.user != null
+          ? FutureBuilder(
+              future: NetworkUtils().getUserGuide(
+                UserController.to.user!.id,
+                UserController.to.user!.accessToken,
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  String imageUrl = snapshot.data as String;
+                  return ListView(
+                    children: [
+                      Image.network(imageUrl),
+                      SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.width * 5.4,
+                        child: WebView(
+                          initialUrl:
+                              'http://d.bodyfriend.co.kr/event/detail?id=72&width=${MediaQuery.of(context).size.width.toInt()}',
+                          onWebViewCreated: (controller) {
+                            webViewController = controller;
+                          },
+                          gestureNavigationEnabled: true,
+                          javascriptMode: JavascriptMode.unrestricted,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Container();
+              },
+            )
+          : Container(),
     );
   }
 }

@@ -54,8 +54,6 @@ class _LoginPageState extends State<LoginPage> {
                 webViewController?.addJavaScriptHandler(
                     handlerName: 'setNative',
                     callback: (value) {
-                      print('setNative');
-                      print(value);
                       Map<String, dynamic> data = jsonDecode(value[0]);
                       Get.back(result: data);
                     });

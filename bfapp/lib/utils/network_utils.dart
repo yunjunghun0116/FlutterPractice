@@ -175,12 +175,8 @@ class NetworkUtils extends GetConnect {
       },
     );
     if (loginResult.body['status'] == 'success') {
-      await LocalController().setLoginId(loginId);
-      await LocalController().setUserIdx(userIdx);
-      await LocalController()
-          .setAccessToken(loginResult.body['data']['accessToken']);
-      await LocalController()
-          .setRefreshToken(loginResult.body['data']['refreshToken']);
+      await LocalController.setLoginId(loginId);
+      await LocalController.setUserIdx(userIdx);
       return User.fromJson(loginResult.body['data']);
     }
     return null;

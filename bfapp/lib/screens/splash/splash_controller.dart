@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:aes256gcm/aes256gcm.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/controllers/local_controller.dart';
 import 'package:app/icon.dart';
@@ -61,25 +62,11 @@ class SplashController extends GetxController {
       );
     } else {
       Get.put(UserController());
-      String? loginId = await LocalController().getLoginId();
-      String? userIdx = await LocalController().getUserIdx();
-      String? accessToken = await LocalController().getAccessToken();
-      String? refreshToken = await LocalController().getRefreshToken();
-
-      //1. accessToken 복호화 -> AES256방식을 통해 복호화
-      //2. User정보를 가져옴 -> accessToken
-      const bfSecretKey = 'a&9fql3@jDAE2f8#';
-      final key = sha256.convert(utf8.encode(bfSecretKey));
-      final iv = sha256.convert(utf8.encode(bfSecretKey).sublist(16));
-
-      // encrypt.Key keyObj = encrypt.Key.fromUtf8(key.toString());
-      // encrypt.IV ivObj = encrypt.IV.fromUtf8(iv.toString());
-      // final encrypter =encrypt.Encrypter(encrypt.AES(keyObj));
-      // print(encrypter.decrypt(encrypt.Encrypted.from64(accessToken!),iv: ivObj));
-      //
-      // if (loginId != null && userIdx != null) {
-      //   UserController.to.loginUser(loginId: loginId, userIdx: userIdx);
-      // }
+      String? loginId = await LocalController.getLoginId();
+      String? userIdx = await LocalController.getUserIdx();
+      if(loginId!=null&&userIdx!=null){
+        UserController.to.loginUser(loginId: loginId, userIdx: userIdx);
+      }
 
       moveMainScreen();
     }
