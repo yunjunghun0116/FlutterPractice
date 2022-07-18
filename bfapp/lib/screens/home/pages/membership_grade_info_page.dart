@@ -14,7 +14,6 @@ class MembershipGradeInfoPage extends StatefulWidget {
 class _MembershipGradeInfoPageState extends State<MembershipGradeInfoPage> {
   @override
   Widget build(BuildContext context) {
-    // print("check");
     return Scaffold(
       backgroundColor: kWhiteColor,
       appBar: AppBar(
