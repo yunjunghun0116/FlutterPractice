@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:app/constants/constants_url.dart';
 import 'package:app/controllers/local_controller.dart';
+import 'package:app/controllers/user_controller.dart';
 import 'package:app/models/home/event_banner.dart';
 import 'package:app/models/home/home_category_model.dart';
 import 'package:app/models/home/invite_benefit/invite_benefit_model.dart';
@@ -10,7 +11,7 @@ import 'package:app/models/home/invite_history/invite_history_model.dart';
 import 'package:app/models/home/invite_reward/invite_reward_model.dart';
 import 'package:app/models/home/point_history/point_history.dart';
 import 'package:app/models/home/product_rating_model.dart';
-import 'package:app/models/home/user.dart';
+import 'package:app/models/home/user/user.dart';
 import 'package:app/models/home/vip_class.dart';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
@@ -176,14 +177,12 @@ class NetworkUtils extends GetConnect {
     if (loginResult.body['status'] == 'success') {
       // print("저장하는 액세스 토큰" + loginResult.body['data']['accessToken']);
       // print("저장 리프레시 토근" + loginResult.body['data']['refreshToken']);
-      await LocalController().setLoginId(loginId);
-      await LocalController().setUserIdx(userIdx);
       //accessToken, refreshToken 추가
       await LocalController()
           .setAccessToken(loginResult.body['data']['accessToken']);
       await LocalController()
           .setRefreshToken(loginResult.body['data']['refreshToken']);
-
+      print('user : ${loginResult.body}');
       return User.fromJson(loginResult.body['data']);
     }
     return null;
@@ -262,7 +261,6 @@ class NetworkUtils extends GetConnect {
                       'size': 20,
                     });
       List result = data.data['data']['content'];
-      print(result[0]);
       return result.map((e) {
         return PointHistory.fromJson(e);
       }).toList();
@@ -317,15 +315,68 @@ class NetworkUtils extends GetConnect {
     return data?.data['data']['mainImage'];
   }
 
-  Future<void> getUserDataWithBFTK(String decryptedToken) async {
-    Response response = await post(
-      bftkUrl,
-      {
-        'accessToken': decryptedToken,
-      },
-      contentType: 'application/json',
-    );
+  Future<Map<String, dynamic>?> getUserDataWithDecryptedBFTK(
+      String decryptedToken) async {
+    try {
+      Response response = await post(
+        bftkUrl,
+        {'accessToken': decryptedToken},
+        contentType: 'application/json',
+      );
+      Map<String, dynamic> result = response.body['status'];
+      return result;
+    } catch (e) {
+      return null;
+    }
+  }
 
-    print(response.body);
+  Future<Map<String, dynamic>?> getUserDataWithDecryptedBFRT(
+      String decryptedToken) async {
+    try {
+      Response response = await post(
+        bfrtUrl,
+        {
+          'refreshToken': decryptedToken,
+          'clientId': 'membership',
+        },
+        contentType: 'application/json',
+      );
+      Map<String,dynamic> result = response.body;
+      LocalController().setAccessToken(result['access_token']);
+      LocalController().setRefreshToken(result['refresh_token']);
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<void> getMyItem(String memberId,String accessToken)async{
+    try {
+      print(accessToken);
+      Response response = await get(
+        '$baseUrl/api/v1/myItem/getMyItem',
+        query: {
+          'memberId':memberId,
+        },
+        headers: {
+          'Authorization' : 'Bearer $accessToken'
+        },
+        contentType: 'application/json',
+      );
+      Map<String,dynamic> result = response.body;
+      Map<String,dynamic> memberInfo = result['data']['content'][0]['memberInfo'];
+      Map<String,dynamic>? jsonData = UserController.to.user?.toJson();
+      if(jsonData!=null){
+        jsonData['badgeYn']=memberInfo['badgeYn'];
+        jsonData['memberGradeType']= memberInfo['memberGradeType'];
+        UserController.to.updateUser(User.fromJson(jsonData));
+        print('update Result : ${UserController.to.user!.toJson()}');
+      }
+      return;
+    } catch (e) {
+      print(e);
+      return;
+    }
   }
 }

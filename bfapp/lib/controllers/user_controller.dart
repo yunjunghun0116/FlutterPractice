@@ -1,5 +1,5 @@
 import 'package:app/controllers/local_controller.dart';
-import 'package:app/models/home/user.dart';
+import 'package:app/models/home/user/user.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:get/get.dart';
 
@@ -14,9 +14,16 @@ class UserController extends GetxController {
       userIdx: userIdx,
     );
     if (result != null) {
+      LocalController().setRefreshToken(result.refreshToken);
+      LocalController().setAccessToken(result.accessToken);
       user = result;
       update();
     }
+  }
+
+  void updateUser(User newUser) async {
+    user = newUser;
+    update();
   }
 
   void signOut() {

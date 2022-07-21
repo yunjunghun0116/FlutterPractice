@@ -6,16 +6,14 @@ part of 'splash_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SplashRoot _$SplashRootFromJson(Map<String, dynamic> json) {
-  return SplashRoot(
-    status: json['status'] as String,
-    message: json['message'] as String,
-    redirect: json['redirect'] as String,
-    data: json['data'] == null
-        ? null
-        : SplashData.fromJson(json['data'] as Map<String, dynamic>),
-  );
-}
+SplashRoot _$SplashRootFromJson(Map<String, dynamic> json) => SplashRoot(
+      status: json['status'] as String,
+      message: json['message'] as String,
+      redirect: json['redirect'] as String,
+      data: json['data'] == null
+          ? null
+          : SplashData.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$SplashRootToJson(SplashRoot instance) =>
     <String, dynamic>{
@@ -25,12 +23,10 @@ Map<String, dynamic> _$SplashRootToJson(SplashRoot instance) =>
       'data': instance.data,
     };
 
-SplashData _$SplashDataFromJson(Map<String, dynamic> json) {
-  return SplashData(
-    id: json['id'] as int,
-    imageBanner: json['imageBanner'] as String,
-  );
-}
+SplashData _$SplashDataFromJson(Map<String, dynamic> json) => SplashData(
+      id: json['id'] as int,
+      imageBanner: json['imageBanner'] as String,
+    );
 
 Map<String, dynamic> _$SplashDataToJson(SplashData instance) =>
     <String, dynamic>{

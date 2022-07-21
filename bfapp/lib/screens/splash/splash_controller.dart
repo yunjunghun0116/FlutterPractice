@@ -4,8 +4,10 @@ import 'package:app/constants/constants.dart';
 import 'package:app/controllers/local_controller.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/icon.dart';
+import 'package:app/models/home/auto_login_user/auto_login_user.dart';
 import 'package:app/screens/main/main_screen.dart';
 import 'package:app/utils/common_utils.dart';
+import 'package:app/utils/local_utils.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:app/utils/view_utils.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
@@ -56,13 +58,9 @@ class SplashController extends GetxController {
           });
     } else {
       Get.put(UserController());
-      String? loginId = await LocalController().getLoginId();
-      String? userIdx = await LocalController().getUserIdx();
-      String? accessToken = await LocalController().getAccessToken();
-      String? refreshToken = await LocalController().getRefreshToken();
       // 유효성검증
       // 1. 자동로그인 체크
-      decryptToken();
+      await checkAutoSignIn();
       moveMainScreen();
     }
     return false;
@@ -70,7 +68,6 @@ class SplashController extends GetxController {
 
   // 메인 페이지로 이동
   void moveMainScreen() {
-    decryptToken();
     Timer(const Duration(milliseconds: 1000),
         () => Get.off(() => const MainScreen()));
   }
@@ -88,26 +85,25 @@ class SplashController extends GetxController {
   void requestToken() async {
     String secretKey = "a&9fql3@jDAE2f8#";
   }
-  void decryptToken() async {
-    String secretKey = "a&9fql3@jDAE2f8#";
-    String plainText = '';
-    if (await LocalController().getBFTK() != null) {
-      plainText = await LocalController().getBFTK() as String;
-    } else {
-      // 토큰값이 비어있음 예외처리
+
+  Future<void> checkAutoSignIn() async {
+    Map<String, dynamic>? userData = await LocalController().getUserData();
+    if (userData == null) {
       return;
     }
+    AutoLoginUser autoLoginUser = AutoLoginUser.fromJson(userData);
 
-    final key = encrypt.Key.fromUtf8(secretKey);
-    final iv = encrypt.IV(key.bytes);
-    final encrypter = encrypt.Encrypter(
-        encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: "PKCS7"));
+    String decryptedBFTK = decryptToken(autoLoginUser.bftk);
 
-    final bftk = encrypter.decrypt64(plainText, iv: iv);
-    print("bftk : " + bftk);
-
-    await NetworkUtils().getUserDataWithBFTK(bftk);
-    //bftk로 데이터를 불러와서 status로 판독후
+    Map<String,dynamic>? result = await NetworkUtils().getUserDataWithDecryptedBFTK(decryptedBFTK);
+    if(result==null) return;
+    if(result['code']=='ERR_MS_5000'||result['code']=='ERR_MS_4001'){
+      NetworkUtils().getUserDataWithDecryptedBFRT(decryptToken(autoLoginUser.bfrt));
+      return;
+    }
+    UserController.to.loginUser(loginId: autoLoginUser.userId, userIdx: autoLoginUser.userIdx);
+    String? accessToken = await LocalController().getAccessToken();
+    if(accessToken==null) return;
+    NetworkUtils().getMyItem(autoLoginUser.userId, accessToken);
   }
-
 }

@@ -6,24 +6,22 @@ part of 'point_history.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PointHistory _$PointHistoryFromJson(Map<String, dynamic> json) {
-  return PointHistory(
-    memberId: json['memberId'] as int,
-    memberName: json['memberName'] as String,
-    pointHistoryId: json['pointHistoryId'] as int,
-    txDate: json['txDate'] as int,
-    expirationDate: json['expirationDate'] as int,
-    pointCategory: json['pointCategory'] as String,
-    pointCategoryName: json['pointCategoryName'] as String,
-    beforeBalance: json['beforeBalance'] as int,
-    txAmount: json['txAmount'] as int,
-    afterBalance: json['afterBalance'] as int,
-    remainAmount: json['remainAmount'] as int,
-    pointStatusType: json['pointStatusType'] as String,
-    cancelStatus: json['cancelStatus'] as bool,
-    resultPoint: json['resultPoint'] as int,
-  );
-}
+PointHistory _$PointHistoryFromJson(Map<String, dynamic> json) => PointHistory(
+      memberId: json['memberId'] as int,
+      memberName: json['memberName'] as String,
+      pointHistoryId: json['pointHistoryId'] as int,
+      txDate: json['txDate'] as int,
+      expirationDate: json['expirationDate'] as int,
+      pointCategory: json['pointCategory'] as String,
+      pointCategoryName: json['pointCategoryName'] as String,
+      beforeBalance: json['beforeBalance'] as int,
+      txAmount: json['txAmount'] as int,
+      afterBalance: json['afterBalance'] as int,
+      remainAmount: json['remainAmount'] as int,
+      pointStatusType: json['pointStatusType'] as String,
+      cancelStatus: json['cancelStatus'] as bool,
+      resultPoint: json['resultPoint'] as int,
+    );
 
 Map<String, dynamic> _$PointHistoryToJson(PointHistory instance) =>
     <String, dynamic>{

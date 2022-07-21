@@ -29,14 +29,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () async {
-      String? loginId = await LocalController().getLoginId();
-      String? userIdx = await LocalController().getUserIdx();
-
-      if (loginId != null && userIdx != null) {
-        UserController.to.loginUser(loginId: loginId, userIdx: userIdx);
-      }
-    });
     return Scaffold(
       body: Center(
         child: IndexedStack(

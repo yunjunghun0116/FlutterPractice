@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 String timeDifference(
   int onSleepHours,
@@ -71,4 +72,16 @@ String getCategoryInPointHistory(String category) {
     default:
       return '나머지종류';
   }
+}
+
+String decryptToken(String token){
+  String secretKey = "a&9fql3@jDAE2f8#";
+
+  final key = encrypt.Key.fromUtf8(secretKey);
+  final iv = encrypt.IV(key.bytes);
+  final encrypter = encrypt.Encrypter(
+      encrypt.AES(key, mode: encrypt.AESMode.cbc, padding: "PKCS7"));
+
+  final decryptedData = encrypter.decrypt64(token, iv: iv);
+  return decryptedData;
 }

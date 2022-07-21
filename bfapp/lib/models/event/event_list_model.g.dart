@@ -6,16 +6,14 @@ part of 'event_list_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EventList _$EventListFromJson(Map<String, dynamic> json) {
-  return EventList(
-    status: json['status'] as String,
-    message: json['message'] as String,
-    redirect: json['redirect'] as String,
-    data: json['data'] == null
-        ? null
-        : EventData.fromJson(json['data'] as Map<String, dynamic>),
-  );
-}
+EventList _$EventListFromJson(Map<String, dynamic> json) => EventList(
+      status: json['status'] as String,
+      message: json['message'] as String,
+      redirect: json['redirect'] as String,
+      data: json['data'] == null
+          ? null
+          : EventData.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$EventListToJson(EventList instance) => <String, dynamic>{
       'status': instance.status,
@@ -24,27 +22,25 @@ Map<String, dynamic> _$EventListToJson(EventList instance) => <String, dynamic>{
       'data': instance.data,
     };
 
-EventData _$EventDataFromJson(Map<String, dynamic> json) {
-  return EventData(
-    content: (json['content'] as List<dynamic>?)
-        ?.map((e) => EventContent.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    pageable: json['pageable'] == null
-        ? null
-        : Pageable.fromJson(json['pageable'] as Map<String, dynamic>),
-    last: json['last'] as bool?,
-    totalPages: json['totalPages'] as int?,
-    totalElements: json['totalElements'] as int?,
-    sort: json['sort'] == null
-        ? null
-        : Sort.fromJson(json['sort'] as Map<String, dynamic>),
-    numberOfElements: json['numberOfElements'] as int?,
-    first: json['first'] as bool?,
-    size: json['size'] as int?,
-    number: json['number'] as int?,
-    empty: json['empty'] as bool?,
-  );
-}
+EventData _$EventDataFromJson(Map<String, dynamic> json) => EventData(
+      content: (json['content'] as List<dynamic>?)
+          ?.map((e) => EventContent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      pageable: json['pageable'] == null
+          ? null
+          : Pageable.fromJson(json['pageable'] as Map<String, dynamic>),
+      last: json['last'] as bool?,
+      totalPages: json['totalPages'] as int?,
+      totalElements: json['totalElements'] as int?,
+      sort: json['sort'] == null
+          ? null
+          : Sort.fromJson(json['sort'] as Map<String, dynamic>),
+      numberOfElements: json['numberOfElements'] as int?,
+      first: json['first'] as bool?,
+      size: json['size'] as int?,
+      number: json['number'] as int?,
+      empty: json['empty'] as bool?,
+    );
 
 Map<String, dynamic> _$EventDataToJson(EventData instance) => <String, dynamic>{
       'content': instance.content,
@@ -60,34 +56,32 @@ Map<String, dynamic> _$EventDataToJson(EventData instance) => <String, dynamic>{
       'empty': instance.empty,
     };
 
-EventContent _$EventContentFromJson(Map<String, dynamic> json) {
-  return EventContent(
-    id: json['id'] as int,
-    storeInfo: json['storeInfo'],
-    startDate: json['startDate'] as int?,
-    endDate: json['endDate'] as int?,
-    imageBanner: json['imageBanner'] as String?,
-    mainImage: json['mainImage'] as String?,
-    imageForm: json['imageForm'],
-    title: json['title'] as String?,
-    contents: json['contents'] as String?,
-    progressType: json['progressType'] as String?,
-    gradeTypes: (json['gradeTypes'] as List<dynamic>?)
-        ?.map((e) => GradeType.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    eventStatus: json['eventStatus'] as String?,
-    regionTypes: json['regionTypes'] as String?,
-    eventType: json['eventType'] as String?,
-    homeBannerImage: json['homeBannerImage'] as String?,
-    homeBannerActive: json['homeBannerActive'] as bool?,
-    deleted: json['deleted'] as bool?,
-    applyStatus: json['applyStatus'] as bool?,
-    isWholeStore: json['isWholeStore'] as bool?,
-    applyMemberCount: json['applyMemberCount'],
-    viewCount: json['viewCount'] as int?,
-    detailImages: json['detailImages'] as List<dynamic>?,
-  );
-}
+EventContent _$EventContentFromJson(Map<String, dynamic> json) => EventContent(
+      id: json['id'] as int,
+      storeInfo: json['storeInfo'],
+      startDate: json['startDate'] as int?,
+      endDate: json['endDate'] as int?,
+      imageBanner: json['imageBanner'] as String?,
+      mainImage: json['mainImage'] as String?,
+      imageForm: json['imageForm'],
+      title: json['title'] as String?,
+      contents: json['contents'] as String?,
+      progressType: json['progressType'] as String?,
+      gradeTypes: (json['gradeTypes'] as List<dynamic>?)
+          ?.map((e) => GradeType.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      eventStatus: json['eventStatus'] as String?,
+      regionTypes: json['regionTypes'] as String?,
+      eventType: json['eventType'] as String?,
+      homeBannerImage: json['homeBannerImage'] as String?,
+      homeBannerActive: json['homeBannerActive'] as bool?,
+      deleted: json['deleted'] as bool?,
+      applyStatus: json['applyStatus'] as bool?,
+      isWholeStore: json['isWholeStore'] as bool?,
+      applyMemberCount: json['applyMemberCount'],
+      viewCount: json['viewCount'] as int?,
+      detailImages: json['detailImages'] as List<dynamic>?,
+    );
 
 Map<String, dynamic> _$EventContentToJson(EventContent instance) =>
     <String, dynamic>{
@@ -115,53 +109,14 @@ Map<String, dynamic> _$EventContentToJson(EventContent instance) =>
       'detailImages': instance.detailImages,
     };
 
-GradeType _$GradeTypeFromJson(Map<String, dynamic> json) {
-  return GradeType(
-    memberGradeType:
-        _$enumDecodeNullable(_$MemberGradeTypeEnumMap, json['memberGradeType']),
-  );
-}
+GradeType _$GradeTypeFromJson(Map<String, dynamic> json) => GradeType(
+      memberGradeType: $enumDecodeNullable(
+          _$MemberGradeTypeEnumMap, json['memberGradeType']),
+    );
 
 Map<String, dynamic> _$GradeTypeToJson(GradeType instance) => <String, dynamic>{
       'memberGradeType': _$MemberGradeTypeEnumMap[instance.memberGradeType],
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
 
 const _$MemberGradeTypeEnumMap = {
   MemberGradeType.BASIC: 'BASIC',
@@ -171,18 +126,16 @@ const _$MemberGradeTypeEnumMap = {
   MemberGradeType.LVIP: 'LVIP',
 };
 
-Pageable _$PageableFromJson(Map<String, dynamic> json) {
-  return Pageable(
-    sort: json['sort'] == null
-        ? null
-        : Sort.fromJson(json['sort'] as Map<String, dynamic>),
-    pageNumber: json['pageNumber'] as int?,
-    pageSize: json['pageSize'] as int?,
-    offset: json['offset'] as int?,
-    paged: json['paged'] as bool?,
-    unpaged: json['unpaged'] as bool?,
-  );
-}
+Pageable _$PageableFromJson(Map<String, dynamic> json) => Pageable(
+      sort: json['sort'] == null
+          ? null
+          : Sort.fromJson(json['sort'] as Map<String, dynamic>),
+      pageNumber: json['pageNumber'] as int?,
+      pageSize: json['pageSize'] as int?,
+      offset: json['offset'] as int?,
+      paged: json['paged'] as bool?,
+      unpaged: json['unpaged'] as bool?,
+    );
 
 Map<String, dynamic> _$PageableToJson(Pageable instance) => <String, dynamic>{
       'sort': instance.sort,
@@ -193,13 +146,11 @@ Map<String, dynamic> _$PageableToJson(Pageable instance) => <String, dynamic>{
       'unpaged': instance.unpaged,
     };
 
-Sort _$SortFromJson(Map<String, dynamic> json) {
-  return Sort(
-    sorted: json['sorted'] as bool?,
-    unsorted: json['unsorted'] as bool?,
-    empty: json['empty'] as bool?,
-  );
-}
+Sort _$SortFromJson(Map<String, dynamic> json) => Sort(
+      sorted: json['sorted'] as bool?,
+      unsorted: json['unsorted'] as bool?,
+      empty: json['empty'] as bool?,
+    );
 
 Map<String, dynamic> _$SortToJson(Sort instance) => <String, dynamic>{
       'sorted': instance.sorted,

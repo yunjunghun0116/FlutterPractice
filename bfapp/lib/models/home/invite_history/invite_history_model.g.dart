@@ -6,21 +6,20 @@ part of 'invite_history_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-InviteHistory _$InviteHistoryFromJson(Map<String, dynamic> json) {
-  return InviteHistory(
-    content: json['content'] as List<dynamic>,
-    pageable: json['pageable'] as Map<String, dynamic>,
-    first: json['first'] as bool,
-    last: json['last'] as bool,
-    totalPages: json['totalPages'] as int,
-    totalElements: json['totalElements'] as int,
-    sort: json['sort'] as Map<String, dynamic>,
-    numberOfElements: json['numberOfElements'] as int,
-    size: json['size'] as int,
-    number: json['number'] as int,
-    empty: json['empty'] as bool,
-  );
-}
+InviteHistory _$InviteHistoryFromJson(Map<String, dynamic> json) =>
+    InviteHistory(
+      content: json['content'] as List<dynamic>,
+      pageable: json['pageable'] as Map<String, dynamic>,
+      first: json['first'] as bool,
+      last: json['last'] as bool,
+      totalPages: json['totalPages'] as int,
+      totalElements: json['totalElements'] as int,
+      sort: json['sort'] as Map<String, dynamic>,
+      numberOfElements: json['numberOfElements'] as int,
+      size: json['size'] as int,
+      number: json['number'] as int,
+      empty: json['empty'] as bool,
+    );
 
 Map<String, dynamic> _$InviteHistoryToJson(InviteHistory instance) =>
     <String, dynamic>{

@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:app/constants/constants_color.dart';
 import 'package:app/constants/constants_url.dart';
@@ -49,10 +50,11 @@ class _LoginPageState extends State<LoginPage> {
                 webViewController = controller;
                 webViewController?.addJavaScriptHandler(
                     handlerName: 'setNative',
-                    callback: (value) async{
+                    callback: (value) async {
                       Map<String, dynamic> data = jsonDecode(value[0]);
-                      await LocalController().setBFTK(data['bftk']);
-                      await LocalController().setBFRT(data['bfrt']);
+                      data['autoLogin'] = true;
+                      await LocalController().setUserData(data);
+                      log('data : $data');
                       Get.back(result: data);
                     });
                 webViewController?.addJavaScriptHandler(

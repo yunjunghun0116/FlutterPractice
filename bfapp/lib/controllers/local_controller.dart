@@ -1,14 +1,13 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalController {
   static SharedPreferences? _sharedPreferences;
 
-  final String _loginIdKey = 'loginId';
-  final String _userIdxKey = 'userIdx';
   final String _accessTokenKey = 'accessToken';
   final String _refreshTokenKey = 'refreshToken';
-  final String _bftk = 'bftk';
-  final String _bfrt = 'bfrt';
+  final String _userDataKey = 'userData';
 
   Future<void> _setSharedPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
@@ -17,34 +16,6 @@ class LocalController {
   Future<void> clearSharedPreferences() async {
     if (_sharedPreferences == null) return;
     await _sharedPreferences!.clear();
-  }
-
-  Future<void> setLoginId(String loginId) async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    await _sharedPreferences!.setString(_loginIdKey, loginId);
-  }
-
-  Future<String?> getLoginId() async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    return _sharedPreferences!.getString(_loginIdKey);
-  }
-
-  Future<void> setUserIdx(String userIdx) async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    await _sharedPreferences!.setString(_userIdxKey, userIdx);
-  }
-
-  Future<String?> getUserIdx() async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    return _sharedPreferences!.getString(_userIdxKey);
   }
 
   //alCCX0YS41+3U4X3OBwv/VA+6rHwqtbquq0I0bD2Xmk=
@@ -77,32 +48,29 @@ class LocalController {
     return _sharedPreferences!.getString(_refreshTokenKey);
   }
 
-// BFTK, RFTK 추가
-  Future<void> setBFTK(String bftk) async {
+  /*
+  * userIdx: 205915,
+  * userId: leedg5845,
+  * userName: 이동근,
+  * autoLogin: false,
+  * bftk: THNj2jI0hdhFaKMSYedRD6oV11f1rvYt4qSp1OxLgzg=,
+  * bfrt: Vn5PI3lcJHp6sgvF4NIu3De7ddxOLTMDeMQ0Ks7pSbs=
+  * */
+  Future<void> setUserData(Map<String,dynamic> userData) async {
     if (_sharedPreferences == null) {
       await _setSharedPreferences();
     }
-    await _sharedPreferences!.setString(_bftk, bftk);
+    await _sharedPreferences!.setString(_userDataKey, jsonEncode(userData));
   }
 
-  Future<String?> getBFTK() async {
+  Future<Map<String,dynamic>?> getUserData() async {
     if (_sharedPreferences == null) {
       await _setSharedPreferences();
     }
-    return _sharedPreferences!.getString(_bftk);
+    if(_sharedPreferences!.getString(_userDataKey)==null){
+      return null;
+    }
+    return jsonDecode(_sharedPreferences!.getString(_userDataKey)!);
   }
 
-  Future<void> setBFRT(String bfrt) async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    await _sharedPreferences!.setString(_bfrt, bfrt);
-  }
-
-  Future<String?> getBFRT() async {
-    if (_sharedPreferences == null) {
-      await _setSharedPreferences();
-    }
-    return _sharedPreferences!.getString(_bfrt);
-  }
 }

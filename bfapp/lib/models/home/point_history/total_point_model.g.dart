@@ -6,11 +6,9 @@ part of 'total_point_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TotalPoint _$TotalPointFromJson(Map<String, dynamic> json) {
-  return TotalPoint(
-    amount: json['amount'] as int,
-  );
-}
+TotalPoint _$TotalPointFromJson(Map<String, dynamic> json) => TotalPoint(
+      amount: json['amount'] as int,
+    );
 
 Map<String, dynamic> _$TotalPointToJson(TotalPoint instance) =>
     <String, dynamic>{

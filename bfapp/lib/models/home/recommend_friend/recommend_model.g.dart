@@ -6,14 +6,12 @@ part of 'recommend_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Recommend _$RecommendFromJson(Map<String, dynamic> json) {
-  return Recommend(
-    recommendNumber: json['recommendNumber'] as int,
-    reward: json['reward'] as int,
-    receiveNumber: json['receiveNumber'] as int,
-    nextBenefitNumber: json['nextBenefitNumber'] as int,
-  );
-}
+Recommend _$RecommendFromJson(Map<String, dynamic> json) => Recommend(
+      recommendNumber: json['recommendNumber'] as int,
+      reward: json['reward'] as int,
+      receiveNumber: json['receiveNumber'] as int,
+      nextBenefitNumber: json['nextBenefitNumber'] as int,
+    );
 
 Map<String, dynamic> _$RecommendToJson(Recommend instance) => <String, dynamic>{
       'recommendNumber': instance.recommendNumber,
