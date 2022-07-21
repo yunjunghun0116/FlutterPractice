@@ -1,6 +1,6 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class WaterRecordPage extends StatefulWidget {
   const WaterRecordPage({Key? key}) : super(key: key);
@@ -16,25 +16,8 @@ class _WaterRecordPageState extends State<WaterRecordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        title: const Text(
-          "물마시기",
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      appBar: NavigationBarView(
+          title: '물마시기'
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

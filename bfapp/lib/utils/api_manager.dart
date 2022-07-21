@@ -5,10 +5,10 @@ import 'package:dio/dio.dart';
 import '../models/base_model.dart';
 
 class ApiManager {
-
-  static Future<dynamic> getResponse(url, {headers, parameters, isBlock = true}) async {
+  static Future<dynamic> getResponse(url,
+      {headers, parameters, isBlock = true}) async {
     try {
-      if(isBlock) {
+      if (isBlock) {
         await ViewUtils.showLoading();
       }
       final response = await Dio().get(
@@ -22,15 +22,16 @@ class ApiManager {
       return responseCheck(response);
     } catch (e) {
       await ViewUtils.hideLoading();
-      ViewUtils.showAlertDialog(content: kNetworkErrMsg+'$e');
+      ViewUtils.showAlertDialog(content: '$kNetworkErrMsg$e');
       return null;
     }
   }
 
-  static Future<dynamic> postResponse(url, {headers, parameters, isBlock = true}) async {
+  static Future<dynamic> postResponse(url,
+      {headers, parameters, isBlock = true}) async {
     ViewUtils.showLoading();
     try {
-      if(isBlock) {
+      if (isBlock) {
         await ViewUtils.showLoading();
       }
       final response = await Dio().post(
@@ -44,7 +45,7 @@ class ApiManager {
       return responseCheck(response);
     } catch (e) {
       await ViewUtils.hideLoading();
-      ViewUtils.showAlertDialog(content: kNetworkErrMsg+'$e');
+      ViewUtils.showAlertDialog(content: '$kNetworkErrMsg$e');
       return null;
     }
   }

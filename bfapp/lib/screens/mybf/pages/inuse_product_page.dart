@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,23 +14,8 @@ class _InuseProductPageState extends State<InuseProductPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: const Text(
-            '사용중 제품',
-            style: TextStyle(fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+      appBar: NavigationBarView(
+          title: '사용중 제품',
       ),
       body: Container(
         child: Column(

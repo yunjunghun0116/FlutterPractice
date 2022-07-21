@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,23 +25,9 @@ class _ReviewPageState extends State<ReviewPage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: const Text(
-            '이용후기',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black)),
-
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
+          appBar: NavigationBarView(
+              title: '이용후기'
           ),
-          onPressed: (){
-            Get.back();
-          },
-        ),
-      ),
           body: Column(
             children: [
               TabBar(

@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
@@ -21,18 +22,12 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        title: const Text('상품정보'),
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 0.5,
+      appBar: NavigationBarView(
+          title: '상품정보'
       ),
       body: FutureBuilder(
         future: NetworkUtils().getItemDetailByIdAndToken(
-          id: id,
-          accessToken: UserController.to.user != null
-              ? UserController.to.user!.accessToken
-              : null,
+          id: id
         ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

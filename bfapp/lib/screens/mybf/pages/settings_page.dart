@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
@@ -20,22 +21,8 @@ class _SettingPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: const Text(
-                '설정',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black)),
-
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: (){
-                Get.back();
-              },
-            ),
+          appBar: NavigationBarView(
+              title: '설정'
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

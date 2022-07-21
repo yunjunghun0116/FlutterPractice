@@ -8,6 +8,7 @@ import 'package:app/screens/menu/menu_screen.dart';
 import 'package:app/screens/mybf/mybf_screen.dart';
 import 'package:app/screens/shopping/shopping_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -20,7 +21,22 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(UserController());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () async {
+      String? loginId = await LocalController().getLoginId();
+      String? userIdx = await LocalController().getUserIdx();
+
+      if (loginId != null && userIdx != null) {
+        UserController.to.loginUser(loginId: loginId, userIdx: userIdx);
+      }
+    });
     return Scaffold(
       body: Center(
         child: IndexedStack(

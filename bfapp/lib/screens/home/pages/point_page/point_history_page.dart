@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/models/home/point_history/point_history.dart';
@@ -23,18 +24,8 @@ class _PointHistoryPageState extends State<PointHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        title: const Text(
-          '포인트',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
+      appBar: NavigationBarView(
+          title: '포인트'
       ),
       body: ListView(
         children: [

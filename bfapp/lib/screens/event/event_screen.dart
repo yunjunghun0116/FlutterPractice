@@ -1,18 +1,21 @@
 
-import 'package:app/components/view/alert_dialog_view.dart';
+import 'package:app/components/view/filter_bottom_sheet.dart';
+import 'package:app/components/view/navigation_bar_view.dart';
+import 'package:app/components/view/option_view.dart';
 import 'package:app/components/view/list_bottom_sheet.dart';
+import 'package:app/components/view/option_view_controller.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/bottom_sheet_controller.dart';
 import 'package:app/controllers/location_controller.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/models/event/event_list_model.dart';
 import 'package:app/screens/event/event_list_view.dart';
 import 'package:app/utils/network_utils.dart';
-import 'package:app/utils/view_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
 
 import '../../components/view/drop_down_button.dart';
+import '../../enum/enum.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key? key}) : super(key: key);
@@ -26,6 +29,9 @@ class _EventScreenState extends State<EventScreen> with SingleTickerProviderStat
   late TabController _tabController;
   final BottomSheetController _bottomSheetController = Get.put(BottomSheetController());
   final LocationController _locationController = Get.put(LocationController());
+  final OptionViewController _gradeOptionController = OptionViewController();
+  final OptionViewController _onOffOptionController = OptionViewController();
+  final OptionViewController _regionOptionController = OptionViewController();
 
   @override
   void initState() {
@@ -47,16 +53,9 @@ class _EventScreenState extends State<EventScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kWhiteColor,
-          title: const Text("이벤트",
-            style: TextStyle(
-                color: kBlackColor,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          centerTitle: true,
-        ),
+        appBar: NavigationBarView(
+            title: '이벤트',
+            type: NavigationType.main),
         body: Column(
           children: [
             TabBar(
@@ -86,6 +85,37 @@ class _EventScreenState extends State<EventScreen> with SingleTickerProviderStat
                           ],
                         ),
                         onPressed: () {
+                          Get.bottomSheet(
+                              FilterBottomSheet(
+                                optionLists: [
+                                  OptionView(
+                                      controller: _gradeOptionController,
+                                      title: '회원등급 (중복선택)',
+                                      dataLists: memberGradeTypeToValues.values.toList(),
+                                      filterType: FilterType.multi,
+                                      changedValue: (index) {
+                                      }),
+                                  OptionView(
+                                      controller: _onOffOptionController,
+                                      title: '온라인/전시장',
+                                      dataLists: onOffTypeToValues.values.toList(),
+                                      filterType: FilterType.must,
+                                      changedValue: (index) {
+                                        _regionOptionController.isVisible = index == OnOffType.OFFLINE.index;
+                                      }),
+                                  OptionView(
+                                      controller: _regionOptionController,
+                                      title: '지역 (중복선택)',
+                                      dataLists: regionTypeToValues.values.toList(),
+                                      filterType: FilterType.multi,
+                                      changedValue: (index) {
+                                      })
+                                ],
+                                onTap: () {
+                                  requestEventList();
+                                },
+                              )
+                          );
                         }
                     ),
                     Obx(() { // DropDownButton 타이틀 갱신
@@ -99,7 +129,7 @@ class _EventScreenState extends State<EventScreen> with SingleTickerProviderStat
                                 }
                             ));
                           });
-                    })
+                    }),
                   ],
                 )
             ),
@@ -163,4 +193,3 @@ class _EventScreenState extends State<EventScreen> with SingleTickerProviderStat
   }
 
 }
-

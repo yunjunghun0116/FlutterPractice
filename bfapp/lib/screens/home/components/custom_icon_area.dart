@@ -1,9 +1,9 @@
 import 'package:app/constants/constants_color.dart';
 import 'package:app/models/home/home_category_model.dart';
 import 'package:app/screens/home/components/custom_icon_url_button.dart';
-import 'package:app/screens/home/pages/sleep_record_page.dart';
-import 'package:app/screens/home/pages/time_record_page.dart';
-import 'package:app/screens/home/pages/vip_class_page.dart';
+import 'package:app/screens/home/pages/sleep_record/sleep_record_page.dart';
+import 'package:app/screens/home/pages/time_record/time_record_page.dart';
+import 'package:app/screens/home/pages/vip_class/vip_class_page.dart';
 import 'package:app/screens/home/pages/water_record_page.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:flutter/material.dart';

@@ -137,9 +137,8 @@ class NetworkUtils extends GetConnect {
     return EventDetail.fromJson(response.data);
   }
 
-  Future<List> getMemberMainList(int userId, String accessToken) async {
-    Response data = await get('$baseUrl/api/v1/main/list',
-        headers: {'Authorization': 'Bearer $accessToken'});
+  Future<List> getMemberMainList(int userId) async {
+    Response data = await get('$baseUrl/api/v1/main/list');
     if (data.isOk) {
       List listData = data.body['data'];
       return listData;
@@ -175,45 +174,41 @@ class NetworkUtils extends GetConnect {
       },
     );
     if (loginResult.body['status'] == 'success') {
-      await LocalController.setLoginId(loginId);
-      await LocalController.setUserIdx(userIdx);
+      // print("저장하는 액세스 토큰" + loginResult.body['data']['accessToken']);
+      // print("저장 리프레시 토근" + loginResult.body['data']['refreshToken']);
+      await LocalController().setLoginId(loginId);
+      await LocalController().setUserIdx(userIdx);
+      //accessToken, refreshToken 추가
+      await LocalController()
+          .setAccessToken(loginResult.body['data']['accessToken']);
+      await LocalController()
+          .setRefreshToken(loginResult.body['data']['refreshToken']);
+
       return User.fromJson(loginResult.body['data']);
     }
     return null;
   }
 
   //보유포인트 호출 API
-  Future<int> getUserPoint(int userId, String accessToken) async {
-    Response data = await get('$baseUrl/api/v1/point/history/$userId/amount',
-        headers: {'Authorization': 'Bearer $accessToken'});
+  Future<int> getUserPoint(int userId) async {
+    Response data = await get('$baseUrl/api/v1/point/history/$userId/amount');
     return data.body['data']['amount'];
   }
 
   //보유쿠폰 호출 API
-  Future<int> getCouponCount(int userId, String accessToken) async {
-    Response data = await get(
-      '$baseUrl/api/v1/coupon/$userId/list',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+  Future<int> getCouponCount(int userId) async {
+    Response data = await get('$baseUrl/api/v1/coupon/$userId/list');
     return data.body['data'];
   }
 
   //사용중 제품 호출 API
-  Future<int> getUsingCount(int userId, String accessToken) async {
-    Response data = await get(
-      '$baseUrl/api/v1/myItem/amount?memberId=$userId',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+  Future<int> getUsingCount(int userId) async {
+    Response data = await get('$baseUrl/api/v1/myItem/amount?memberId=$userId');
     return data.body['data'];
   }
 
-  Future<void> getItemDetailByIdAndToken(
-      {required int id, String? accessToken}) async {
-    Response data = await get(
-      '$baseUrl/api/v1/goods/$id/detail',
-      headers:
-          accessToken != null ? {'Authorization': 'Bearer $accessToken'} : null,
-    );
+  Future<void> getItemDetailByIdAndToken({required int id}) async {
+    Response data = await get('$baseUrl/api/v1/goods/$id/detail');
     return data.body['data'];
   }
 
@@ -245,7 +240,6 @@ class NetworkUtils extends GetConnect {
     try {
       final data =
           await ApiManager.getResponse('$baseUrl/api/v1/point/history/fetch',
-              headers: {'Authorization': 'Bearer ${user.accessToken}'},
               parameters: date != null
                   ? {
                       'startDate': date.millisecondsSinceEpoch ~/ 1000,
@@ -281,20 +275,16 @@ class NetworkUtils extends GetConnect {
 // 친구초대 페이지: 초대현황, 총포인트, 받은초대
   Future<Recommend> getUserRecommendedHistory(
       int userId, String accessToken) async {
-    final data = await ApiManager.getResponse(
-      '$baseUrl/api/v1/recommend/$userId',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+    final data =
+        await ApiManager.getResponse('$baseUrl/api/v1/recommend/$userId');
     Recommend result = Recommend.fromJson(data?.data['data']);
     return result;
   }
 
 // 초대현황 페이지: 초대리워드
-  Future<InviteReward> getInviteReward(int userId, String accessToken) async {
-    final data = await ApiManager.getResponse(
-      '$baseUrl/api/v1/recommend/$userId/list',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+  Future<InviteReward> getInviteReward(int userId) async {
+    final data =
+        await ApiManager.getResponse('$baseUrl/api/v1/recommend/$userId/list');
     InviteReward result = InviteReward.fromJson(data?.data['data']);
     return result;
   }
@@ -304,7 +294,6 @@ class NetworkUtils extends GetConnect {
       int userId, String accessToken) async {
     final data = await ApiManager.getResponse(
         '$baseUrl/api/v1/recommend/history',
-        headers: {'Authorization': 'Bearer $accessToken'},
         parameters: {'size': 20, 'page': 0, 'memberId': userId});
     InviteHistory result = InviteHistory.fromJson(data?.data['data']);
     return result;
@@ -314,32 +303,29 @@ class NetworkUtils extends GetConnect {
   Future<List<InviteBenefit>> getInviteBenefitList(
       int userId, String accessToken) async {
     final data = await ApiManager.getResponse(
-      '$baseUrl/api/v1/recommend/$userId/benefit',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+        '$baseUrl/api/v1/recommend/$userId/benefit');
     List dataList = data?.data['data'];
     return dataList.map((e) {
       return InviteBenefit.fromJson(e);
     }).toList();
   }
 
-  // 유저가이드
-  Future<String> getUserGuide(int userId, String accessToken) async {
-    final data = await ApiManager.getResponse(
-      '$baseUrl/api/v1/event/72/detail',
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
+  // 이용 가이드
+  Future<String> getUserGuide(int userId) async {
+    final data =
+        await ApiManager.getResponse('$baseUrl/api/v1/event/72/detail');
     return data?.data['data']['mainImage'];
   }
 
-  // 토큰 유효성 검사
-  Future<void> checkAuthToken(int userId, String accessToken) async {
-    final data = await ApiManager.getResponse(
-      'https://auth.bodyfriend.co.kr/api/auth/token',
-      parameters: {
-        'accessToken': accessToken,
+  Future<void> getUserDataWithBFTK(String decryptedToken) async {
+    Response response = await post(
+      bftkUrl,
+      {
+        'accessToken': decryptedToken,
       },
+      contentType: 'application/json',
     );
-    print('data : ${data?.data['data']}');
+
+    print(response.body);
   }
 }

@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:app/constants/constants_color.dart';
+import 'package:app/constants/constants_url.dart';
+import 'package:app/controllers/local_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
@@ -28,14 +30,8 @@ class _LoginPageState extends State<LoginPage> {
       ));
 
   double progress = 0.0;
-  final String url =
-      "https://auth.bodyfriend.co.kr/auth/common/login?client_id=membership";
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  // 주소 변경 필요
+  final String url = '$loginUrl/auth/common/login?client_id=membership';
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +49,15 @@ class _LoginPageState extends State<LoginPage> {
                 webViewController = controller;
                 webViewController?.addJavaScriptHandler(
                     handlerName: 'setNative',
-                    callback: (value) {
+                    callback: (value) async{
                       Map<String, dynamic> data = jsonDecode(value[0]);
+                      await LocalController().setBFTK(data['bftk']);
+                      await LocalController().setBFRT(data['bfrt']);
                       Get.back(result: data);
                     });
                 webViewController?.addJavaScriptHandler(
                     handlerName: 'closePage',
                     callback: (value) {
-                      print('closePage');
-                      print(value);
                       Get.back();
                     });
                 webViewController?.addJavaScriptHandler(

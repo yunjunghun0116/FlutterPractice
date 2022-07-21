@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/screens/home/pages/invite/invite_reward_page.dart';
 import 'package:app/screens/home/pages/invite/invite_sent_page.dart';
@@ -29,15 +30,8 @@ class _InviteStatusPageState extends State<InviteStatusPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        title: const Text(
-          '초대현황',
-          style: TextStyle(fontSize: 16),
-        ),
-        centerTitle: true,
+      appBar: NavigationBarView(
+          title: '초대현황'
       ),
       body: SafeArea(
         child: Column(

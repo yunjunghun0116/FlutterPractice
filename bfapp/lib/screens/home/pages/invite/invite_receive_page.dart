@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:flutter/material.dart';
 
@@ -7,15 +8,8 @@ class InviteReceivePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "받은 초대",
-          style: TextStyle(fontSize: 16),
-        ),
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        centerTitle: true,
+      appBar: NavigationBarView(
+          title: '받은 초대'
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

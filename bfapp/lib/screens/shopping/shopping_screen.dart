@@ -2,8 +2,10 @@
 
 
 import 'package:app/components/view/filter_select_chip.dart';
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/components/view/top_scroll_button.dart';
 import 'package:app/controllers/filter_controller.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/icon.dart';
 import 'package:app/screens/shopping/pages/product_search_page.dart';
 import 'package:app/controllers/shopping_controller.dart';
@@ -89,26 +91,13 @@ class _ShoppingScreenState extends State<ShoppingScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("쇼핑"),
-        centerTitle: true,
-        actions: [
-          InkWell(
-            onTap: (){Get.to(const ProductSearchPage());},
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Image.asset(icSearchTop, width: 25,),
-            ),
-          ),
-          InkWell(
-            onTap: (){Get.to(const ShoppingCartScreen());},
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Image.asset(icShoppingCartTop, width: 25,),
-            ),
-          ),
-          const SizedBox(width: 10,)
-        ],
+      appBar: NavigationBarView(
+          title: '쇼핑',
+          type: NavigationType.main,
+          buttonTypes: const [
+            NavigationButtonType.search,
+            NavigationButtonType.cart
+          ]
       ),
       body: SafeArea(
         child: Obx(() => RefreshIndicator(

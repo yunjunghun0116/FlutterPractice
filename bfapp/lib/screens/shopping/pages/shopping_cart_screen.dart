@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,14 +13,8 @@ class ShoppingCartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('장바구니'),
-        leading: InkWell(
-          onTap: (){
-            Get.back();
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
+      appBar: NavigationBarView(
+          title: '장바구니'
       ),
       body: SafeArea(
         child: Stack(

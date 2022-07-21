@@ -24,7 +24,7 @@ class _InviteRewardPageState extends State<InviteRewardPage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: NetworkUtils().getInviteReward(
-          UserController.to.user!.id, UserController.to.user!.accessToken),
+          UserController.to.user!.id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           InviteReward reward = snapshot.data as InviteReward;

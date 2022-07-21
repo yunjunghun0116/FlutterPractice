@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/models/home/invite_benefit/invite_benefit_model.dart';
@@ -21,25 +22,8 @@ class _InviteBenefitPageState extends State<InviteBenefitPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kWhiteColor,
-        appBar: AppBar(
-          backgroundColor: kWhiteColor,
-          foregroundColor: kBlackColor,
-          title: Text(
-            "혜택",
-            style: TextStyle(fontSize: 16),
-          ),
-          elevation: 1,
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(
-                Icons.clear,
-                size: 28,
-              ),
-            ),
-          ],
+        appBar: NavigationBarView(
+            title: '혜택',
         ),
         body: FutureBuilder(
           future: NetworkUtils().getInviteBenefitList(
@@ -72,7 +56,7 @@ class _InviteBenefitPageState extends State<InviteBenefitPage> {
                               children: [
                                 const TextSpan(text: '총 '),
                                 TextSpan(
-                                    text: '${benefit.recordNumber}명',
+                                    text: '${benefit.recordNumber}명 ',
                                     style: const TextStyle(
                                       color: kMainColor,
                                     )),
@@ -82,43 +66,43 @@ class _InviteBenefitPageState extends State<InviteBenefitPage> {
                         const SizedBox(height: 15),
                         Row(
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedBenefitRecordNumber =
-                                      benefit.recordNumber;
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 20,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: selectedBenefitRecordNumber ==
-                                          benefit.recordNumber
-                                      ? null
-                                      : Border.all(color: kLightGreyColor),
-                                  color: selectedBenefitRecordNumber ==
-                                          benefit.recordNumber
-                                      ? kMainColor
-                                      : null,
-                                ),
-                                child: selectedBenefitRecordNumber ==
-                                        benefit.recordNumber
-                                    ? Container(
-                                        width: 10,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                          color: kWhiteColor,
-                                          borderRadius:
-                                              BorderRadius.circular(7.5),
-                                        ),
-                                      )
-                                    : null,
-                              ),
-                            ),
-                            const SizedBox(width: 15),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     setState(() {
+                            //       selectedBenefitRecordNumber =
+                            //           benefit.recordNumber;
+                            //     });
+                            //   },
+                            //   child: Container(
+                            //     alignment: Alignment.center,
+                            //     width: 20,
+                            //     height: 20,
+                            //     decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(10),
+                            //       border: selectedBenefitRecordNumber ==
+                            //               benefit.recordNumber
+                            //           ? null
+                            //           : Border.all(color: kLightGreyColor),
+                            //       color: selectedBenefitRecordNumber ==
+                            //               benefit.recordNumber
+                            //           ? kMainColor
+                            //           : null,
+                            //     ),
+                            //     child: selectedBenefitRecordNumber ==
+                            //             benefit.recordNumber
+                            //         ? Container(
+                            //             width: 10,
+                            //             height: 10,
+                            //             decoration: BoxDecoration(
+                            //               color: kWhiteColor,
+                            //               borderRadius:
+                            //                   BorderRadius.circular(7.5),
+                            //             ),
+                            //           )
+                            //         : null,
+                            //   ),
+                            // ),
+                            // const SizedBox(width: 15),
                             Container(
                               width: 50,
                               height: 50,

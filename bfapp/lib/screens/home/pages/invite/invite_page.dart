@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/icon.dart';
@@ -131,11 +132,8 @@ class _InvitePageState extends State<InvitePage> {
       // 텍스트필드 포커스 해제
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kWhiteColor,
-          foregroundColor: kBlackColor,
-          title: const Text('친구 초대', style: TextStyle(fontSize: 16)),
-          centerTitle: true,
+        appBar: NavigationBarView(
+            title: '친구 초대'
         ),
         body: ListView(
           controller: _scrollController,

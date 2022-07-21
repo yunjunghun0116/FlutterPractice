@@ -1,9 +1,11 @@
 
 import 'package:app/components/view/available_grade_view.dart';
 import 'package:app/components/view/available_place_view.dart';
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/constants/constants_url.dart';
 import 'package:app/controllers/location_controller.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/models/event/event_detail_model.dart';
 import 'package:app/models/event/event_list_model.dart';
 import 'package:app/utils/network_utils.dart';
@@ -21,16 +23,8 @@ class EventDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kWhiteColor,
-          title: const Text("이벤트 상세",
-            style: TextStyle(
-                color: kBlackColor,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-          centerTitle: true,
-        ),
+        appBar: NavigationBarView(
+            title: '이벤트 상세'),
         body: SafeArea(
             child: FutureBuilder(
               future: requestEventDetail(),

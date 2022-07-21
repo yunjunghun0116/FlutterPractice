@@ -1,7 +1,7 @@
 
+import 'package:app/enum/enum.dart';
 import 'package:app/icon.dart';
 import 'package:app/utils/local_utils.dart';
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'event_list_model.g.dart';
@@ -242,6 +242,8 @@ class GradeType {
 
   String imageFromGradeType() {
     switch(memberGradeType) {
+      case MemberGradeType.BASIC:
+        return tagBasic;
       case MemberGradeType.FRIEND:
         return tagFriend;
       case MemberGradeType.FAMILY:
@@ -255,15 +257,6 @@ class GradeType {
     }
   }
 }
-
-enum MemberGradeType { FRIEND, FAMILY, VIP, LVIP }
-
-final memberGradeTypeValues = {
-  "FAMILY": MemberGradeType.FAMILY,
-  "FRIEND": MemberGradeType.FRIEND,
-  "LVIP": MemberGradeType.LVIP,
-  "VIP": MemberGradeType.VIP
-};
 
 @JsonSerializable()
 class Pageable {

@@ -1,7 +1,7 @@
 import 'package:app/constants/constants_color.dart';
 import 'package:app/icon.dart';
 import 'package:app/models/home/vip_class.dart';
-import 'package:app/screens/home/pages/vip_class_detail_page.dart';
+import 'package:app/screens/home/pages/vip_class/vip_class_detail_page.dart';
 import 'package:app/utils/local_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

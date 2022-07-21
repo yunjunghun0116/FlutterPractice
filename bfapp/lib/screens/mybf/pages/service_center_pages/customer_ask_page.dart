@@ -1,4 +1,5 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/models/mybf/issue_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,26 +27,8 @@ class _CustomerAskPageState extends State<CustomerAskPage> {
     return SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: const Text(
-              '1:1문의',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            color: Colors.black)
-            ),
-
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: (){
-                Get.back();
-              },
-            ),
+          appBar: NavigationBarView(
+              title: '1:1문의'
           ),
           body:Container(
             alignment: Alignment.topCenter,

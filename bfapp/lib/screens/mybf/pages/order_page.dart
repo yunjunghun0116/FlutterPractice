@@ -1,3 +1,5 @@
+import 'package:app/components/view/navigation_bar_view.dart';
+import 'package:app/enum/enum.dart';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,30 +18,11 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: const Text(
-                '주문/배송 조회',
-                style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-            actions: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.info_outline_rounded, color: Colors.black,))
-            ],
-
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            ),
+          appBar: NavigationBarView(
+              title: '주문/배송 조회',
+              buttonTypes: const [
+                NavigationButtonType.information
+              ]
           ),
           body: orderBody(),
         )

@@ -1,5 +1,7 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/icon.dart';
 import 'package:app/screens/home/components/carousel_area.dart';
 import 'package:app/screens/home/components/custom_icon_area.dart';
@@ -20,40 +22,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kSubBlackColor,
-        title: Image.asset(
-          icMainToolbarTitle,
-          color: kWhiteColor,
-          fit: BoxFit.cover,
-          height: 30,
-        ),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              NetworkUtils().checkAuthToken(UserController.to.user!.id,
-                  UserController.to.user!.accessToken);
-            },
-            child: Image.asset(
-              icBell,
-              color: kWhiteColor,
-              height: 25,
-              width: 25,
-            ),
-          ),
-          GestureDetector(
-            onTap: () => Get.to(() => const GuideScreen()),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Image.asset(
-                icoTip,
-                height: 30,
-                width: 30,
-              ),
-            ),
-          ),
-        ],
+      appBar: NavigationBarView(
+          backgroundColor: kSubBlackColor,
+          type: NavigationType.main,
+          buttonTypes: const [
+            NavigationButtonType.notification,
+            NavigationButtonType.guide
+          ]
       ),
       body: GetBuilder<UserController>(
         builder: (controller) {
@@ -66,7 +41,7 @@ class HomeScreen extends StatelessWidget {
             FutureBuilder(
               future: controller.user != null
                   ? NetworkUtils().getMemberMainList(
-                      controller.user!.id, controller.user!.accessToken)
+                      controller.user!.id)
                   : NetworkUtils().getMainList(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 //데이터를 제대로 받았을때, 데이터 수신중일때, 제대로 받지 못했을때

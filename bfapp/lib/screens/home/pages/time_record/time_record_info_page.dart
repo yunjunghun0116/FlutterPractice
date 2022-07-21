@@ -5,21 +5,21 @@ import 'package:app/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class InviteInfoPage extends StatelessWidget {
-  const InviteInfoPage({Key? key}) : super(key: key);
+class TimeRecordInfoPage extends StatelessWidget {
+  const TimeRecordInfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavigationBarView(
-          title: '친구초대란?',
+          title: '참여방법',
           type: NavigationType.close
       ),
       body: ListView(
         children: [
           SizedBox(
             width: double.infinity,
-            child: Image.asset(imgFriendInvite),
+            child: Image.asset(imgHowToMassageTime),
           )
         ],
       ),

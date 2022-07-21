@@ -1,5 +1,4 @@
 import 'package:app/constants/constants_color.dart';
-import 'package:app/controllers/local_controller.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/screens/home/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +11,10 @@ class TopLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        Map<String, dynamic>? userData = await Get.to(() => const LoginPage());
+        Map<String, dynamic>? userData = await Get.to(() => LoginPage());
         if (userData != null) {
-          LocalController.setUserIdx(userData['userIdx']);
-          LocalController.setLoginId(userData['userId']);
           UserController.to.loginUser(
-            userIdx: userData['userIdx'],
-            loginId: userData['userId'],
-          );
+              userIdx: userData['userIdx'], loginId: userData['userId']);
         }
       },
       child: Container(

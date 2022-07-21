@@ -164,6 +164,7 @@ K? _$enumDecodeNullable<K, V>(
 }
 
 const _$MemberGradeTypeEnumMap = {
+  MemberGradeType.BASIC: 'BASIC',
   MemberGradeType.FRIEND: 'FRIEND',
   MemberGradeType.FAMILY: 'FAMILY',
   MemberGradeType.VIP: 'VIP',

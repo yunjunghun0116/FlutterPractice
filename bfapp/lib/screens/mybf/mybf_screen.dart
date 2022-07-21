@@ -1,3 +1,6 @@
+import 'package:app/components/view/navigation_bar_view.dart';
+import 'package:app/constants/constants_color.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/screens/mybf/pages/coupon_page.dart';
 import 'package:app/screens/mybf/pages/grade_page.dart';
 import 'package:app/screens/mybf/pages/order_page.dart';
@@ -19,26 +22,13 @@ class _MybfScreenState extends State<MybfScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'MY BF',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(GradePage());
-              },
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.black,
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add_alert, color: Colors.black))
-        ],
-        backgroundColor: Colors.white,
+      appBar: NavigationBarView(
+          title: 'MY BF',
+          type: NavigationType.main,
+          buttonTypes: const [
+            NavigationButtonType.grade,
+            NavigationButtonType.notification
+          ]
       ),
       body: Stack(
         children: [

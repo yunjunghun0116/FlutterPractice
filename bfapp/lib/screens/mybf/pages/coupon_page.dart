@@ -1,3 +1,5 @@
+import 'package:app/components/view/navigation_bar_view.dart';
+import 'package:app/enum/enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,30 +11,11 @@ class CouponPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: const Text(
-                '보유 쿠폰',
-                style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-            actions: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.info_outline_rounded, color: Colors.black,))
-            ],
-
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            ),
+          appBar: NavigationBarView(
+              title: '보유폰 쿠폰',
+              buttonTypes: const [
+                NavigationButtonType.information
+              ]
           ),
           body: couponList(),
 

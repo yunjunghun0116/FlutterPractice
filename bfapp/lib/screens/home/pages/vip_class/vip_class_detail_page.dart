@@ -1,3 +1,4 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/icon.dart';
 import 'package:app/models/home/vip_class.dart';
@@ -34,16 +35,8 @@ class _VIPClassDetailPageState extends State<VIPClassDetailPage> {
           Color buttonColor =
               vipClass.status == 'ACTIVE' ? kMainColor : kGreyColor;
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: kWhiteColor,
-              foregroundColor: kBlackColor,
-              title: const Text(
-                'VIP클래스 상세',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-              elevation: 1,
+            appBar: NavigationBarView(
+                title: 'VIP클래스 상세'
             ),
             body: ListView(
               children: [

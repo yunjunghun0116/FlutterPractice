@@ -1,3 +1,5 @@
+import 'package:app/components/view/navigation_bar_view.dart';
+import 'package:app/enum/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,22 +15,9 @@ class _GradePageState extends State<GradePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: const Text(
-                '등급 안내',
-                style: TextStyle(fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.close, color: Colors.black,))
-            ],
+          appBar: NavigationBarView(
+              title: '등급 안내',
+            type: NavigationType.close
           ),
         ));
   }

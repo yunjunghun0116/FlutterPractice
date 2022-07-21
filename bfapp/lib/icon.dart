@@ -221,6 +221,7 @@ const String icSignupStep3 = 'images/android/ic_signup_step3@2x.png';
 const String icSignupStep4 = 'images/android/ic_signup_step4@2x.png';
 const String icShopCouponBtn = 'images/android/ic_shop_coupon_btn@2x.png';
 const String icShopCardBtn = 'images/android/ic_shop_card_btn@2x.png';
+const String tagBasic = 'images/android/tag_basic@2x.png';
 const String tagFamily = 'images/android/tag_family@2x.png';
 const String tagFriend = 'images/android/tag_friend@2x.png';
 const String tagLVip = 'images/android/tag_lvip@2x.png';

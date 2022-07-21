@@ -1,5 +1,8 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
+import 'package:app/icon.dart';
 import 'package:app/screens/home/pages/components/time_button.dart';
+import 'package:app/screens/home/pages/time_record/time_record_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,25 +19,8 @@ class _TimeRecordPageState extends State<TimeRecordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        title: const Text(
-          '안마의자',
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      appBar: NavigationBarView(
+          title: '안마의자'
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -85,11 +71,14 @@ class _TimeRecordPageState extends State<TimeRecordPage> {
                         color: kGreyColor,
                       ),
                     ),
-                    const Text(
-                      '참여방법',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: kGreyColor,
+                    GestureDetector(
+                      onTap: () => Get.to(() => TimeRecordInfoPage()),
+                      child: const Text(
+                        '참여방법',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: kGreyColor,
+                        ),
                       ),
                     )
                   ],
@@ -129,7 +118,7 @@ class _TimeRecordPageState extends State<TimeRecordPage> {
                       height: 200,
                       decoration: const BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage('images/img_chair_bg@3x.png'),
+                        image: AssetImage(imgChair3),
                       )),
                       child: selectedIndex > 0
                           ? Image.asset(

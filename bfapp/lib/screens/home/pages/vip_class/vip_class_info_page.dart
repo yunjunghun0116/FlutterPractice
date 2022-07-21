@@ -1,4 +1,6 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
+import 'package:app/enum/enum.dart';
 import 'package:app/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,29 +13,9 @@ class VIPClassInfoPage extends StatelessWidget {
     // print("check");
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text(
-          'VIP클래스란?',
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Icon(Icons.close),
-            ),
-          ),
-        ],
+      appBar: NavigationBarView(
+          title: 'VIP클래스란?',
+          type: NavigationType.close
       ),
       body: ListView(
         children: [

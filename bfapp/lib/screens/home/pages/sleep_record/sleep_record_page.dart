@@ -1,7 +1,9 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/screens/home/pages/bottom_sheets/count_bottom_sheets.dart';
 import 'package:app/screens/home/pages/bottom_sheets/time_bottom_sheets.dart';
 import 'package:app/screens/home/pages/components/sleep_button.dart';
+import 'package:app/screens/home/pages/sleep_record/sleep_record_info_page.dart';
 import 'package:app/utils/local_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,25 +35,8 @@ class _SleepRecordPageState extends State<SleepRecordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back(); //Get으로 화면 전환
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        title: const Text(
-          '수면시간',
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      appBar: NavigationBarView(
+          title: '수면시간'
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -102,11 +87,14 @@ class _SleepRecordPageState extends State<SleepRecordPage> {
                         color: kGreyColor,
                       ),
                     ),
-                    const Text(
-                      '참여방법',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: kGreyColor,
+                    GestureDetector(
+                      onTap: () => Get.to(() => const SleepRecordInfoPage()),
+                      child: const Text(
+                        '참여방법',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: kGreyColor,
+                        ),
                       ),
                     )
                   ],

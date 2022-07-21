@@ -1,8 +1,9 @@
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/constants/constants_color.dart';
 import 'package:app/models/home/vip_class.dart';
 import 'package:app/screens/home/components/vip_class_card_view.dart';
 import 'package:app/screens/home/pages/bottom_sheets/filter_bottom_sheets.dart';
-import 'package:app/screens/home/pages/vip_class_info_page.dart';
+import 'package:app/screens/home/pages/vip_class/vip_class_info_page.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -30,25 +31,8 @@ class _VIPClassPageState extends State<VIPClassPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhiteColor,
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        foregroundColor: kBlackColor,
-        elevation: 1,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        centerTitle: true,
-        title: const Text(
-          'VIP클래스',
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
+      appBar: NavigationBarView(
+          title: 'VIP클래스'
       ),
       body: ListView(
         children: [
@@ -122,7 +106,7 @@ class _VIPClassPageState extends State<VIPClassPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 5),
                     const Text('필터'),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:app/components/view/navigation_bar_view.dart';
 import 'package:app/components/view/top_scroll_button.dart';
 import 'package:app/controllers/shopping_controller.dart';
 import 'package:app/icon.dart';
@@ -55,12 +56,8 @@ class _ShoppingDetailScreenState extends State<ShoppingDetailScreen> with Single
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "상품정보",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
+      appBar: NavigationBarView(
+          title: '상품정보'
       ),
       body: SafeArea(
           child: Stack(

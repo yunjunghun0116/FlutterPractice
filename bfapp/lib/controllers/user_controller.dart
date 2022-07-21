@@ -8,10 +8,7 @@ class UserController extends GetxController {
 
   User? user;
 
-  void loginUser({
-    required String loginId,
-    required String userIdx,
-  }) async {
+  void loginUser({required String loginId, required String userIdx}) async {
     User? result = await NetworkUtils().postLoginUser(
       loginId: loginId,
       userIdx: userIdx,
@@ -24,23 +21,23 @@ class UserController extends GetxController {
 
   void signOut() {
     user = null;
-    LocalController.clearSharedPreferences();
+    LocalController().clearSharedPreferences();
     update();
   }
 
   Future<int> getUserPoint() async {
-    return NetworkUtils().getUserPoint(user!.id, user!.accessToken);
+    return NetworkUtils().getUserPoint(user!.id);
   }
 
   Future<int> getCouponCount() async {
-    return NetworkUtils().getCouponCount(user!.id, user!.accessToken);
+    return NetworkUtils().getCouponCount(user!.id);
   }
 
   Future<int> getUsingCount() async {
-    return NetworkUtils().getUsingCount(user!.id, user!.accessToken);
+    return NetworkUtils().getUsingCount(user!.id);
   }
 
   Future<List> getMainList() async {
-    return NetworkUtils().getMemberMainList(user!.id, user!.accessToken);
+    return NetworkUtils().getMemberMainList(user!.id);
   }
 }
