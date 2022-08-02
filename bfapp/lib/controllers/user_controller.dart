@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app/controllers/local_controller.dart';
 import 'package:app/models/home/user/user.dart';
 import 'package:app/utils/network_utils.dart';
@@ -8,7 +10,8 @@ class UserController extends GetxController {
 
   User? user;
 
-  void loginUser({required String loginId, required String userIdx}) async {
+  Future<void> loginUser(
+      {required String loginId, required String userIdx}) async {
     User? result = await NetworkUtils().postLoginUser(
       loginId: loginId,
       userIdx: userIdx,
@@ -16,8 +19,10 @@ class UserController extends GetxController {
     if (result != null) {
       LocalController().setRefreshToken(result.refreshToken);
       LocalController().setAccessToken(result.accessToken);
+      log('userLoginSuccess : ${result.toJson()}');
       user = result;
       update();
+      return;
     }
   }
 

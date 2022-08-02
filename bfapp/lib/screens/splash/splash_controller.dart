@@ -101,9 +101,9 @@ class SplashController extends GetxController {
       NetworkUtils().getUserDataWithDecryptedBFRT(decryptToken(autoLoginUser.bfrt));
       return;
     }
-    UserController.to.loginUser(loginId: autoLoginUser.userId, userIdx: autoLoginUser.userIdx);
+    await UserController.to.loginUser(loginId: autoLoginUser.userId, userIdx: autoLoginUser.userIdx);
     String? accessToken = await LocalController().getAccessToken();
     if(accessToken==null) return;
-    NetworkUtils().getMyItem(autoLoginUser.userId, accessToken);
+    NetworkUtils().getMyItem(UserController.to.user!.id, accessToken);
   }
 }

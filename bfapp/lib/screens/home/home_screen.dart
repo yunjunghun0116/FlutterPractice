@@ -8,6 +8,7 @@ import 'package:app/screens/home/components/custom_icon_area.dart';
 import 'package:app/screens/home/components/mall_container.dart';
 import 'package:app/screens/home/components/top_login_button.dart';
 import 'package:app/screens/home/pages/guide_screen_page.dart';
+import 'package:app/screens/home/pages/notification_page.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -28,7 +29,12 @@ class HomeScreen extends StatelessWidget {
           buttonTypes: const [
             NavigationButtonType.notification,
             NavigationButtonType.guide
-          ]
+          ],
+        onPressed: (type){
+            if(type == NavigationButtonType.notification){
+              Get.to(()=>const NotificationPage());
+            }
+        },
       ),
       body: GetBuilder<UserController>(
         builder: (controller) {

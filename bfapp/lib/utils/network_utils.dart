@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:app/constants/constants_url.dart';
 import 'package:app/controllers/local_controller.dart';
@@ -13,6 +14,7 @@ import 'package:app/models/home/point_history/point_history.dart';
 import 'package:app/models/home/product_rating_model.dart';
 import 'package:app/models/home/user/user.dart';
 import 'package:app/models/home/vip_class.dart';
+import 'package:app/models/notification/notification_alarm.dart';
 import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 
@@ -310,9 +312,8 @@ class NetworkUtils extends GetConnect {
 
   // 이용 가이드
   Future<String> getUserGuide(int userId) async {
-    final data =
-        await ApiManager.getResponse('$baseUrl/api/v1/event/72/detail');
-    return data?.data['data']['mainImage'];
+    final data = await get('$baseUrl/api/v1/event/72/detail');
+    return data.body['data']['mainImage'];
   }
 
   Future<Map<String, dynamic>?> getUserDataWithDecryptedBFTK(
@@ -341,7 +342,7 @@ class NetworkUtils extends GetConnect {
         },
         contentType: 'application/json',
       );
-      Map<String,dynamic> result = response.body;
+      Map<String, dynamic> result = response.body;
       LocalController().setAccessToken(result['access_token']);
       LocalController().setRefreshToken(result['refresh_token']);
       return null;
@@ -351,32 +352,121 @@ class NetworkUtils extends GetConnect {
     }
   }
 
-  Future<void> getMyItem(String memberId,String accessToken)async{
+  Future<void> getMyItem(int memberId, String accessToken) async {
     try {
-      print(accessToken);
       Response response = await get(
         '$baseUrl/api/v1/myItem/getMyItem',
         query: {
-          'memberId':memberId,
+          'memberId': '$memberId',
         },
-        headers: {
-          'Authorization' : 'Bearer $accessToken'
-        },
+        headers: {'Authorization': 'Bearer $accessToken'},
         contentType: 'application/json',
       );
-      Map<String,dynamic> result = response.body;
-      Map<String,dynamic> memberInfo = result['data']['content'][0]['memberInfo'];
-      Map<String,dynamic>? jsonData = UserController.to.user?.toJson();
-      if(jsonData!=null){
-        jsonData['badgeYn']=memberInfo['badgeYn'];
-        jsonData['memberGradeType']= memberInfo['memberGradeType'];
+      Map<String, dynamic> result = response.body;
+      Map<String, dynamic> memberInfo =
+          result['data']['content'][0]['memberInfo'];
+      Map<String, dynamic>? jsonData = UserController.to.user?.toJson();
+      if (jsonData != null) {
+        jsonData['badgeYn'] = memberInfo['badgeYn'];
+        jsonData['memberGradeType'] = memberInfo['memberGradeType'];
         UserController.to.updateUser(User.fromJson(jsonData));
         print('update Result : ${UserController.to.user!.toJson()}');
       }
       return;
     } catch (e) {
-      print(e);
+      print('getMyItem Error : $e');
       return;
+    }
+  }
+
+  Future<int> getDisappearAmountPoint(String accessToken) async {
+    try {
+      Response response = await get(
+          '$baseUrl/api/v1/point/history/disappear/amount',
+          headers: {'Authorization': 'Bearer $accessToken'});
+      return response.body['data']['amount'];
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  Future<List> getDisappearHistory(String accessToken) async {
+    try {
+      Response response =
+          await get('$baseUrl/api/v1/point/history/disappear', query: {
+        'size': '20',
+        'sort': 'expirationDate',
+        'page': '0',
+      }, headers: {
+        'Authorization': 'Bearer $accessToken'
+      });
+      print('result: ${response.body['data']['content']}');
+      return response.body['data']['content'];
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<bool> postMassageTime(int index) async {
+    try {
+      if (UserController.to.user == null) return false;
+
+      List<int> hashString =
+          utf8.encode('HEALTH${UserController.to.user!.id}UNO');
+      Digest hash = sha256.convert(hashString);
+
+      Response response =
+          await post('$baseUrl/api/v1/health/chair/register/v3', {
+        'memberId': '${UserController.to.user!.id}',
+        'usingTime': (index * 10).toString(),
+        'hash': hash.toString(),
+      }, headers: {
+        'Authorization': 'Bearer ${UserController.to.user!.accessToken}'
+      });
+      print('result: ${response.body['status']}');
+      return response.body['status'] == 'success';
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getMassageCount() async {
+    try {
+      if (UserController.to.user == null) return null;
+      Response response = await get('$baseUrl/api/v1/health/chair', headers: {
+        'Authorization': 'Bearer ${UserController.to.user!.accessToken}'
+      });
+      print('massageCount result : ${response.body}');
+      return {
+        'count': response.body['data']['applyCount'],
+        'date': response.body['data']['applyTime'],
+      };
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<NotificationAlarm>?> getNotificationList(int userId) async {
+    try {
+      if (UserController.to.user == null) return null;
+      Response response =
+          await get('$baseUrl/api/v1/alarm/$userId/fetch', headers: {
+        'Authorization': 'Bearer ${UserController.to.user!.accessToken}'
+      }, query: {
+        'page': '0',
+        'size': '20',
+      });
+      log('notification result : ${response.body['data']['content']}');
+      List result = response.body['data']['content'];
+      return result.map((alarm) {
+        return NotificationAlarm.fromJson(alarm);
+      }).toList();
+    } catch (e) {
+      log(e.toString());
+      return null;
     }
   }
 }

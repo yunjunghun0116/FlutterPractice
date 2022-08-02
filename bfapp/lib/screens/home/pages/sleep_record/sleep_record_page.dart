@@ -191,45 +191,40 @@ class _SleepRecordPageState extends State<SleepRecordPage> {
                   onAwakeTimeHour, onAwakeTimeMinute),
               onPressed: () {},
             ),
-            const SizedBox(height: 10),
-            Container(
-              child: Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          gradient: wakeUpDuringSleep != null
-                              ? LinearGradient(
-                                  begin: Alignment.bottomLeft,
-                                  end: Alignment.topRight,
-                                  colors: [
-                                    kMainColor.withOpacity(0.3),
-                                    kMainColor
-                                  ],
-                                )
-                              : null,
-                          color: wakeUpDuringSleep == null
-                              ? Colors.grey.withOpacity(0.3)
-                              : null,
-                        ),
-                        child: const Text(
-                          '기록',
-                          style: TextStyle(
-                            color: kWhiteColor,
-                          ),
-                        ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: wakeUpDuringSleep != null
+                          ? LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                kMainColor.withOpacity(0.3),
+                                kMainColor
+                              ],
+                            )
+                          : null,
+                      color: wakeUpDuringSleep == null
+                          ? Colors.grey.withOpacity(0.3)
+                          : null,
+                    ),
+                    child: const Text(
+                      '기록',
+                      style: TextStyle(
+                        color: kWhiteColor,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Expanded(child: const Text('사용시간을 기록하면 포인트를 드립니다')),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(child: const Text('사용시간을 기록하면 포인트를 드립니다')),
+                ],
               ),
             ),
           ],

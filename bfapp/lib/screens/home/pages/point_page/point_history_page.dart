@@ -3,6 +3,7 @@ import 'package:app/constants/constants_color.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/models/home/point_history/point_history.dart';
 import 'package:app/screens/home/pages/point_page/components/point_filter_bottom_sheet.dart';
+import 'package:app/screens/home/pages/point_page/disappear_point_page.dart';
 import 'package:app/utils/local_utils.dart';
 import 'package:app/utils/network_utils.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _PointHistoryPageState extends State<PointHistoryPage> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        //TODO 조회하기 클릭시 이벤트
+                        Get.to(()=>const DisappearPointPage());
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

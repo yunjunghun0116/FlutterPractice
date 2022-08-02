@@ -7,19 +7,19 @@ String timeDifference(
   int onAwakeHours,
   int onAwakeMinutes,
 ) {
-  int _differenceTime =
+  int differenceTime =
       (onAwakeHours - onSleepHours) * 60 + (onAwakeMinutes - onSleepMinutes);
-  if (_differenceTime < 0) {
-    _differenceTime += 1440;
+  if (differenceTime < 0) {
+    differenceTime += 1440;
   }
-  int _hours = (_differenceTime / 60).floor();
-  int _minutes = _differenceTime % 60;
-  return '${_hours >= 10 ? _hours : '0$_hours'}:${_minutes >= 10 ? _minutes : '0$_minutes'}';
+  int hours = (differenceTime / 60).floor();
+  int minutes = differenceTime % 60;
+  return '${hours >= 10 ? hours : '0$hours'}:${minutes >= 10 ? minutes : '0$minutes'}';
 }
 
 String getDateTime(int times) {
-  DateTime _dateTime = DateTime.fromMillisecondsSinceEpoch(times * 1000);
-  return '${_dateTime.year}.${_dateTime.month >= 10 ? _dateTime.month : '0${_dateTime.month}'}.${_dateTime.day >= 10 ? _dateTime.day : '0${_dateTime.day}'}';
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(times * 1000);
+  return '${dateTime.year}.${dateTime.month >= 10 ? dateTime.month : '0${dateTime.month}'}.${dateTime.day >= 10 ? dateTime.day : '0${dateTime.day}'}';
 }
 
 String getApplyDateTime(int startTimes, int endTimes) {
@@ -85,3 +85,18 @@ String decryptToken(String token){
   final decryptedData = encrypter.decrypt64(token, iv: iv);
   return decryptedData;
 }
+
+int getTimerTime(int time){
+  DateTime applyTime =
+  DateTime.fromMillisecondsSinceEpoch(time * 1000); //오후 4시 now() -> 오후 9시 5시간 -> 300분 -> 18000초 7200초 : 2시간
+  return DateTime.now().difference(applyTime).inSeconds;
+}
+
+String getTimeWithTimerTime(int times){
+  int hours = times~/3600;
+  int minutes = (times%3600)~/60;
+  int seconds = times%60;
+
+  return '$hours:${minutes >= 10 ? minutes : '0$minutes'}:${seconds >= 10 ? seconds : '0$seconds'}';
+}
+

@@ -24,16 +24,16 @@ class _GuideScreenState extends State<GuideScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             String imageUrl = snapshot.data as String;
+            int width = MediaQuery.of(context).size.width.toInt();
+            double height = width*5.303;
             return ListView(
               children: [
                 Image.network(imageUrl),
                 SizedBox(
                   width: double.infinity,
-                  //todo: 높이값 수정
-                  height: 2000,
+                  height: height,
                   child: WebView(
-                    initialUrl:
-                        '${detailWebUrl}id=72&width=${MediaQuery.of(context).size.width.toInt()}',
+                    initialUrl:'${detailWebUrl}id=72&width=$width',
                     onWebViewCreated: (controller) {
                       webViewController = controller;
                     },

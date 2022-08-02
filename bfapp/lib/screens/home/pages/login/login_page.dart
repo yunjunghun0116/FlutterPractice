@@ -80,12 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                     resources: resources,
                     action: PermissionRequestResponseAction.GRANT);
               },
-              // onConsoleMessage: (controller, consoleMessage) {
-              //   print(consoleMessage);
-              // },
             ),
             progress < 1.0
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : Container()

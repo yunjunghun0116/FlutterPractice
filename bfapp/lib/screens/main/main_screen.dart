@@ -3,6 +3,7 @@ import 'package:app/controllers/local_controller.dart';
 import 'package:app/controllers/user_controller.dart';
 import 'package:app/screens/event/event_screen.dart';
 import 'package:app/screens/home/home_screen.dart';
+import 'package:app/screens/home/pages/login/login_page.dart';
 import 'package:app/screens/main/components/main_screen_bottom_bar_item.dart';
 import 'package:app/screens/menu/menu_screen.dart';
 import 'package:app/screens/mybf/mybf_screen.dart';
@@ -47,7 +48,16 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: kMainColor,
-        onTap: (int index) {
+        onTap: (int index) async {//async : 힙 영역으로 해당 코드를 보내라, await : 함수를 기달려라
+          if (index == 3 && UserController.to.user == null) {
+            Map<String, dynamic>? userData =
+                await Get.to(() => const LoginPage());
+            if (userData == null) return;
+            await UserController.to.loginUser(
+              loginId: userData['userId'],
+              userIdx: userData['userIdx'],
+            );
+          }
           setState(() {
             _currentIndex = index;
           });

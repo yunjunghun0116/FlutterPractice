@@ -22,3 +22,7 @@ false : refreshToken -> accessToken초기화 요청
                           refreshToken 검수 -> accessToken or false
 false : 처음부터 다시 로그인
 accessToken 으로 다시 정보요청
+
+
+1. 위에서부터 작성된 순서대로 코드를 수행
+2. async/await
